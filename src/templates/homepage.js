@@ -621,17 +621,17 @@ body::after {
 
 .panel-title {
   font-family: 'Fraunces', serif;
-  font-size: 26px;
+  font-size: 36px;
   font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
   color: var(--ink);
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 .panel-title em { font-style: italic; color: var(--red); font-weight: 400; }
 .panel-sub {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 15px;
   margin-bottom: 24px;
   line-height: 1.55;
 }
