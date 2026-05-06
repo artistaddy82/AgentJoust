@@ -442,17 +442,17 @@ body::after {
 }
 .rail-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   transition: color .4s;
 }
 .rail-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 15px;
+  font-size: 19px;
   letter-spacing: -0.01em;
   color: rgba(20,17,13,.35);
   line-height: 1.25;
