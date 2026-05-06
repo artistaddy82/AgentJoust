@@ -1,235 +1,1472 @@
 'use strict'
-const { head, header, footer, GLOBAL_SCRIPTS } = require('./layout')
 
 function homepage(config) {
-  const siteUrl  = config.siteUrl || 'https://agentjoust.com'
-  const apiUrl   = config.apiUrl  || 'https://sidecarleads.com'
-  const canonical = `${siteUrl}/`
+  const apiUrl = config.apiUrl || 'https://sidecarleads.com'
 
-  return `${head({
-    title:       'AgentJoust — Let Agents Compete for Your Life Insurance Business',
-    description: 'Tell us what you need. Licensed independent life insurance agents compete to earn your business — transparently, on your terms. Free for consumers.',
-    canonical,
-    extraHead:   `<meta name="robots" content="index,follow">`,
-  })}
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AgentJoust — Three agents compete. You win.</title>
+<meta name="description" content="Compare three life insurance proposals from top licensed independent agents — before sharing your name, email, or phone number." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,800;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --paper: #f5f1e8;
+  --paper-deep: #ebe4d2;
+  --ink: #14110d;
+  --ink-soft: #3a342a;
+  --muted: #6b6253;
+  --rule: #1a1611;
+  --red: #c8281c;
+  --red-deep: #9a1d13;
+  --gold: #b8923a;
+  --green: #2d5a3d;
+  --shadow: 0 1px 0 rgba(20,17,13,.06), 0 12px 28px -16px rgba(20,17,13,.18);
+  --shadow-lift: 0 2px 0 rgba(20,17,13,.08), 0 28px 60px -24px rgba(20,17,13,.32);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Paper grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(20,17,13,0.025) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(200,40,28,0.02) 0%, transparent 40%);
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.07 0 0 0 0 0.05 0 0 0 0.18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 22px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  background: rgba(245, 241, 232, 0.72);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, background .3s;
+}
+.nav.scrolled {
+  border-bottom-color: rgba(20,17,13,.08);
+}
+.logo {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-mark {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+}
+.logo span { color: var(--red); font-style: italic; }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--red); }
+
+.nav-cta {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: transform .2s, background .2s;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav-cta:hover { background: var(--red); transform: translateY(-1px); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  padding-top: 100px;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 75%;
+  background-image: url('/img/jousters.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  /* True transparency fade on the image — paper shows through naturally */
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,0.15) 12%,
+    rgba(0,0,0,0.6) 28%,
+    rgba(0,0,0,1) 45%);
+  mask-image: linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,0.15) 12%,
+    rgba(0,0,0,0.6) 28%,
+    rgba(0,0,0,1) 45%);
+}
+
+/* Soft fade at bottom to blend image into stat row */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--paper) 100%);
+  z-index: 1;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px 60px;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hero-content {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-0.3deg); }
+}
+
+/* Subtle red glow behind illustration */
+.hero-illustration::before {
+  content: '';
+  position: absolute;
+  inset: 10% 5%;
+  background: radial-gradient(ellipse at center, rgba(200,40,28,0.08) 0%, transparent 60%);
+  z-index: -1;
+}
+
+.fight-card {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fight-card::before, .fight-card::after {
+  content: '';
+  height: 1px;
+  background: var(--red);
+  flex: 0 0 32px;
+}
+.fight-card::after { flex: 1; }
+
+.headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(56px, 8vw, 116px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin-bottom: 36px;
+  font-variation-settings: "opsz" 144;
+}
+.headline .line { display: block; }
+.headline em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--red);
+}
+
+.subhead {
+  font-size: clamp(17px, 1.5vw, 21px);
+  color: var(--ink-soft);
+  max-width: 640px;
+  line-height: 1.45;
+  margin-bottom: 48px;
+  font-weight: 400;
+}
+.subhead strong {
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 2px solid var(--red);
+  padding-bottom: 1px;
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 18px 32px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: transform .2s, background .2s, box-shadow .2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: var(--shadow);
+}
+.btn-primary:hover {
+  background: var(--red);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+}
+.btn-primary svg { transition: transform .2s; }
+.btn-primary:hover svg { transform: translateX(4px); }
+
+.btn-secondary {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+  transition: color .2s, border-color .2s;
+}
+.btn-secondary:hover { color: var(--red); border-color: var(--red); }
+
+.hero-meta {
+  margin-top: 80px;
+  padding: 32px 40px 28px;
+  border-top: 1px solid rgba(20,17,13,.12);
+  border-bottom: 1px solid rgba(20,17,13,.08);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 5;
+  background: var(--paper);
+  /* Break out of the .hero-inner padding to reach the viewport edges */
+  margin-left: calc(-1 * (50vw - 50%) - 40px);
+  margin-right: calc(-1 * (50vw - 50%) - 40px);
+}
+.meta-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.meta-item .num {
+  font-family: 'Fraunces', serif;
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.meta-item .num em {
+  font-style: italic;
+  color: var(--red);
+  font-weight: 500;
+}
+.meta-item .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+/* ============ DECORATIVE LANCES ============ */
+.lance-decoration {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.08;
+  z-index: -1;
+}
+.lance-decoration.top-right {
+  top: 80px;
+  right: -100px;
+  width: 600px;
+  transform: rotate(-15deg);
+}
+
+/* ============ SCROLL STAGE ============ */
+.stage {
+  min-height: 320vh;
+  position: relative;
+  z-index: 3;
+  margin-top: 80px;
+}
+
+.stage-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px;
+}
+
+.stage-label {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, calc(100% - 80px));
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(20,17,13,.08);
+  border-radius: 12px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 8px 24px -16px rgba(20,17,13,.12);
+}
+.stage-label .step {
+  position: relative;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background .4s, color .4s;
+  border-right: 1px solid rgba(20,17,13,.08);
+}
+.stage-label .step:last-child {
+  border-right: none;
+}
+.stage-label .step .step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  transition: color .4s;
+}
+.stage-label .step .step-num::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(20,17,13,.2);
+  transition: background .4s, transform .4s, box-shadow .4s;
+}
+.stage-label .step .step-title {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  line-height: 1.2;
+  font-weight: 400;
+  transition: color .4s;
+}
+.stage-label .step.active {
+  background: var(--ink);
+}
+.stage-label .step.active .step-num {
+  color: rgba(245,241,232,.55);
+}
+.stage-label .step.active .step-num::before {
+  background: var(--red);
+  transform: scale(1.3);
+  box-shadow: 0 0 0 3px rgba(200,40,28,.25);
+}
+.stage-label .step.active .step-title {
+  color: var(--paper);
+}
+
+/* THE FORM (Step 1) */
+.form-block {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 30px;
+  width: min(560px, 90vw);
+  background: #fff;
+  border: 1px solid rgba(20,17,13,.1);
+  border-radius: 18px;
+  padding: 40px;
+  box-shadow: var(--shadow);
+  transition: opacity .6s, transform .6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.form-block.exit {
+  opacity: 0;
+  transform: translateY(calc(-50% - 40px)) scale(0.94);
+  pointer-events: none;
+}
+.form-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+.form-title {
+  font-family: 'Fraunces', serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.form-title em { font-style: italic; color: var(--red); font-weight: 400; }
+.form-sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.form-field { position: relative; }
+.form-field label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 6px;
+}
+.form-field input, .form-field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(20,17,13,.18);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color .2s, background .2s;
+}
+.form-field input:focus, .form-field select:focus {
+  outline: none;
+  border-color: var(--ink);
+  background: #fff;
+}
+.form-submit {
+  width: 100%;
+  margin-top: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: background .2s, transform .2s;
+}
+.form-submit:hover { background: var(--red); transform: translateY(-1px); }
+.form-privacy {
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+}
+.form-privacy svg { vertical-align: -3px; margin-right: 4px; }
+
+/* THREE CARDS (Step 2) */
+.cards-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 80px 40px 0;
+  opacity: 0;
+  transition: opacity .6s;
+  pointer-events: none;
+}
+.cards-stage.active { opacity: 1; pointer-events: auto; }
+
+.proposal-card {
+  flex: 0 0 300px;
+  background: #fff;
+  border: 1px solid rgba(20,17,13,.1);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  position: relative;
+  transition:
+    transform .8s cubic-bezier(0.65, 0, 0.35, 1),
+    box-shadow .6s,
+    border-color .6s,
+    opacity .6s;
+}
+.proposal-card[data-pos="left"] {
+  transform: translateY(0) rotate(-2deg);
+}
+.proposal-card[data-pos="center"] {
+  transform: translateY(0) scale(1);
+  z-index: 2;
+}
+.proposal-card[data-pos="right"] {
+  transform: translateY(0) rotate(2deg);
+}
+
+.cards-stage.crowned .proposal-card[data-pos="left"] {
+  transform: translateY(20px) translateX(-12px) rotate(-6deg) scale(0.95);
+  opacity: 0.55;
+}
+.cards-stage.crowned .proposal-card[data-pos="right"] {
+  transform: translateY(20px) translateX(12px) rotate(6deg) scale(0.95);
+  opacity: 0.55;
+}
+.cards-stage.crowned .proposal-card[data-pos="center"] {
+  transform: translateY(60px) scale(1.08);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-lift), 0 0 0 3px rgba(184,146,58,.15);
+  z-index: 3;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(20,17,13,.08);
+}
+.agent-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.agent-rating {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink);
+}
+.agent-rating strong { font-weight: 600; }
+
+.card-carrier {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.card-policy {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+.price-block {
+  margin-bottom: 20px;
+}
+.price-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.price-amount {
+  font-family: 'Fraunces', serif;
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+.price-amount .currency { font-size: 22px; color: var(--muted); }
+.price-amount .period { font-size: 14px; color: var(--muted); font-style: italic; margin-left: 4px; }
+
+.coverage-list {
+  list-style: none;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.coverage-list li {
+  padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(20,17,13,.08);
+}
+.coverage-list li:last-child { border-bottom: none; }
+.coverage-list span:last-child { font-weight: 500; color: var(--ink); }
+
+.crown-badge {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  background: var(--gold);
+  color: var(--paper);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: transform .5s cubic-bezier(0.34, 1.56, 0.64, 1) .3s;
+}
+.cards-stage.crowned .proposal-card[data-pos="center"] .crown-badge {
+  transform: translateX(-50%) scale(1);
+}
+
+.crown-svg {
+  position: absolute;
+  top: -64px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 56px;
+  height: 56px;
+  transition: transform .6s cubic-bezier(0.34, 1.56, 0.64, 1) .5s;
+}
+.cards-stage.crowned .proposal-card[data-pos="center"] .crown-svg {
+  transform: translateX(-50%) scale(1);
+}
+
+/* Lance/clash motion lines */
+.clash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 2px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .4s;
+  pointer-events: none;
+}
+.clash.active { opacity: 1; }
+.clash::before, .clash::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background: var(--red);
+}
+.clash::before {
+  width: 40px;
+  left: -50px;
+  top: 0;
+  animation: clashLeft 1.5s ease-out infinite;
+}
+.clash::after {
+  width: 40px;
+  right: -50px;
+  top: 0;
+  animation: clashRight 1.5s ease-out infinite;
+}
+@keyframes clashLeft {
+  0%, 100% { transform: translateX(0); opacity: 0; }
+  50% { transform: translateX(20px); opacity: 1; }
+}
+@keyframes clashRight {
+  0%, 100% { transform: translateX(0); opacity: 0; }
+  50% { transform: translateX(-20px); opacity: 1; }
+}
+
+/* ============ HOW IT WORKS ============ */
+.how-section {
+  padding: 160px 40px 120px;
+  position: relative;
+  z-index: 3;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 20px;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.025em;
+  margin-bottom: 80px;
+  max-width: 900px;
+}
+.section-title em { font-style: italic; color: var(--red); }
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(20,17,13,.1);
+  border: 1px solid rgba(20,17,13,.1);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.step-card {
+  background: var(--paper);
+  padding: 40px 32px;
+  position: relative;
+  transition: background .3s;
+}
+.step-card:hover { background: #fff; }
+.step-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 24px;
+  letter-spacing: -0.04em;
+}
+.step-title {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+}
+.step-text {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.step-text strong { color: var(--ink); font-weight: 600; }
+
+/* ============ WHY DIFFERENT ============ */
+.why-section {
+  padding: 80px 40px 140px;
+  position: relative;
+  z-index: 3;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.compare-table {
+  border: 1px solid rgba(20,17,13,.12);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  border-bottom: 1px solid rgba(20,17,13,.08);
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-row.head {
+  background: var(--ink);
+  color: var(--paper);
+}
+.compare-row.head .cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,241,232,.7);
+  padding: 18px 24px;
+}
+.compare-row.head .cell.brand {
+  color: var(--paper);
+  font-family: 'Fraunces', serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+.compare-row.head .cell.brand em { color: var(--red); font-style: italic; }
+.cell {
+  padding: 22px 24px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cell.label {
+  font-weight: 500;
+  color: var(--ink);
+}
+.cell.yes { color: var(--green); font-weight: 500; }
+.cell.no { color: var(--muted); }
+.cell.yes::before {
+  content: '';
+  width: 18px; height: 18px;
+  background: var(--green);
+  border-radius: 50%;
+  display: inline-block;
+  flex: 0 0 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5f1e8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.cell.no::before {
+  content: '';
+  width: 18px; height: 18px;
+  border: 1.5px solid rgba(20,17,13,.2);
+  border-radius: 50%;
+  display: inline-block;
+  flex: 0 0 18px;
+  position: relative;
+}
+
+/* ============ FINAL CTA ============ */
+.final-cta {
+  padding: 120px 40px;
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  background: var(--ink);
+  color: var(--paper);
+  margin: 0 40px 40px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(200,40,28,0.4) 0%, transparent 60%);
+  opacity: 0.7;
+}
+.final-cta h2 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-cta h2 em { font-style: italic; color: #ff8a7a; font-weight: 300; }
+.final-cta p {
+  color: rgba(245,241,232,.7);
+  font-size: 18px;
+  max-width: 540px;
+  margin: 0 auto 36px;
+  position: relative;
+}
+.final-cta .btn-primary {
+  background: var(--red);
+  color: #fff;
+  position: relative;
+}
+.final-cta .btn-primary:hover { background: #fff; color: var(--ink); }
+
+/* ============ FOOTER ============ */
+.footer {
+  padding: 40px 40px 60px;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--red); }
+.footer-fine {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .hero {
+    padding-top: 80px;
+  }
+  .hero-bg {
+    width: 100%;
+    opacity: 0.45;
+  }
+  .hero-bg::before {
+    background: linear-gradient(to bottom,
+      rgba(245, 241, 232, 0.6) 0%,
+      rgba(245, 241, 232, 0.85) 60%,
+      var(--paper) 100%);
+  }
+  .hero-inner {
+    padding: 40px 20px 40px;
+  }
+  .hero-content {
+    max-width: 100%;
+  }
+  .hero-meta {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-left: calc(-1 * (50vw - 50%) - 20px);
+    margin-right: calc(-1 * (50vw - 50%) - 20px);
+    padding: 28px 20px 24px;
+  }
+  .meta-item .num { font-size: 36px; }
+  .meta-item .label { font-size: 10px; letter-spacing: 0.1em; }
+  .stage { min-height: 280vh; }
+  .cards-stage {
+    flex-direction: column;
+    gap: 12px;
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+  }
+  .proposal-card { flex: 0 0 auto; width: 100%; max-width: 360px; }
+  .proposal-card[data-pos] { transform: none; }
+  .cards-stage.crowned .proposal-card[data-pos="left"],
+  .cards-stage.crowned .proposal-card[data-pos="right"] {
+    transform: scale(0.94);
+  }
+  .cards-stage.crowned .proposal-card[data-pos="center"] {
+    transform: scale(1.02);
+  }
+  .stage-pin { padding: 20px; }
+  .stage-label {
+    top: 70px;
+    width: calc(100% - 32px);
+  }
+  .stage-label .step {
+    padding: 10px 8px;
+    gap: 6px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .stage-label .step .step-num {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+  .stage-label .step .step-num::before {
+    width: 4px;
+    height: 4px;
+  }
+  .stage-label .step .step-title {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+  .form-block { padding: 28px; width: calc(100% - 40px); }
+  .steps-grid { grid-template-columns: 1fr; }
+  .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
+  .cell { padding: 16px 14px; font-size: 13px; }
+  .how-section, .why-section { padding: 80px 20px; }
+  .final-cta { margin: 0 20px 20px; padding: 80px 24px; }
+  .footer { padding: 30px 20px; }
+}
+</style>
+</head>
 <body>
-${header()}
 
-<!-- ── HERO ── -->
-<section class="hero-dark">
-  <div class="container">
-    <p class="hero-eyebrow">Free for consumers</p>
-    <h1 class="display hero-title">Let agents <em>compete</em><br>for your business.</h1>
-    <p class="hero-sub">Tell us what coverage you need. Licensed independent agents send you their best offer. You choose who to work with — no pressure, no spam, one winner.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:32px;">
-      <a href="#request" class="btn-gold" style="font-size:17px;padding:16px 36px;">Start a request →</a>
-      <a href="/how-it-works/" style="color:rgba(250,246,238,0.65);font-size:15px;font-weight:500;text-decoration:underline;text-underline-offset:3px;">See how it works</a>
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="logo">
+    <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4 28 L14 18 M28 4 L18 14" stroke="#14110d" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="16" cy="16" r="3" fill="#c8281c"/>
+      <path d="M2 30 L6 26 M26 6 L30 2" stroke="#c8281c" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    Agent<span>Joust</span>
+  </div>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#why">Why us</a>
+    <a href="#agents">For agents</a>
+  </div>
+  <button class="nav-cta" onclick="scrollToForm()">Get 3 quotes</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="fight-card">Round 01 · Tonight</div>
+
+      <h1 class="headline">
+        <span class="line">Agents</span>
+        <span class="line">compete.</span>
+        <span class="line">You <em>win.</em></span>
+      </h1>
+
+      <p class="subhead">
+        Compare three life insurance proposals from top licensed independent agents — <strong>before</strong> any agent gets your name, email, or phone number.
+      </p>
+
+      <div class="hero-cta-row">
+        <button class="btn-primary" onclick="scrollToForm()">
+          Start the joust
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        <a href="#how" class="btn-secondary">See how it works</a>
+      </div>
     </div>
-    <div style="display:flex;gap:24px;flex-wrap:wrap;">
-      <span style="font-size:13px;color:rgba(250,246,238,0.5);">✓ Always free for consumers</span>
-      <span style="font-size:13px;color:rgba(250,246,238,0.5);">✓ Licensed agents only</span>
-      <span style="font-size:13px;color:rgba(250,246,238,0.5);">✓ One winner — no lead auction</span>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="num"><em>3</em></span>
+        <span class="label">Proposals · side by side</span>
+      </div>
+      <div class="meta-item">
+        <span class="num">0</span>
+        <span class="label">Agent contact until you pick</span>
+      </div>
+      <div class="meta-item">
+        <span class="num">24<em>hr</em></span>
+        <span class="label">Turnaround, typical</span>
+      </div>
+      <div class="meta-item">
+        <span class="num">100<em>%</em></span>
+        <span class="label">Licensed independent agents</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── HOW IT WORKS STRIP ── -->
-<section style="border-bottom:1px solid var(--rule);padding:64px 0;">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;">
-      ${[
-        { n: '1', title: 'You describe your need', body: 'Coverage amount, policy type, health picture, budget. Two minutes of your time.' },
-        { n: '2', title: 'Agents send offers', body: 'Vetted independent agents in your area review your request and submit their best pitch. You see who they are before you respond.' },
-        { n: '3', title: 'You pick one', body: 'Review the offers on your terms. Choose who to work with. One agent, direct relationship — no auction aftermath.' },
-      ].map(s => `
-      <div>
-        <div class="display" style="font-size:52px;color:var(--gold);line-height:1;margin-bottom:16px;">${s.n}</div>
-        <h3 style="font-family:'Fraunces',serif;font-size:19px;font-weight:600;margin-bottom:10px;letter-spacing:-0.01em;">${s.title}</h3>
-        <p style="font-size:14px;color:var(--ink-soft);line-height:1.65;">${s.body}</p>
-      </div>`).join('')}
+<!-- THE SCROLL STAGE -->
+<section class="stage" id="form">
+  <div class="stage-pin">
+    <div class="stage-label">
+      <div class="step" id="step1">
+        <span class="step-num">Step 01</span>
+        <span class="step-title">You set the terms</span>
+      </div>
+      <div class="step" id="step2">
+        <span class="step-num">Step 02</span>
+        <span class="step-title">Three agents joust</span>
+      </div>
+      <div class="step" id="step3">
+        <span class="step-num">Step 03</span>
+        <span class="step-title">You crown the winner</span>
+      </div>
     </div>
-  </div>
-</section>
 
-<!-- ── REQUEST FORM ── -->
-<section style="padding:80px 0;background:var(--cream-warm);" id="request">
-  <div class="container" style="max-width:680px;">
-    <p class="hero-eyebrow" style="color:var(--gold);">Start your request</p>
-    <h2 class="display" style="font-size:clamp(28px,4vw,44px);margin-bottom:8px;line-height:1.1;">Tell agents what you need.</h2>
-    <p style="font-size:16px;color:var(--ink-soft);margin-bottom:40px;line-height:1.6;">Fill this out once. Qualified agents compete for your business. You stay in control the whole time.</p>
+    <!-- The form -->
+    <div class="form-block" id="formBlock">
+      <div class="form-eyebrow">⚔ Begin the tournament</div>
+      <h2 class="form-title">Tell us about <em>you</em>, not who to call.</h2>
+      <p class="form-sub">No name. No email. No phone. Just the basics needed to score real proposals.</p>
 
-    <div id="aj-form-wrap">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-        <div><label class="field-label">First name *</label><input class="field-input" id="aj-first" placeholder="Jane" autocomplete="given-name"></div>
-        <div><label class="field-label">Last name *</label><input class="field-input" id="aj-last" placeholder="Smith" autocomplete="family-name"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-        <div><label class="field-label">Phone *</label><input class="field-input" id="aj-phone" type="tel" placeholder="(555) 555-5555" autocomplete="tel"></div>
-        <div><label class="field-label">Email</label><input class="field-input" id="aj-email" type="email" placeholder="jane@example.com" autocomplete="email"></div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-        <div>
-          <label class="field-label">State *</label>
-          <select class="field-input field-select" id="aj-state">
-            <option value="">Select state</option>
-            ${Object.entries({al:'Alabama',az:'Arizona',ar:'Arkansas',ca:'California',co:'Colorado',ct:'Connecticut',de:'Delaware',fl:'Florida',ga:'Georgia',id:'Idaho',il:'Illinois',in:'Indiana',ia:'Iowa',ks:'Kansas',ky:'Kentucky',la:'Louisiana',me:'Maine',md:'Maryland',ma:'Massachusetts',mi:'Michigan',mn:'Minnesota',ms:'Mississippi',mo:'Missouri',mt:'Montana',ne:'Nebraska',nv:'Nevada',nh:'New Hampshire',nj:'New Jersey',nm:'New Mexico',ny:'New York',nc:'North Carolina',nd:'North Dakota',oh:'Ohio',ok:'Oklahoma',or:'Oregon',pa:'Pennsylvania',ri:'Rhode Island',sc:'South Carolina',sd:'South Dakota',tn:'Tennessee',tx:'Texas',ut:'Utah',vt:'Vermont',va:'Virginia',wa:'Washington',wv:'West Virginia',wi:'Wisconsin',wy:'Wyoming'}).map(([v,n]) => `<option value="${v}">${n}</option>`).join('')}
-          </select>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Date of birth</label>
+          <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" />
         </div>
-        <div><label class="field-label">City</label><input class="field-input" id="aj-city" placeholder="Austin"></div>
-      </div>
-      <div style="margin-bottom:16px;">
-        <label class="field-label">Policy type you're looking for *</label>
-        <select class="field-input field-select" id="aj-policy">
-          <option value="">Select</option>
-          <option value="term">Term Life</option>
-          <option value="whole">Whole Life</option>
-          <option value="iul">Indexed Universal Life (IUL)</option>
-          <option value="final">Final Expense</option>
-          <option value="mort">Mortgage Protection</option>
-          <option value="unsure">Not sure — need guidance</option>
-        </select>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
-        <div>
-          <label class="field-label">Coverage amount</label>
-          <select class="field-input field-select" id="aj-coverage">
-            <option value="">Select</option>
-            <option value="under100k">Under $100K</option>
-            <option value="100k">$100,000</option>
-            <option value="250k">$250,000</option>
-            <option value="500k">$500,000</option>
-            <option value="750k">$750,000</option>
-            <option value="1m">$1,000,000</option>
-            <option value="over1m">Over $1M</option>
-          </select>
-        </div>
-        <div>
-          <label class="field-label">Age</label>
-          <select class="field-input field-select" id="aj-age">
-            <option value="">Select</option>
-            <option value="18-29">18–29</option>
-            <option value="30-39">30–39</option>
-            <option value="40-49">40–49</option>
-            <option value="50-59">50–59</option>
-            <option value="60-69">60–69</option>
-            <option value="70+">70+</option>
-          </select>
+        <div class="form-field">
+          <label>Gender</label>
+          <select id="aj-gender"><option value="male">Male</option><option value="female">Female</option><option value="other">Prefer not to say</option></select>
         </div>
       </div>
-      <div style="margin-bottom:32px;">
-        <label class="field-label">Anything else agents should know? (optional)</label>
-        <textarea class="field-input" id="aj-notes" rows="3" placeholder="Health conditions, budget range, timeline, questions…" style="resize:vertical;"></textarea>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Coverage amount</label>
+          <select id="aj-coverage"><option value="250k">$250,000</option><option value="500k" selected>$500,000</option><option value="1m">$1,000,000</option><option value="2m+">$2,000,000+</option></select>
+        </div>
+        <div class="form-field">
+          <label>Term length</label>
+          <select id="aj-term"><option value="10">10 years</option><option value="20" selected>20 years</option><option value="30">30 years</option><option value="whole">Whole life</option></select>
+        </div>
       </div>
-      <div class="geo-badge" id="aj-geo-badge" style="display:none;margin-bottom:16px;"></div>
-      <div id="aj-error" style="display:none;background:#fde8e8;border:1px solid #f5b5b5;border-radius:6px;padding:12px 16px;font-size:14px;color:#b91c1c;margin-bottom:16px;"></div>
-      <button class="btn-primary" style="width:100%;font-size:17px;padding:16px;" onclick="ajSubmit()">Submit my request →</button>
-      <p style="margin-top:12px;font-size:13px;color:var(--ink-soft);text-align:center;line-height:1.5;">Free. No obligation. One agent will reach out — not five. <a href="/tcpa/" style="color:var(--gold);">TCPA disclosure</a>.</p>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Tobacco use</label>
+          <select id="aj-tobacco"><option value="never">Never</option><option value="former">Quit 12+ months ago</option><option value="current">Current</option></select>
+        </div>
+        <div class="form-field">
+          <label>Health, generally</label>
+          <select id="aj-health"><option value="excellent">Excellent</option><option value="good">Good</option><option value="average">Average</option><option value="fair">Fair</option></select>
+        </div>
+      </div>
+
+      <button class="form-submit" onclick="advanceStage()">Summon three agents →</button>
+
+      <p class="form-privacy">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Your contact info stays private from agents until you pick a winner.
+      </p>
     </div>
 
-    <div id="aj-success" style="display:none;text-align:center;padding:48px 0;">
-      <div style="font-size:56px;margin-bottom:20px;">✓</div>
-      <h2 class="display" style="font-size:36px;margin-bottom:12px;">Request received.</h2>
-      <p style="font-size:17px;color:var(--ink-soft);line-height:1.6;max-width:420px;margin:0 auto;">Qualified agents in your area will review your request. Expect a call within 24 hours from the agent who wins your business.</p>
+    <!-- The three cards -->
+    <div class="cards-stage" id="cardsStage">
+
+      <div class="proposal-card" data-pos="left">
+        <div class="card-header">
+          <span class="agent-id">Agent · 047</span>
+          <span class="agent-rating"><strong>4.9</strong> ★</span>
+        </div>
+        <div class="card-carrier">Banner Life</div>
+        <div class="card-policy">20-YR TERM · OPT</div>
+
+        <div class="price-block">
+          <div class="price-label">Monthly premium</div>
+          <div class="price-amount">
+            <span class="currency">$</span>42<span class="period">/mo</span>
+          </div>
+        </div>
+
+        <ul class="coverage-list">
+          <li><span>Coverage</span><span>$500,000</span></li>
+          <li><span>Underwriting</span><span>Accelerated</span></li>
+          <li><span>Conversion</span><span>Yes, age 70</span></li>
+        </ul>
+      </div>
+
+      <div class="proposal-card" data-pos="center">
+        <svg class="crown-svg" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 36 L14 18 L22 28 L28 14 L34 28 L42 18 L48 36 Z" fill="#b8923a" stroke="#14110d" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M8 36 L48 36 L46 44 L10 44 Z" fill="#9a7a2e" stroke="#14110d" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="14" cy="18" r="2.5" fill="#c8281c"/>
+          <circle cx="28" cy="14" r="2.5" fill="#c8281c"/>
+          <circle cx="42" cy="18" r="2.5" fill="#c8281c"/>
+        </svg>
+        <span class="crown-badge">★ Winner</span>
+
+        <div class="card-header">
+          <span class="agent-id">Agent · 112</span>
+          <span class="agent-rating"><strong>5.0</strong> ★</span>
+        </div>
+        <div class="card-carrier">Pacific Life</div>
+        <div class="card-policy">20-YR TERM · PRO</div>
+
+        <div class="price-block">
+          <div class="price-label">Monthly premium</div>
+          <div class="price-amount">
+            <span class="currency">$</span>36<span class="period">/mo</span>
+          </div>
+        </div>
+
+        <ul class="coverage-list">
+          <li><span>Coverage</span><span>$500,000</span></li>
+          <li><span>Underwriting</span><span>No exam</span></li>
+          <li><span>Conversion</span><span>Yes, age 75</span></li>
+        </ul>
+      </div>
+
+      <div class="proposal-card" data-pos="right">
+        <div class="card-header">
+          <span class="agent-id">Agent · 084</span>
+          <span class="agent-rating"><strong>4.8</strong> ★</span>
+        </div>
+        <div class="card-carrier">Protective</div>
+        <div class="card-policy">20-YR TERM · CL2</div>
+
+        <div class="price-block">
+          <div class="price-label">Monthly premium</div>
+          <div class="price-amount">
+            <span class="currency">$</span>44<span class="period">/mo</span>
+          </div>
+        </div>
+
+        <ul class="coverage-list">
+          <li><span>Coverage</span><span>$500,000</span></li>
+          <li><span>Underwriting</span><span>Standard</span></li>
+          <li><span>Conversion</span><span>Yes, age 70</span></li>
+        </ul>
+      </div>
+
+      <div class="clash" id="clash"></div>
     </div>
   </div>
 </section>
 
-<!-- ── WHY JOUST ── -->
-<section style="padding:80px 0;border-top:1px solid var(--rule);">
-  <div class="container">
-    <p class="hero-eyebrow" style="color:var(--gold);">Why it's different</p>
-    <h2 class="display" style="font-size:clamp(28px,4vw,44px);margin-bottom:48px;line-height:1.1;max-width:560px;">Competition makes agents<br>work harder for you.</h2>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;">
-      ${[
-        { title: 'Agents bid — you choose', body: 'Instead of picking an agent from a directory and hoping they\'re good, you describe your need and agents compete to impress you before you commit.' },
-        { title: 'Full transparency', body: 'You see each agent\'s credentials, specialties, and pitch before you respond. No blind dates. No pressure calls from strangers.' },
-        { title: 'You control the timeline', body: 'Agents have 48 hours to submit. You review on your schedule. No one shows up at your door until you say go.' },
-      ].map(w => `
-      <div style="border-top:2px solid var(--gold);padding-top:24px;">
-        <h3 style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin-bottom:10px;letter-spacing:-0.01em;">${w.title}</h3>
-        <p style="font-size:14px;color:var(--ink-soft);line-height:1.65;">${w.body}</p>
-      </div>`).join('')}
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-tag">⚔ The Rules</div>
+  <h2 class="section-title">A reverse auction for <em>your</em> business — not the other way around.</h2>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">i.</div>
+      <h3 class="step-title">You set the terms</h3>
+      <p class="step-text">Tell us your <strong>basics</strong> — age, coverage need, health. No name, no email, no phone. The form takes about 90 seconds.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">ii.</div>
+      <h3 class="step-title">Agents bid in private</h3>
+      <p class="step-text">Three vetted, licensed independent agents review your profile and submit their <strong>best proposal</strong>. They can't see each other's bids.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">iii.</div>
+      <h3 class="step-title">You crown the winner</h3>
+      <p class="step-text">Compare side-by-side. <strong>Only the winner</strong> gets your contact info from us. The other two agents never see it. Ever.</p>
     </div>
   </div>
 </section>
 
-<!-- ── CTA ── -->
-<section class="intake" style="text-align:center;">
-  <div class="container">
-    <h2 class="display" style="font-size:clamp(28px,4vw,44px);color:var(--cream);margin-bottom:16px;">Ready to let agents compete?</h2>
-    <p style="color:rgba(250,246,238,0.72);font-size:17px;margin-bottom:36px;">Free for consumers. Takes two minutes. One agent wins your business.</p>
-    <a href="#request" class="btn-gold" style="font-size:16px;padding:16px 36px;">Start a request →</a>
+<!-- WHY DIFFERENT -->
+<section class="why-section" id="why">
+  <div class="section-tag">⚔ The Difference</div>
+  <h2 class="section-title">The old way sells your number to <em>everyone.</em> We don't.</h2>
+
+  <div class="compare-table">
+    <div class="compare-row head">
+      <div class="cell"></div>
+      <div class="cell brand">Agent<em>Joust</em></div>
+      <div class="cell">Typical lead site</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell label">See proposals before any agent gets your contact info</div>
+      <div class="cell yes">Yes</div>
+      <div class="cell no">No</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell label">Agents compete on price &amp; terms</div>
+      <div class="cell yes">Three, blind</div>
+      <div class="cell no">No</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell label">Number sold to multiple agents</div>
+      <div class="cell yes" style="color: var(--green);">Never</div>
+      <div class="cell no" style="color: var(--red);">Often 5–8×</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell label">TCPA-compliant consent flow</div>
+      <div class="cell yes">Yes</div>
+      <div class="cell no">Varies</div>
+    </div>
+    <div class="compare-row">
+      <div class="cell label">Independent agents (not captive)</div>
+      <div class="cell yes">All of them</div>
+      <div class="cell no">Mixed</div>
+    </div>
   </div>
 </section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Ready to make agents <em>fight</em> for your business?</h2>
+  <p>Three proposals. No agent contact until you pick. Typical turnaround within 24 hours.</p>
+  <button class="btn-primary" onclick="scrollToForm()">
+    Start the joust
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/>
+      <polyline points="12 5 19 12 12 19"/>
+    </svg>
+  </button>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>© ${new Date().getFullYear()} AgentJoust. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="/privacy/">Privacy</a>
+    <a href="/terms/">Terms</a>
+    <a href="/tcpa/">TCPA</a>
+    <a href="/for-agents/">For agents</a>
+  </div>
+  <div class="footer-fine">NOT INSURANCE · A LEAD-MATCHING SERVICE</div>
+</footer>
+
 
 <script>
-(function () {
-  const API_URL = '${apiUrl}';
+const API_URL = '${apiUrl}';
 
-  // Geo auto-fill
-  geoAutoFill(
-    document.getElementById('aj-state'),
-    null,
-    document.getElementById('aj-geo-badge')
-  );
+// Nav scroll state
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
 
-  window.ajSubmit = function () {
-    const first    = document.getElementById('aj-first').value.trim();
-    const last     = document.getElementById('aj-last').value.trim();
-    const phone    = document.getElementById('aj-phone').value.trim();
-    const email    = document.getElementById('aj-email').value.trim();
-    const state    = document.getElementById('aj-state').value;
-    const city     = document.getElementById('aj-city').value.trim();
-    const policy   = document.getElementById('aj-policy').value;
-    const coverage = document.getElementById('aj-coverage').value;
-    const age      = document.getElementById('aj-age').value;
-    const notes    = document.getElementById('aj-notes').value.trim();
+// Scroll to form/stage
+function scrollToForm() {
+  document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+}
 
-    const errorEl = document.getElementById('aj-error');
-    errorEl.style.display = 'none';
+// Stage choreography
+const stage = document.querySelector('.stage');
+const formBlock = document.getElementById('formBlock');
+const cardsStage = document.getElementById('cardsStage');
+const clash = document.getElementById('clash');
+const step1 = document.getElementById('step1');
+const step2 = document.getElementById('step2');
+const step3 = document.getElementById('step3');
 
-    if (!first || !last) { showErr('Please enter your full name.'); return; }
-    if (!phone)          { showErr('Please enter your phone number.'); return; }
-    if (!state)          { showErr('Please select your state.'); return; }
-    if (!policy)         { showErr('Please select a policy type.'); return; }
+let stageProgress = 0;
+let manualAdvance = false;
 
-    fetch(API_URL + '/leads/web', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        first_name:    first,
-        last_name:     last,
-        phone,
-        email,
-        state,
-        city,
-        policy_type:   policy,
-        coverage:      coverage,
-        age_range:     age,
-        notes,
-        lead_source:   'agentjoust-request',
-        form_type:     'consumer_request',
-      }),
-    })
-      .then(function (r) { if (!r.ok) throw new Error('err'); return r; })
-      .then(function () {
-        document.getElementById('aj-form-wrap').style.display = 'none';
-        document.getElementById('aj-success').style.display   = 'block';
-        window.scrollTo({ top: document.getElementById('request').offsetTop - 40, behavior: 'smooth' });
-      })
-      .catch(function () { showErr('Something went wrong. Please try again.'); });
+function updateStage() {
+  const rect = stage.getBoundingClientRect();
+  const stageHeight = stage.offsetHeight - window.innerHeight;
+  const scrolled = -rect.top;
+  const progress = Math.max(0, Math.min(1, scrolled / stageHeight));
+  stageProgress = progress;
+  if (progress < 0.30 && !manualAdvance) {
+    formBlock.classList.remove('exit');
+    cardsStage.classList.remove('active', 'crowned');
+    clash.classList.remove('active');
+    setActiveStep(1);
+  } else if (progress < 0.55) {
+    formBlock.classList.add('exit');
+    cardsStage.classList.add('active');
+    cardsStage.classList.remove('crowned');
+    clash.classList.add('active');
+    setActiveStep(2);
+  } else {
+    formBlock.classList.add('exit');
+    cardsStage.classList.add('active', 'crowned');
+    clash.classList.remove('active');
+    setActiveStep(3);
+  }
+}
+function setActiveStep(n) {
+  [step1, step2, step3].forEach((el, i) => {
+    el.classList.toggle('active', i === n - 1);
+  });
+}
+window.addEventListener('scroll', updateStage, { passive: true });
+window.addEventListener('resize', updateStage);
+updateStage();
 
-    function showErr(msg) {
-      errorEl.textContent   = msg;
-      errorEl.style.display = 'block';
-      errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  };
-})();
+// "Summon three agents" — validate, submit to SidecarLeads, then animate
+function advanceStage() {
+  const dob      = document.getElementById('aj-dob').value.trim();
+  const gender   = document.getElementById('aj-gender').value;
+  const coverage = document.getElementById('aj-coverage').value;
+  const term     = document.getElementById('aj-term').value;
+  const tobacco  = document.getElementById('aj-tobacco').value;
+  const health   = document.getElementById('aj-health').value;
+
+  if (!dob) {
+    alert('Please enter your date of birth so agents can price your coverage.');
+    return;
+  }
+
+  // Submit anonymously — no name/phone/email at this stage
+  fetch(API_URL + '/leads/web', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      lead_source: 'agentjoust-joust',
+      form_type:   'anonymous_profile',
+      dob,
+      gender,
+      coverage_amount: coverage,
+      term_length:     term,
+      tobacco_use:     tobacco,
+      health_class:    health,
+    }),
+  }).catch(() => {}); // silent — animation should still play even if offline
+
+  // Scroll animation
+  manualAdvance = true;
+  const rect = stage.getBoundingClientRect();
+  const stageTop = window.scrollY + rect.top;
+  const targetScroll = stageTop + (stage.offsetHeight - window.innerHeight) * 0.45;
+  window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  setTimeout(() => { manualAdvance = false; }, 1500);
+}
 </script>
 
-${GLOBAL_SCRIPTS}
-${footer()}
 </body>
 </html>`
 }
