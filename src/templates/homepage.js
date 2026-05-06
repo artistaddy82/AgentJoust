@@ -9,7 +9,7 @@ function homepage(config) {
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AgentJoust — Three agents compete. You win.</title>
-<meta name="description" content="Compare three life insurance proposals from top licensed independent agents — before sharing your name, email, or phone number." />
+<meta name="description" content="Compare three life insurance proposals from top licensed independent agents. Your contact info stays locked until you choose your winner — agents compete completely blind." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -601,6 +601,22 @@ body::after {
   transition: background .2s, transform .2s;
 }
 .form-submit:hover { background: #1e3d29; transform: translateY(-1px); }
+.form-sealed-divider {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(45,90,61,0.07);
+  border: 1px solid rgba(45,90,61,0.18);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 14px 0 12px;
+}
+.form-sealed-divider svg { flex-shrink: 0; color: var(--green); }
 .form-privacy {
   margin-top: 14px;
   font-size: 11px;
@@ -1142,7 +1158,7 @@ body::after {
       </h1>
 
       <p class="subhead">
-        Compare three life insurance proposals from top licensed independent agents — <strong>before</strong> any agent gets your name, email, or phone number.
+        Compare three life insurance proposals from top licensed independent agents. Your contact info is <strong>locked until you choose your winner</strong> — agents compete completely blind.
       </p>
 
       <div class="hero-cta-row">
@@ -1220,8 +1236,8 @@ body::after {
     <!-- The form -->
     <div class="form-block" id="formBlock">
       <div class="form-eyebrow">⚔ Begin the tournament</div>
-      <h2 class="form-title">Tell us about <em>you</em>, not who to call.</h2>
-      <p class="form-sub">No name. No email. No phone. Just the basics needed to score real proposals.</p>
+      <h2 class="form-title">Tell us about <em>you.</em></h2>
+      <p class="form-sub">Your contact info is sealed in a vault. Agents compete blind — only your champion gets the key.</p>
 
       <div class="form-row">
         <div class="form-field">
@@ -1254,11 +1270,33 @@ body::after {
         </div>
       </div>
 
+      <div class="form-sealed-divider">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Sealed until you choose — agents never see this
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>Full name</label>
+          <input type="text" id="aj-name" placeholder="Jane Smith" autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label>Phone</label>
+          <input type="tel" id="aj-phone" placeholder="(555) 000-0000" autocomplete="tel" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field" style="flex:1">
+          <label>Email</label>
+          <input type="email" id="aj-email" placeholder="jane@email.com" autocomplete="email" />
+        </div>
+      </div>
+
       <button class="form-submit" onclick="advanceStage()">Summon three agents →</button>
 
       <p class="form-privacy">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Your contact info stays private from agents until you pick a winner.
+        Only your chosen winner receives your contact info. The other two agents never see it. Ever.
       </p>
     </div>
 
@@ -1354,7 +1392,7 @@ body::after {
     <div class="step-card">
       <div class="step-num">i.</div>
       <h3 class="step-title">You set the terms</h3>
-      <p class="step-text">Tell us your <strong>basics</strong> — age, coverage need, health. No name, no email, no phone. The form takes about 90 seconds.</p>
+      <p class="step-text">Tell us your <strong>basics</strong> — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it during the joust.</p>
     </div>
     <div class="step-card">
       <div class="step-num">ii.</div>
@@ -1381,7 +1419,7 @@ body::after {
       <div class="cell">Typical lead site</div>
     </div>
     <div class="compare-row">
-      <div class="cell label">See proposals before any agent gets your contact info</div>
+      <div class="cell label">Your contact info sealed until you choose a winner</div>
       <div class="cell yes">Yes</div>
       <div class="cell no">No</div>
     </div>
@@ -1411,7 +1449,7 @@ body::after {
 <!-- FINAL CTA -->
 <section class="final-cta">
   <h2>Ready to make agents <em>fight</em> for your business?</h2>
-  <p>Three proposals. No agent contact until you pick. Typical turnaround within 24 hours.</p>
+  <p>Three proposals. Your contact info locked until you crown a winner. Typical turnaround within 24 hours.</p>
   <button class="btn-primary" onclick="scrollToForm()">
     Start the joust
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1514,27 +1552,41 @@ function advanceStage() {
   const term     = document.getElementById('aj-term').value;
   const tobacco  = document.getElementById('aj-tobacco').value;
   const health   = document.getElementById('aj-health').value;
+  const name     = document.getElementById('aj-name').value.trim();
+  const phone    = document.getElementById('aj-phone').value.trim();
+  const email    = document.getElementById('aj-email').value.trim();
 
   if (!dob) {
     alert('Please enter your date of birth so agents can price your coverage.');
     return;
   }
+  if (!name) {
+    alert('Please enter your name so we can personalize your proposals.');
+    return;
+  }
+  if (!email && !phone) {
+    alert('Please enter your email or phone — sealed until you choose a winner.');
+    return;
+  }
 
-  // Submit anonymously — no name/phone/email at this stage
+  // Submit lead — contact info is sealed; only released to the agent the consumer selects
   fetch(API_URL + '/leads/web', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      lead_source: 'agentjoust-joust',
-      form_type:   'anonymous_profile',
+      lead_source:     'agentjoust-joust',
+      form_type:       'joust_request',
       dob,
       gender,
       coverage_amount: coverage,
       term_length:     term,
       tobacco_use:     tobacco,
       health_class:    health,
+      full_name:       name,
+      phone,
+      email,
     }),
-  }).catch(() => {}); // silent — animation should still play even if offline
+  }).catch(() => {}); // silent — animation still plays even if offline
 
   // Scroll animation
   manualAdvance = true;
