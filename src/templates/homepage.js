@@ -167,6 +167,16 @@ body::after {
     rgba(0,0,0,1) 45%);
 }
 
+/* Paper-tone wash over the whole image — softens the photo to match the cream palette */
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 241, 232, 0.38);
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* Soft fade at bottom to blend image into stat row */
 .hero-bg::after {
   content: '';
@@ -178,7 +188,7 @@ body::after {
   background: linear-gradient(to bottom,
     transparent 0%,
     var(--paper) 100%);
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero-inner {
