@@ -447,7 +447,7 @@ body::after {
   transition: color .4s;
 }
 .stage-label .step.active {
-  background: var(--red);
+  background: var(--green);
 }
 .stage-label .step.active .step-num {
   color: rgba(245,241,232,.7);
@@ -464,9 +464,8 @@ body::after {
 /* THE FORM (Step 1) */
 .form-block {
   position: absolute;
-  top: 50%;
+  top: calc(50% + 48px);
   transform: translateY(-50%);
-  margin-top: 30px;
   width: min(560px, 90vw);
   background: #fff;
   border: 1px solid rgba(20,17,13,.1);
@@ -477,7 +476,7 @@ body::after {
 }
 .form-block.exit {
   opacity: 0;
-  transform: translateY(calc(-50% - 40px)) scale(0.94);
+  transform: translateY(calc(-50% - 48px)) scale(0.94);
   pointer-events: none;
 }
 .form-eyebrow {
@@ -537,7 +536,7 @@ body::after {
 .form-submit {
   width: 100%;
   margin-top: 8px;
-  background: var(--red);
+  background: var(--green);
   color: #fff;
   padding: 16px;
   border: none;
@@ -549,7 +548,7 @@ body::after {
   letter-spacing: 0.01em;
   transition: background .2s, transform .2s;
 }
-.form-submit:hover { background: var(--red-deep); transform: translateY(-1px); }
+.form-submit:hover { background: #1e3d29; transform: translateY(-1px); }
 .form-privacy {
   margin-top: 14px;
   font-size: 11px;
