@@ -1794,13 +1794,16 @@ function advanceStage() {
     return;
   }
 
-  // Submit lead — contact info sealed; only released to the agent the consumer selects
-  fetch(API_URL + '/leads/web', {
+  // Disable button to prevent double-submit
+  const btn = document.querySelector('.form-submit');
+  if (btn) { btn.disabled = true; btn.textContent = 'Launching your joust…'; }
+
+  // Submit to my.agentjoust.com — generates unique token & sends magic link email
+  fetch('${config.myUrl || 'https://my.agentjoust.com'}/api/submit', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       lead_source:     'agentjoust-joust',
-      form_type:       'joust_request',
       first_name:      fname,
       last_name:       lname,
       email,
@@ -1814,15 +1817,25 @@ function advanceStage() {
       health_class:    health,
       medications:     meds === 'other' && medsOther ? medsOther : meds,
     }),
-  }).catch(() => {}); // silent — animation still plays even if offline
-
-  // Scroll animation
-  manualAdvance = true;
-  const rect = stage.getBoundingClientRect();
-  const stageTop = window.scrollY + rect.top;
-  const targetScroll = stageTop + (stage.offsetHeight - window.innerHeight) * 0.45;
-  window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-  setTimeout(() => { manualAdvance = false; }, 1500);
+  })
+  .then(r => r.json())
+  .then(json => {
+    if (json.joustUrl) {
+      window.location.href = json.joustUrl;
+    } else {
+      throw new Error(json.error || 'No joust URL returned');
+    }
+  })
+  .catch(() => {
+    // Fallback: scroll animation while we figure out what went wrong
+    if (btn) { btn.disabled = false; btn.textContent = 'Start My Joust'; }
+    manualAdvance = true;
+    const rect = stage.getBoundingClientRect();
+    const stageTop = window.scrollY + rect.top;
+    const targetScroll = stageTop + (stage.offsetHeight - window.innerHeight) * 0.45;
+    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    setTimeout(() => { manualAdvance = false; }, 1500);
+  });
 }
 </script>
 

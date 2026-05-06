@@ -12,8 +12,9 @@ const path = require('path')
 // ── Config ────────────────────────────────────────────────────────────────────
 const SITE_URL = process.env.SITE_URL || 'https://agentjoust.com'
 const API_URL  = process.env.API_URL  || 'https://sidecarleads.com'
+const MY_URL   = process.env.MY_URL   || 'https://my.agentjoust.com'
 
-const config = { siteUrl: SITE_URL, apiUrl: API_URL }
+const config = { siteUrl: SITE_URL, apiUrl: API_URL, myUrl: MY_URL }
 
 // ── Templates ─────────────────────────────────────────────────────────────────
 const { homepage }  = require('./src/templates/homepage')
