@@ -16,7 +16,8 @@ const API_URL  = process.env.API_URL  || 'https://sidecarleads.com'
 const config = { siteUrl: SITE_URL, apiUrl: API_URL }
 
 // ── Templates ─────────────────────────────────────────────────────────────────
-const { homepage } = require('./src/templates/homepage')
+const { homepage }  = require('./src/templates/homepage')
+const { forAgents } = require('./src/templates/for-agents')
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function mkdirp(dir) { fs.mkdirSync(dir, { recursive: true }) }
@@ -53,11 +54,13 @@ async function build() {
   console.log()
 
   console.log('Pages:')
-  write('dist/index.html', homepage(config))
+  write('dist/index.html',               homepage(config))
+  write('dist/for-agents/index.html',    forAgents(config))
 
   // ── Sitemap + robots ────────────────────────────────────────────────────────
   const staticUrls = [
     `${SITE_URL}/`,
+    `${SITE_URL}/for-agents/`,
   ]
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
