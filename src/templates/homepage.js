@@ -1438,7 +1438,7 @@ body::after {
           <div class="form-row full">
             <div class="form-field">
               <label>Prescription medications</label>
-              <select id="aj-meds">
+              <select id="aj-meds" onchange="toggleMedsOther(this.value)">
                 <option value="none">None currently</option>
                 <option value="bp_chol">Blood pressure / Cholesterol</option>
                 <option value="diabetes">Diabetes (Type 1 or 2)</option>
@@ -1447,6 +1447,12 @@ body::after {
                 <option value="cancer">Cancer history</option>
                 <option value="other">Other / Multiple conditions</option>
               </select>
+            </div>
+          </div>
+          <div class="form-row full" id="aj-meds-other-row" style="display:none;margin-top:-4px;">
+            <div class="form-field">
+              <label>Please describe</label>
+              <input type="text" id="aj-meds-other" placeholder="e.g. thyroid, asthma, ADHD…" />
             </div>
           </div>
 
@@ -1749,6 +1755,13 @@ window.addEventListener('resize', updateStage);
 updateStage();
 
 // "Summon three agents" — validate, submit to SidecarLeads, then animate
+// ── Medications "other" reveal ────────────────────────────────────────────────
+function toggleMedsOther(val) {
+  const row = document.getElementById('aj-meds-other-row');
+  row.style.display = val === 'other' ? 'grid' : 'none';
+  if (val !== 'other') document.getElementById('aj-meds-other').value = '';
+}
+
 // ── 3-part form navigation ────────────────────────────────────────────────────
 function goToPanel(n) {
   [1, 2, 3].forEach(i => {
@@ -1772,6 +1785,7 @@ function advanceStage() {
   const tobacco  = document.getElementById('aj-tobacco').value;
   const health   = document.getElementById('aj-health').value;
   const meds     = document.getElementById('aj-meds').value;
+  const medsOther = document.getElementById('aj-meds-other').value.trim();
 
   if (!fname) {
     alert('Please enter your first name.');
@@ -1800,7 +1814,7 @@ function advanceStage() {
       term_length:     term,
       tobacco_use:     tobacco,
       health_class:    health,
-      medications:     meds,
+      medications:     meds === 'other' && medsOther ? medsOther : meds,
     }),
   }).catch(() => {}); // silent — animation still plays even if offline
 
