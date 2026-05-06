@@ -701,8 +701,8 @@ body::after {
   align-items: center;
   gap: 7px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--green);
   background: rgba(45,90,61,0.07);
