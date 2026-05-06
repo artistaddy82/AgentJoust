@@ -386,85 +386,127 @@ body::after {
   padding: 40px;
 }
 
-.stage-label {
+/* ── VERTICAL STEP RAIL (left side) ── */
+.step-rail {
   position: absolute;
-  top: 82px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(900px, calc(100% - 80px));
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  left: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
   gap: 0;
   z-index: 5;
   pointer-events: none;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid rgba(20,17,13,.1);
-  border-radius: 12px;
-  overflow: hidden;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 8px 24px -16px rgba(20,17,13,.12);
 }
-.stage-label .step {
-  position: relative;
-  padding: 20px 24px;
+.rail-step {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 14px;
-  transition: background .4s, color .4s;
-  border-right: 1px solid rgba(20,17,13,.08);
+  position: relative;
 }
-.stage-label .step:last-child {
-  border-right: none;
+/* connecting line between steps */
+.rail-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 14px;
+  width: 1px;
+  height: calc(100% + 12px);
+  background: rgba(20,17,13,.15);
+  transition: background .4s;
 }
-.stage-label .step .step-num {
+.rail-step.active:not(:last-child)::after {
+  background: var(--green);
+}
+.rail-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid rgba(20,17,13,.2);
+  background: transparent;
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: border-color .4s, background .4s, box-shadow .4s;
+}
+.rail-step.active .rail-dot {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(45,90,61,.18);
+}
+.rail-step.past .rail-dot {
+  border-color: var(--green);
+  background: var(--green);
+}
+.rail-text {
+  padding-bottom: 36px;
+}
+.rail-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex-shrink: 0;
+  margin-bottom: 4px;
   transition: color .4s;
 }
-.stage-label .step .step-num::before {
-  content: '';
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(20,17,13,.2);
-  transition: background .4s, transform .4s, box-shadow .4s;
-}
-.stage-label .step .step-title {
+.rail-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 17px;
+  font-size: 15px;
   letter-spacing: -0.01em;
-  color: var(--ink);
-  line-height: 1.2;
+  color: rgba(20,17,13,.35);
+  line-height: 1.25;
   font-weight: 400;
   transition: color .4s;
 }
-.stage-label .step.active {
-  background: var(--green);
+.rail-step.active .rail-num  { color: var(--green); }
+.rail-step.active .rail-title { color: var(--ink); font-weight: 500; }
+.rail-step.past   .rail-title { color: rgba(20,17,13,.5); }
+
+/* ── SCROLL HINT ARROW ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
+  pointer-events: none;
+  transition: opacity .6s;
 }
-.stage-label .step.active .step-num {
-  color: rgba(245,241,232,.7);
+.scroll-hint.hidden { opacity: 0; }
+.scroll-hint-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
-.stage-label .step.active .step-num::before {
-  background: #fff;
-  transform: scale(1.3);
-  box-shadow: 0 0 0 3px rgba(255,255,255,.3);
+.scroll-arrow {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(20,17,13,.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: arrowBounce 2s ease-in-out infinite;
 }
-.stage-label .step.active .step-title {
-  color: #fff;
+.scroll-arrow svg {
+  color: var(--ink-soft);
+}
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0);   opacity: 1; }
+  50%       { transform: translateY(6px); opacity: 0.6; }
 }
 
 /* THE FORM (Step 1) */
 .form-block {
   position: absolute;
-  top: calc(50% + 48px);
+  top: 50%;
   transform: translateY(-50%);
   width: min(560px, 90vw);
   background: #fff;
@@ -476,7 +518,7 @@ body::after {
 }
 .form-block.exit {
   opacity: 0;
-  transform: translateY(calc(-50% - 48px)) scale(0.94);
+  transform: translateY(calc(-50% - 40px)) scale(0.94);
   pointer-events: none;
 }
 .form-eyebrow {
@@ -1030,28 +1072,9 @@ body::after {
     transform: scale(1.02);
   }
   .stage-pin { padding: 20px; }
-  .stage-label {
-    top: 76px;
-    width: calc(100% - 32px);
-  }
-  .stage-label .step {
-    padding: 14px 10px;
-    gap: 8px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .stage-label .step .step-num {
-    font-size: 9px;
-    letter-spacing: 0.12em;
-  }
-  .stage-label .step .step-num::before {
-    width: 5px;
-    height: 5px;
-  }
-  .stage-label .step .step-title {
-    font-size: 13px;
-    line-height: 1.2;
-  }
+  .step-rail { left: 16px; }
+  .rail-title { font-size: 12px; }
+  .rail-text  { padding-bottom: 28px; }
   .form-block { padding: 28px; width: calc(100% - 40px); }
   .steps-grid { grid-template-columns: 1fr; }
   .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
@@ -1135,18 +1158,39 @@ body::after {
 <!-- THE SCROLL STAGE -->
 <section class="stage" id="form">
   <div class="stage-pin">
-    <div class="stage-label">
-      <div class="step" id="step1">
-        <span class="step-num">Step 01</span>
-        <span class="step-title">You set the terms</span>
+
+    <!-- Vertical step rail -->
+    <div class="step-rail">
+      <div class="rail-step active" id="step1">
+        <div class="rail-dot"></div>
+        <div class="rail-text">
+          <div class="rail-num">Step 01</div>
+          <div class="rail-title">You set<br>the terms</div>
+        </div>
       </div>
-      <div class="step" id="step2">
-        <span class="step-num">Step 02</span>
-        <span class="step-title">Three agents joust</span>
+      <div class="rail-step" id="step2">
+        <div class="rail-dot"></div>
+        <div class="rail-text">
+          <div class="rail-num">Step 02</div>
+          <div class="rail-title">Three agents<br>joust</div>
+        </div>
       </div>
-      <div class="step" id="step3">
-        <span class="step-num">Step 03</span>
-        <span class="step-title">You crown the winner</span>
+      <div class="rail-step" id="step3">
+        <div class="rail-dot"></div>
+        <div class="rail-text">
+          <div class="rail-num">Step 03</div>
+          <div class="rail-title">You crown<br>the winner</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll hint arrow -->
+    <div class="scroll-hint" id="scrollHint">
+      <div class="scroll-hint-label">Scroll</div>
+      <div class="scroll-arrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+        </svg>
       </div>
     </div>
 
@@ -1382,23 +1426,34 @@ function scrollToForm() {
 }
 
 // Stage choreography
-const stage = document.querySelector('.stage');
-const formBlock = document.getElementById('formBlock');
+const stage      = document.querySelector('.stage');
+const formBlock  = document.getElementById('formBlock');
 const cardsStage = document.getElementById('cardsStage');
-const clash = document.getElementById('clash');
-const step1 = document.getElementById('step1');
-const step2 = document.getElementById('step2');
-const step3 = document.getElementById('step3');
+const clash      = document.getElementById('clash');
+const scrollHint = document.getElementById('scrollHint');
+const railSteps  = [
+  document.getElementById('step1'),
+  document.getElementById('step2'),
+  document.getElementById('step3'),
+];
 
 let stageProgress = 0;
 let manualAdvance = false;
+let hasScrolled   = false;
 
 function updateStage() {
-  const rect = stage.getBoundingClientRect();
+  const rect        = stage.getBoundingClientRect();
   const stageHeight = stage.offsetHeight - window.innerHeight;
-  const scrolled = -rect.top;
-  const progress = Math.max(0, Math.min(1, scrolled / stageHeight));
-  stageProgress = progress;
+  const scrolled    = -rect.top;
+  const progress    = Math.max(0, Math.min(1, scrolled / stageHeight));
+  stageProgress     = progress;
+
+  // Hide scroll hint once user starts scrolling
+  if (scrolled > 40 && !hasScrolled) {
+    hasScrolled = true;
+    scrollHint.classList.add('hidden');
+  }
+
   if (progress < 0.30 && !manualAdvance) {
     formBlock.classList.remove('exit');
     cardsStage.classList.remove('active', 'crowned');
@@ -1417,9 +1472,11 @@ function updateStage() {
     setActiveStep(3);
   }
 }
+
 function setActiveStep(n) {
-  [step1, step2, step3].forEach((el, i) => {
+  railSteps.forEach((el, i) => {
     el.classList.toggle('active', i === n - 1);
+    el.classList.toggle('past',   i <  n - 1);
   });
 }
 window.addEventListener('scroll', updateStage, { passive: true });
