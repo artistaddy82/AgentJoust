@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "AgentJoust",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4323", "--directory", "dist"],
+      "port": 4323,
+      "autoPort": true
+    }
+  ]
+}
