@@ -114,7 +114,7 @@ export default function HomePage() {
         /* ── HERO ── */
         .hero {
           position: relative;
-          min-height: 100vh;
+          min-height: 72vh;
           display: flex;
           align-items: center;
           overflow: hidden;
