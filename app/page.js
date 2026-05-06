@@ -22,11 +22,6 @@ export default function HomePage() {
           </div>
           <div className="hero-inner">
             <div className="hero-content">
-              <div className="hero-label">
-                <span className="label-line" />
-                Round 01 · Tonight
-                <span className="label-line" />
-              </div>
               <h1 className="hero-h1">
                 <span>Agents</span>
                 <span>compete.</span>
