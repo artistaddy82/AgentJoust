@@ -388,7 +388,7 @@ body::after {
 
 .stage-label {
   position: absolute;
-  top: 60px;
+  top: 82px;
   left: 50%;
   transform: translateX(-50%);
   width: min(900px, calc(100% - 80px));
@@ -397,19 +397,19 @@ body::after {
   gap: 0;
   z-index: 5;
   pointer-events: none;
-  background: rgba(255,255,255,0.5);
-  border: 1px solid rgba(20,17,13,.08);
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(20,17,13,.1);
   border-radius: 12px;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 8px 24px -16px rgba(20,17,13,.12);
 }
 .stage-label .step {
   position: relative;
-  padding: 14px 18px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   transition: background .4s, color .4s;
   border-right: 1px solid rgba(20,17,13,.08);
 }
@@ -418,20 +418,20 @@ body::after {
 }
 .stage-label .step .step-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   flex-shrink: 0;
   transition: color .4s;
 }
 .stage-label .step .step-num::before {
   content: '';
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: rgba(20,17,13,.2);
   transition: background .4s, transform .4s, box-shadow .4s;
@@ -439,26 +439,26 @@ body::after {
 .stage-label .step .step-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 13px;
-  letter-spacing: -0.005em;
+  font-size: 17px;
+  letter-spacing: -0.01em;
   color: var(--ink);
   line-height: 1.2;
   font-weight: 400;
   transition: color .4s;
 }
 .stage-label .step.active {
-  background: var(--ink);
+  background: var(--red);
 }
 .stage-label .step.active .step-num {
-  color: rgba(245,241,232,.55);
+  color: rgba(245,241,232,.7);
 }
 .stage-label .step.active .step-num::before {
-  background: var(--red);
+  background: #fff;
   transform: scale(1.3);
-  box-shadow: 0 0 0 3px rgba(200,40,28,.25);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.3);
 }
 .stage-label .step.active .step-title {
-  color: var(--paper);
+  color: #fff;
 }
 
 /* THE FORM (Step 1) */
@@ -470,7 +470,7 @@ body::after {
   width: min(560px, 90vw);
   background: #fff;
   border: 1px solid rgba(20,17,13,.1);
-  border-radius: 18px;
+  border-radius: 0 0 18px 18px;
   padding: 40px;
   box-shadow: var(--shadow);
   transition: opacity .6s, transform .6s cubic-bezier(0.65, 0, 0.35, 1);
@@ -537,8 +537,8 @@ body::after {
 .form-submit {
   width: 100%;
   margin-top: 8px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--red);
+  color: #fff;
   padding: 16px;
   border: none;
   border-radius: 10px;
@@ -549,7 +549,7 @@ body::after {
   letter-spacing: 0.01em;
   transition: background .2s, transform .2s;
 }
-.form-submit:hover { background: var(--red); transform: translateY(-1px); }
+.form-submit:hover { background: var(--red-deep); transform: translateY(-1px); }
 .form-privacy {
   margin-top: 14px;
   font-size: 11px;
@@ -1032,25 +1032,25 @@ body::after {
   }
   .stage-pin { padding: 20px; }
   .stage-label {
-    top: 70px;
+    top: 76px;
     width: calc(100% - 32px);
   }
   .stage-label .step {
-    padding: 10px 8px;
-    gap: 6px;
+    padding: 14px 10px;
+    gap: 8px;
     flex-direction: column;
     align-items: flex-start;
   }
   .stage-label .step .step-num {
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 0.12em;
   }
   .stage-label .step .step-num::before {
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
   }
   .stage-label .step .step-title {
-    font-size: 11px;
+    font-size: 13px;
     line-height: 1.2;
   }
   .form-block { padding: 28px; width: calc(100% - 40px); }
