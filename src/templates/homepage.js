@@ -514,16 +514,17 @@ body::after {
 }
 
 /* THE FORM (Step 1) */
+/* ── FORM CARD ── */
 .form-block {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: min(560px, 90vw);
+  width: min(520px, 90vw);
   background: #fff;
   border: 1px solid rgba(20,17,13,.1);
   border-radius: 0 0 18px 18px;
-  padding: 40px;
   box-shadow: var(--shadow);
+  overflow: hidden;
   transition: opacity .6s, transform .6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .form-block.exit {
@@ -531,34 +532,118 @@ body::after {
   transform: translateY(calc(-50% - 40px)) scale(0.94);
   pointer-events: none;
 }
-.form-eyebrow {
+
+/* ── Step tracker bar ── */
+.form-steps-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid rgba(20,17,13,.08);
+}
+.form-step-tab {
+  padding: 14px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-right: 1px solid rgba(20,17,13,.08);
+  transition: background .25s;
+  position: relative;
+}
+.form-step-tab:last-child { border-right: none; }
+.form-step-tab.active  { background: rgba(45,90,61,.05); }
+.form-step-tab.done    { background: rgba(45,90,61,.03); }
+.step-tab-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(20,17,13,.18);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--red);
-  margin-bottom: 12px;
-}
-.form-title {
-  font-family: 'Fraunces', serif;
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin-bottom: 8px;
-}
-.form-title em { font-style: italic; color: var(--red); font-weight: 400; }
-.form-sub {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 28px;
+  transition: background .25s, border-color .25s, color .25s;
 }
+.form-step-tab.active .step-tab-num {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.form-step-tab.done .step-tab-num {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.step-tab-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color .25s;
+}
+.form-step-tab.active .step-tab-label { color: var(--green); }
+.form-step-tab.done   .step-tab-label { color: var(--green); opacity: 0.7; }
+
+/* ── Panel container ── */
+.form-panels {
+  overflow: hidden;
+  position: relative;
+}
+.form-panel {
+  padding: 32px 36px 36px;
+  display: none;
+  animation: panelIn .3s ease;
+}
+.form-panel.active { display: block; }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateX(18px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.panel-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color .2s;
+}
+.panel-back:hover { color: var(--ink); }
+
+.panel-title {
+  font-family: 'Fraunces', serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.panel-title em { font-style: italic; color: var(--red); font-weight: 400; }
+.panel-sub {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+  line-height: 1.55;
+}
+
+/* ── Fields ── */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 12px;
 }
+.form-row.full { grid-template-columns: 1fr; }
 .form-field { position: relative; }
 .form-field label {
   font-family: 'JetBrains Mono', monospace;
@@ -579,18 +664,22 @@ body::after {
   background: var(--paper);
   color: var(--ink);
   transition: border-color .2s, background .2s;
+  -webkit-appearance: none;
 }
 .form-field input:focus, .form-field select:focus {
   outline: none;
   border-color: var(--ink);
   background: #fff;
 }
-.form-submit {
+.form-field input::placeholder { color: rgba(20,17,13,.3); }
+
+/* ── Buttons ── */
+.form-next, .form-submit {
   width: 100%;
-  margin-top: 8px;
+  margin-top: 10px;
   background: var(--green);
   color: #fff;
-  padding: 16px;
+  padding: 15px;
   border: none;
   border-radius: 10px;
   font-size: 15px;
@@ -598,27 +687,32 @@ body::after {
   font-family: inherit;
   cursor: pointer;
   letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   transition: background .2s, transform .2s;
 }
-.form-submit:hover { background: #1e3d29; transform: translateY(-1px); }
-.form-sealed-divider {
+.form-next:hover, .form-submit:hover { background: #1e3d29; transform: translateY(-1px); }
+
+/* ── Sealed note (panel 3) ── */
+.form-sealed-note {
   display: flex;
   align-items: center;
   gap: 7px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
+  font-size: 9px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--green);
   background: rgba(45,90,61,0.07);
   border: 1px solid rgba(45,90,61,0.18);
   border-radius: 8px;
   padding: 8px 12px;
-  margin: 14px 0 12px;
+  margin-bottom: 18px;
 }
-.form-sealed-divider svg { flex-shrink: 0; color: var(--green); }
 .form-privacy {
-  margin-top: 14px;
+  margin-top: 12px;
   font-size: 11px;
   color: var(--muted);
   text-align: center;
@@ -1235,69 +1329,165 @@ body::after {
 
     <!-- The form -->
     <div class="form-block" id="formBlock">
-      <div class="form-eyebrow">⚔ Begin the tournament</div>
-      <h2 class="form-title">Tell us about <em>you.</em></h2>
-      <p class="form-sub">Your contact info is sealed in a vault. Agents compete blind — only your champion gets the key.</p>
 
-      <div class="form-row">
-        <div class="form-field">
-          <label>Date of birth</label>
-          <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" />
+      <!-- Step tracker -->
+      <div class="form-steps-bar">
+        <div class="form-step-tab active" id="tab1">
+          <div class="step-tab-num">1</div>
+          <div class="step-tab-label">Coverage</div>
         </div>
-        <div class="form-field">
-          <label>Gender</label>
-          <select id="aj-gender"><option value="male">Male</option><option value="female">Female</option><option value="other">Prefer not to say</option></select>
+        <div class="form-step-tab" id="tab2">
+          <div class="step-tab-num">2</div>
+          <div class="step-tab-label">Health</div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label>Coverage amount</label>
-          <select id="aj-coverage"><option value="250k">$250,000</option><option value="500k" selected>$500,000</option><option value="1m">$1,000,000</option><option value="2m+">$2,000,000+</option></select>
-        </div>
-        <div class="form-field">
-          <label>Term length</label>
-          <select id="aj-term"><option value="10">10 years</option><option value="20" selected>20 years</option><option value="30">30 years</option><option value="whole">Whole life</option></select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label>Tobacco use</label>
-          <select id="aj-tobacco"><option value="never">Never</option><option value="former">Quit 12+ months ago</option><option value="current">Current</option></select>
-        </div>
-        <div class="form-field">
-          <label>Health, generally</label>
-          <select id="aj-health"><option value="excellent">Excellent</option><option value="good">Good</option><option value="average">Average</option><option value="fair">Fair</option></select>
+        <div class="form-step-tab" id="tab3">
+          <div class="step-tab-num">3</div>
+          <div class="step-tab-label">Contact</div>
         </div>
       </div>
 
-      <div class="form-sealed-divider">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Sealed until you choose — agents never see this
-      </div>
+      <div class="form-panels">
 
-      <div class="form-row">
-        <div class="form-field">
-          <label>Full name</label>
-          <input type="text" id="aj-name" placeholder="Jane Smith" autocomplete="name" />
-        </div>
-        <div class="form-field">
-          <label>Phone</label>
-          <input type="tel" id="aj-phone" placeholder="(555) 000-0000" autocomplete="tel" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-field" style="flex:1">
-          <label>Email</label>
-          <input type="email" id="aj-email" placeholder="jane@email.com" autocomplete="email" />
-        </div>
-      </div>
+        <!-- Panel 1 — Coverage -->
+        <div class="form-panel active" id="panel1">
+          <div class="panel-title">What are you<br>looking to <em>cover?</em></div>
+          <p class="panel-sub">Pick the policy type and how much coverage you need.</p>
 
-      <button class="form-submit" onclick="advanceStage()">Summon three agents →</button>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Policy type</label>
+              <select id="aj-type">
+                <option value="term">Term life</option>
+                <option value="whole">Whole life</option>
+                <option value="iul">Indexed universal (IUL)</option>
+                <option value="not_sure">Not sure — show me options</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Term length</label>
+              <select id="aj-term">
+                <option value="10">10 years</option>
+                <option value="20" selected>20 years</option>
+                <option value="30">30 years</option>
+                <option value="na">N/A — permanent</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>Coverage amount</label>
+              <select id="aj-coverage">
+                <option value="100k">$100,000</option>
+                <option value="250k">$250,000</option>
+                <option value="500k" selected>$500,000</option>
+                <option value="750k">$750,000</option>
+                <option value="1m">$1,000,000</option>
+                <option value="2m+">$2,000,000+</option>
+              </select>
+            </div>
+          </div>
 
-      <p class="form-privacy">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
-        Only your chosen winner receives your contact info. The other two agents never see it. Ever.
-      </p>
+          <button class="form-next" onclick="goToPanel(2)">
+            Next — Health info
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+        <!-- Panel 2 — Health -->
+        <div class="form-panel" id="panel2">
+          <button class="panel-back" onclick="goToPanel(1)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back
+          </button>
+          <div class="panel-title">Tell us about<br>your <em>health.</em></div>
+          <p class="panel-sub">Agents use this to price your policy accurately — no exam needed to get proposals.</p>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Date of birth</label>
+              <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" />
+            </div>
+            <div class="form-field">
+              <label>Gender</label>
+              <select id="aj-gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Prefer not to say</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Tobacco use</label>
+              <select id="aj-tobacco">
+                <option value="never">Never</option>
+                <option value="former">Quit 12+ months ago</option>
+                <option value="current">Current smoker</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Health, generally</label>
+              <select id="aj-health">
+                <option value="excellent">Excellent</option>
+                <option value="good">Good</option>
+                <option value="average">Average</option>
+                <option value="fair">Fair / some conditions</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="form-next" onclick="goToPanel(3)">
+            Next — Contact info
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </button>
+        </div>
+
+        <!-- Panel 3 — Contact -->
+        <div class="form-panel" id="panel3">
+          <button class="panel-back" onclick="goToPanel(2)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back
+          </button>
+          <div class="panel-title">Last step —<br><em>how to reach you.</em></div>
+          <div class="form-sealed-note">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Sealed until you choose your winner — agents never see this
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>First name</label>
+              <input type="text" id="aj-fname" placeholder="Jane" autocomplete="given-name" />
+            </div>
+            <div class="form-field">
+              <label>Last name</label>
+              <input type="text" id="aj-lname" placeholder="Smith" autocomplete="family-name" />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" id="aj-email" placeholder="jane@email.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>Phone</label>
+              <input type="tel" id="aj-phone" placeholder="(555) 000-0000" autocomplete="tel" />
+            </div>
+          </div>
+
+          <button class="form-submit" onclick="advanceStage()">
+            Summon three agents ⚔
+          </button>
+
+          <p class="form-privacy">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+            Only your chosen winner gets your contact info. The other two agents never see it. Ever.
+          </p>
+        </div>
+
+      </div>
     </div>
 
     <!-- The three cards -->
@@ -1545,46 +1735,56 @@ window.addEventListener('resize', updateStage);
 updateStage();
 
 // "Summon three agents" — validate, submit to SidecarLeads, then animate
+// ── 3-part form navigation ────────────────────────────────────────────────────
+function goToPanel(n) {
+  [1, 2, 3].forEach(i => {
+    document.getElementById('panel' + i).classList.toggle('active', i === n);
+    const tab = document.getElementById('tab' + i);
+    tab.classList.toggle('active', i === n);
+    tab.classList.toggle('done',   i < n);
+  });
+}
+
 function advanceStage() {
+  const fname    = document.getElementById('aj-fname').value.trim();
+  const lname    = document.getElementById('aj-lname').value.trim();
+  const email    = document.getElementById('aj-email').value.trim();
+  const phone    = document.getElementById('aj-phone').value.trim();
   const dob      = document.getElementById('aj-dob').value.trim();
   const gender   = document.getElementById('aj-gender').value;
   const coverage = document.getElementById('aj-coverage').value;
+  const type     = document.getElementById('aj-type').value;
   const term     = document.getElementById('aj-term').value;
   const tobacco  = document.getElementById('aj-tobacco').value;
   const health   = document.getElementById('aj-health').value;
-  const name     = document.getElementById('aj-name').value.trim();
-  const phone    = document.getElementById('aj-phone').value.trim();
-  const email    = document.getElementById('aj-email').value.trim();
 
-  if (!dob) {
-    alert('Please enter your date of birth so agents can price your coverage.');
-    return;
-  }
-  if (!name) {
-    alert('Please enter your name so we can personalize your proposals.');
+  if (!fname) {
+    alert('Please enter your first name.');
     return;
   }
   if (!email && !phone) {
-    alert('Please enter your email or phone — sealed until you choose a winner.');
+    alert('Please enter your email or phone number so your winner can reach you.');
     return;
   }
 
-  // Submit lead — contact info is sealed; only released to the agent the consumer selects
+  // Submit lead — contact info sealed; only released to the agent the consumer selects
   fetch(API_URL + '/leads/web', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       lead_source:     'agentjoust-joust',
       form_type:       'joust_request',
+      first_name:      fname,
+      last_name:       lname,
+      email,
+      phone,
       dob,
       gender,
+      policy_type:     type,
       coverage_amount: coverage,
       term_length:     term,
       tobacco_use:     tobacco,
       health_class:    health,
-      full_name:       name,
-      phone,
-      email,
     }),
   }).catch(() => {}); // silent — animation still plays even if offline
 
