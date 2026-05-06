@@ -1072,9 +1072,22 @@ body::after {
     transform: scale(1.02);
   }
   .stage-pin { padding: 20px; }
-  .step-rail { left: 16px; }
-  .rail-title { font-size: 12px; }
-  .rail-text  { padding-bottom: 28px; }
+  .step-rail {
+    left: 10px;
+    gap: 0;
+  }
+  .rail-text { display: none; }
+  .rail-dot  { width: 9px; height: 9px; margin-top: 0; }
+  .rail-step {
+    align-items: center;
+    padding-bottom: 28px;
+  }
+  .rail-step:last-child { padding-bottom: 0; }
+  .rail-step:not(:last-child)::after {
+    left: 4px;
+    top: 11px;
+    height: calc(100% + 2px);
+  }
   .form-block { padding: 28px; width: calc(100% - 40px); }
   .steps-grid { grid-template-columns: 1fr; }
   .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
