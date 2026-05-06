@@ -136,7 +136,7 @@ body::after {
 
 /* ============ HERO ============ */
 .hero {
-  min-height: 100vh;
+  min-height: 72vh;
   padding-top: 100px;
   position: relative;
   z-index: 3;
@@ -1243,8 +1243,6 @@ body::after {
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="fight-card">Round 01 · Tonight</div>
-
       <h1 class="headline">
         <span class="line">Agents</span>
         <span class="line">compete.</span>
