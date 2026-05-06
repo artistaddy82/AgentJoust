@@ -1435,6 +1435,20 @@ body::after {
               </select>
             </div>
           </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>Prescription medications</label>
+              <select id="aj-meds">
+                <option value="none">None currently</option>
+                <option value="bp_chol">Blood pressure / Cholesterol</option>
+                <option value="diabetes">Diabetes (Type 1 or 2)</option>
+                <option value="heart">Heart / Cardiovascular</option>
+                <option value="mental_health">Mental health (anxiety, depression, etc.)</option>
+                <option value="cancer">Cancer history</option>
+                <option value="other">Other / Multiple conditions</option>
+              </select>
+            </div>
+          </div>
 
           <button class="form-next" onclick="goToPanel(3)">
             Next — Contact info
@@ -1757,6 +1771,7 @@ function advanceStage() {
   const term     = document.getElementById('aj-term').value;
   const tobacco  = document.getElementById('aj-tobacco').value;
   const health   = document.getElementById('aj-health').value;
+  const meds     = document.getElementById('aj-meds').value;
 
   if (!fname) {
     alert('Please enter your first name.');
@@ -1785,6 +1800,7 @@ function advanceStage() {
       term_length:     term,
       tobacco_use:     tobacco,
       health_class:    health,
+      medications:     meds,
     }),
   }).catch(() => {}); // silent — animation still plays even if offline
 
