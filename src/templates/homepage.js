@@ -246,26 +246,13 @@ body::after {
 }
 .fight-card::after { flex: 1; }
 
-.headline-cta-row {
-  display: flex;
-  align-items: flex-end;
-  gap: 48px;
-  margin-bottom: 36px;
-}
-.hero-cta-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  flex-shrink: 0;
-  padding-bottom: 10px;
-}
 .headline {
   font-family: 'Fraunces', serif;
   font-size: clamp(56px, 8vw, 116px);
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.035em;
+  margin-bottom: 36px;
   font-variation-settings: "opsz" 144;
 }
 .headline .line { display: block; }
@@ -1255,26 +1242,25 @@ body::after {
   <div class="hero-inner">
     <div class="hero-content">
       <div class="fight-card">Life Insurance</div>
-      <div class="headline-cta-row">
-        <h1 class="headline">
-          <span class="line">Agents compete.</span>
-          <span class="line">You <em>win.</em></span>
-        </h1>
-        <div class="hero-cta-col">
-          <button class="btn-primary" onclick="scrollToForm()">
-            Start the joust
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </button>
-          <a href="#how" class="btn-secondary">See how it works</a>
-        </div>
-      </div>
+      <h1 class="headline">
+        <span class="line">Agents compete.</span>
+        <span class="line">You <em>win.</em></span>
+      </h1>
 
       <p class="subhead">
         Compare three life insurance proposals from top licensed independent agents. Your contact info is <strong>locked until you choose your winner</strong> — agents compete completely blind.
       </p>
+
+      <div class="hero-cta-row">
+        <button class="btn-primary" onclick="scrollToForm()">
+          Start the joust
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        <a href="#how" class="btn-secondary">See how it works</a>
+      </div>
     </div>
 
   </div>
