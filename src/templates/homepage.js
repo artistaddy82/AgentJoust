@@ -692,6 +692,82 @@ body::after {
 }
 .form-next:hover, .form-submit:hover { background: #1e3d29; transform: translateY(-1px); }
 
+/* ── Policy-type decision tree ── */
+.policy-label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.policy-label-row label { margin-bottom: 0 !important; }
+.tree-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.tree-card {
+  display: none;
+  background: rgba(45,90,61,0.05);
+  border: 1px solid rgba(45,90,61,0.18);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.tree-card.open { display: block; }
+.tree-q {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.tree-step { display: none; }
+.tree-step.active { display: block; }
+.tree-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.tree-opt {
+  padding: 10px 14px;
+  border: 1px solid rgba(20,17,13,0.18);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .15s, background .15s;
+}
+.tree-opt:hover { border-color: var(--green); background: rgba(45,90,61,0.04); }
+.tree-opt.selected { border-color: var(--green); background: rgba(45,90,61,0.08); font-weight: 600; }
+.tree-back-row {
+  margin-top: 10px;
+}
+.tree-back {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* ── Sealed note (panel 3) ── */
 .form-sealed-note {
   display: flex;
@@ -1351,15 +1427,20 @@ body::after {
 
           <div class="form-row">
             <div class="form-field">
-              <label>Policy type</label>
-              <select id="aj-type">
+              <div class="policy-label-row">
+                <label>Policy type</label>
+                <button type="button" class="tree-link" onclick="treeToggle()">Help me choose →</button>
+              </div>
+              <select id="aj-type" onchange="syncTermField()">
                 <option value="term">Term life</option>
                 <option value="whole">Whole life</option>
                 <option value="iul">Indexed universal (IUL)</option>
-                <option value="not_sure">Not sure — show me options</option>
+                <option value="final_expense">Final expense</option>
+                <option value="mortgage">Mortgage protection (term)</option>
+                <option value="not_sure">Not sure — help me choose</option>
               </select>
             </div>
-            <div class="form-field">
+            <div class="form-field" id="term-field">
               <label>Term length</label>
               <select id="aj-term">
                 <option value="10">10 years</option>
@@ -1369,6 +1450,42 @@ body::after {
               </select>
             </div>
           </div>
+          <!-- Policy-type decision tree -->
+          <div class="tree-card" id="policy-tree">
+
+            <!-- Step 1 -->
+            <div class="tree-step active" id="tree-s1">
+              <div class="tree-q">What's your main goal?</div>
+              <div class="tree-opts">
+                <button type="button" class="tree-opt" onclick="treePick('s1','protect', this)">Protect my family's income &amp; future expenses</button>
+                <button type="button" class="tree-opt" onclick="treePick('s1','cash', this)">Build cash value or supplement retirement</button>
+                <button type="button" class="tree-opt" onclick="treePick('s1','mortgage', this)">Pay off my mortgage if I pass away</button>
+                <button type="button" class="tree-opt" onclick="treePick('s1','burial', this)">Cover burial &amp; final expenses (smaller policy)</button>
+              </div>
+            </div>
+
+            <!-- Step 2 — protect path -->
+            <div class="tree-step" id="tree-s2">
+              <div class="tree-q">How long do you need coverage?</div>
+              <div class="tree-opts">
+                <button type="button" class="tree-opt" onclick="treeSetPolicy('term', 'Term life')">A set number of years (10–30 years)</button>
+                <button type="button" class="tree-opt" onclick="treePick('s2','lifetime', this)">My entire life</button>
+              </div>
+              <div class="tree-back-row"><button type="button" class="tree-back" onclick="treeBack('s1')">← Back</button></div>
+            </div>
+
+            <!-- Step 3 — cash / lifetime path -->
+            <div class="tree-step" id="tree-s3">
+              <div class="tree-q">What matters more to you?</div>
+              <div class="tree-opts">
+                <button type="button" class="tree-opt" onclick="treeSetPolicy('whole', 'Whole life')">Guaranteed, steady growth — I want predictability</button>
+                <button type="button" class="tree-opt" onclick="treeSetPolicy('iul', 'Indexed universal (IUL)')">Market-linked upside potential with a floor</button>
+              </div>
+              <div class="tree-back-row"><button type="button" class="tree-back" onclick="treeBack('s2')">← Back</button></div>
+            </div>
+
+          </div>
+
           <div class="form-row full">
             <div class="form-field">
               <label>Coverage amount</label>
@@ -1784,7 +1901,68 @@ function toggleMedsOther(val) {
 }
 
 // ── 3-part form navigation ────────────────────────────────────────────────────
+/* ── Policy-type decision tree ── */
+function treeToggle() {
+  const card = document.getElementById('policy-tree');
+  const isOpen = card.classList.toggle('open');
+  // reset to step 1 whenever opening
+  if (isOpen) treeShowStep('s1');
+}
+function treeShowStep(id) {
+  document.querySelectorAll('.tree-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('tree-' + id).classList.add('active');
+}
+function treePick(step, answer, btn) {
+  btn.closest('.tree-opts').querySelectorAll('.tree-opt').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  if (step === 's1') {
+    if (answer === 'mortgage') { treeSetPolicy('mortgage', 'Mortgage protection (term)'); return; }
+    if (answer === 'burial')   { treeSetPolicy('final_expense', 'Final expense'); return; }
+    if (answer === 'cash')     { treeShowStep('s3'); return; }
+    // protect → s2
+    treeShowStep('s2');
+  } else if (step === 's2') {
+    // lifetime → s3
+    treeShowStep('s3');
+  }
+}
+function treeBack(toStep) {
+  document.querySelectorAll('.tree-opt').forEach(b => b.classList.remove('selected'));
+  treeShowStep(toStep);
+}
+function treeSetPolicy(val, label) {
+  const sel = document.getElementById('aj-type');
+  sel.value = val;
+  syncTermField();
+  document.getElementById('policy-tree').classList.remove('open');
+}
+function syncTermField() {
+  const val = document.getElementById('aj-type').value;
+  const hideForPermanent = ['whole','iul','final_expense'];
+  const tf = document.getElementById('term-field');
+  if (tf) tf.style.display = hideForPermanent.includes(val) ? 'none' : '';
+  // auto-open tree if user picks "not sure"
+  if (val === 'not_sure') {
+    const card = document.getElementById('policy-tree');
+    card.classList.add('open');
+    treeShowStep('s1');
+  }
+}
+
 function goToPanel(n) {
+  if (n === 2) {
+    // Validate panel 1 required fields
+    const type = document.getElementById('aj-type').value;
+    if (!type || type === 'not_sure') {
+      alert('Please select a policy type (or use "Help me choose" to find the right fit).');
+      return;
+    }
+    const state = document.getElementById('aj-state').value;
+    if (!state) {
+      alert('Please select your state so we can match you with licensed agents.');
+      return;
+    }
+  }
   [1, 2, 3].forEach(i => {
     document.getElementById('panel' + i).classList.toggle('active', i === n);
     const tab = document.getElementById('tab' + i);
