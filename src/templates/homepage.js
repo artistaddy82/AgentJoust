@@ -117,17 +117,8 @@ body::after {
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--red); }
-.nav-my-quotes {
-  color: var(--ink) !important;
-  background: var(--paper-deep);
-  padding: 6px 14px;
-  border-radius: 100px;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.01em;
-  transition: background .2s, color .2s !important;
-}
-.nav-my-quotes:hover { background: var(--ink) !important; color: var(--paper) !important; }
+.nav-my-quotes { color: var(--muted) !important; }
+.nav-my-quotes:hover { color: var(--red) !important; }
 
 .nav-cta {
   background: var(--ink);
@@ -1245,7 +1236,7 @@ body::after {
     <a href="#how">How it works</a>
     <a href="#why">Why us</a>
     <a href="#agents">For agents</a>
-    <a href="${config.myUrl || 'https://my.agentjoust.com'}" class="nav-my-quotes">My Quotes</a>
+    <a href="${config.myUrl || 'https://my.agentjoust.com'}" class="nav-my-quotes">🔖 My Quotes</a>
   </div>
   <button class="nav-cta" onclick="scrollToForm()">Get 3 quotes</button>
 </nav>
