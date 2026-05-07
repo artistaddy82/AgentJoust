@@ -159,14 +159,14 @@ body::after {
   /* True transparency fade on the image — paper shows through naturally */
   -webkit-mask-image: linear-gradient(to right,
     transparent 0%,
-    rgba(0,0,0,0.15) 12%,
-    rgba(0,0,0,0.6) 28%,
-    rgba(0,0,0,1) 45%);
+    rgba(0,0,0,0.08) 15%,
+    rgba(0,0,0,0.35) 32%,
+    rgba(0,0,0,0.7) 50%);
   mask-image: linear-gradient(to right,
     transparent 0%,
-    rgba(0,0,0,0.15) 12%,
-    rgba(0,0,0,0.6) 28%,
-    rgba(0,0,0,1) 45%);
+    rgba(0,0,0,0.08) 15%,
+    rgba(0,0,0,0.35) 32%,
+    rgba(0,0,0,0.7) 50%);
 }
 
 /* Paper-tone wash over the whole image — softens the photo to match the cream palette */
@@ -174,7 +174,7 @@ body::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(245, 241, 232, 0.38);
+  background: rgba(245, 241, 232, 0.62);
   z-index: 1;
   pointer-events: none;
 }
@@ -228,8 +228,8 @@ body::after {
 
 .fight-card {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 15px;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--red);
