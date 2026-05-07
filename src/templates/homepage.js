@@ -388,8 +388,8 @@ body::after {
 
 .stage-pin {
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 72px;
+  height: calc(100vh - 72px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -519,8 +519,7 @@ body::after {
 /* ── FORM CARD ── */
 .form-block {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
   width: min(520px, 90vw);
   background: #fff;
   border: 1px solid rgba(20,17,13,.1);
@@ -531,7 +530,7 @@ body::after {
 }
 .form-block.exit {
   opacity: 0;
-  transform: translateY(calc(-50% - 40px)) scale(0.94);
+  transform: translateY(-40px) scale(0.94);
   pointer-events: none;
 }
 
