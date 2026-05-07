@@ -1246,6 +1246,7 @@ body::after {
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-content">
+      <div class="fight-card">Life Insurance</div>
       <h1 class="headline">
         <span class="line">Agents compete.</span>
         <span class="line">You <em>win.</em></span>
