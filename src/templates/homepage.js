@@ -1236,7 +1236,7 @@ body::after {
     <a href="#how">How it works</a>
     <a href="#why">Why us</a>
     <a href="#agents">For agents</a>
-    <a href="${config.myUrl || 'https://my.agentjoust.com'}" class="nav-my-quotes">🔖 My Quotes</a>
+    <a href="${config.myUrl || 'https://my.agentjoust.com'}" class="nav-my-quotes">My Quotes</a>
   </div>
   <button class="nav-cta" onclick="scrollToForm()">Get 3 quotes</button>
 </nav>
