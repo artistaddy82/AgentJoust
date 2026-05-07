@@ -1410,7 +1410,7 @@ body::after {
           <div class="form-row">
             <div class="form-field">
               <label>Date of birth</label>
-              <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" inputmode="numeric" maxlength="14" oninput="formatDob(this)" />
+              <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" inputmode="numeric" maxlength="14" oninput="formatDob(this)" onkeydown="if(event.key.length===1&&!/[0-9]/.test(event.key))event.preventDefault()" />
             </div>
             <div class="form-field">
               <label>Gender</label>
