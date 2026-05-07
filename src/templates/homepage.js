@@ -139,7 +139,7 @@ body::after {
 /* ============ HERO ============ */
 .hero {
   min-height: 72vh;
-  padding-top: 100px;
+  padding-top: 72px;
   position: relative;
   z-index: 3;
   overflow: hidden;
@@ -198,7 +198,7 @@ body::after {
   z-index: 2;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 40px 60px;
+  padding: 32px 40px 60px;
   min-height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
@@ -1247,8 +1247,7 @@ body::after {
   <div class="hero-inner">
     <div class="hero-content">
       <h1 class="headline">
-        <span class="line">Agents</span>
-        <span class="line">compete.</span>
+        <span class="line">Agents compete.</span>
         <span class="line">You <em>win.</em></span>
       </h1>
 
