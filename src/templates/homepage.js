@@ -321,19 +321,15 @@ body::after {
 .btn-secondary:hover { color: var(--red); border-color: var(--red); }
 
 .hero-meta {
-  margin-top: 80px;
-  padding: 32px 40px 28px;
+  position: sticky;
+  bottom: 0;
+  padding: 28px 40px 24px;
   border-top: 1px solid rgba(20,17,13,.12);
-  border-bottom: 1px solid rgba(20,17,13,.08);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
-  position: relative;
-  z-index: 5;
+  z-index: 10;
   background: var(--paper);
-  /* Break out of the .hero-inner padding to reach the viewport edges */
-  margin-left: calc(-1 * (50vw - 50%) - 40px);
-  margin-right: calc(-1 * (50vw - 50%) - 40px);
 }
 .meta-item {
   text-align: center;
@@ -1267,23 +1263,23 @@ body::after {
       </div>
     </div>
 
-    <div class="hero-meta">
-      <div class="meta-item">
-        <span class="num"><em>3</em></span>
-        <span class="label">Proposals · side by side</span>
-      </div>
-      <div class="meta-item">
-        <span class="num">0</span>
-        <span class="label">Agent contact until you pick</span>
-      </div>
-      <div class="meta-item">
-        <span class="num">24<em>hr</em></span>
-        <span class="label">Turnaround, typical</span>
-      </div>
-      <div class="meta-item">
-        <span class="num">100<em>%</em></span>
-        <span class="label">Licensed independent agents</span>
-      </div>
+  </div>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="num"><em>3</em></span>
+      <span class="label">Proposals · side by side</span>
+    </div>
+    <div class="meta-item">
+      <span class="num">0</span>
+      <span class="label">Agent contact until you pick</span>
+    </div>
+    <div class="meta-item">
+      <span class="num">24<em>hr</em></span>
+      <span class="label">Turnaround, typical</span>
+    </div>
+    <div class="meta-item">
+      <span class="num">100<em>%</em></span>
+      <span class="label">Licensed independent agents</span>
     </div>
   </div>
 </section>
