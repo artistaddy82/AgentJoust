@@ -1406,7 +1406,7 @@ body::after {
           <div class="form-row">
             <div class="form-field">
               <label>Date of birth</label>
-              <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" />
+              <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" inputmode="numeric" maxlength="14" oninput="formatDob(this)" />
             </div>
             <div class="form-field">
               <label>Gender</label>
@@ -1756,6 +1756,22 @@ window.addEventListener('resize', updateStage);
 updateStage();
 
 // "Summon three agents" — validate, submit to SidecarLeads, then animate
+// ── DOB auto-format MM / DD / YYYY ───────────────────────────────────────────
+function formatDob(el) {
+  const pos = el.selectionStart;
+  const prev = el.value;
+  // Strip everything except digits
+  const digits = prev.replace(/\D/g, '').slice(0, 8);
+  let out = '';
+  if (digits.length > 4)      out = digits.slice(0,2) + ' / ' + digits.slice(2,4) + ' / ' + digits.slice(4);
+  else if (digits.length > 2) out = digits.slice(0,2) + ' / ' + digits.slice(2);
+  else                        out = digits;
+  el.value = out;
+  // Restore cursor — move forward past separators when inserting
+  const added = out.length - prev.length;
+  el.setSelectionRange(pos + added, pos + added);
+}
+
 // ── Medications "other" reveal ────────────────────────────────────────────────
 function toggleMedsOther(val) {
   const row = document.getElementById('aj-meds-other-row');
