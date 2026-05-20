@@ -42,45 +42,36 @@ function header() {
 </header>`
 }
 
+const FOOTER_CSS = `
+.site-footer { background:#14110d; border-top:1px solid rgba(245,241,232,.07); padding:48px 40px 32px; }
+.site-footer-inner { max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; margin-bottom:20px; }
+.site-footer-inner:last-child { margin-bottom:0; }
+.site-footer-logo { font-family:'Fraunces',serif; font-size:18px; font-weight:500; color:#f5f1e8; text-decoration:none; }
+.site-footer-logo em { font-style:italic; color:#c8281c; }
+.site-footer-nav { display:flex; gap:28px; flex-wrap:wrap; }
+.site-footer-nav a { font-size:13px; color:rgba(245,241,232,.4); text-decoration:none; transition:color .2s; }
+.site-footer-nav a:hover { color:rgba(245,241,232,.75); }
+.site-footer-copy { font-size:12px; color:rgba(245,241,232,.25); margin:0; }`
+
 function footer() {
-  return `<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div class="foot-about">
-        <a href="/" class="logo" style="color:var(--cream);margin-bottom:16px;">
-          <span class="logo-mark" style="background:var(--cream);color:var(--ink);">AJ</span>
-          AgentJoust
-        </a>
-        <p>An independent platform where life insurance agents compete for your business — transparently, on your terms. We never sell policies. We create competition.</p>
-      </div>
-      <div class="foot-col">
-        <h5>For consumers</h5>
-        <a href="/how-it-works/">How it works</a>
-        <a href="/faq/">FAQ</a>
-        <a href="/about/">About</a>
-      </div>
-      <div class="foot-col">
-        <h5>For agents</h5>
-        <a href="/for-agents/">Why join</a>
-        <a href="/agents/apply/">Apply to join</a>
-        <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
-      </div>
-      <div class="foot-col">
-        <h5>Company</h5>
-        <a href="/contact/">Contact</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
-        <a href="/tcpa/">TCPA disclosure</a>
-      </div>
-    </div>
-    <div class="foot-bottom">
-      <span>© ${new Date().getFullYear()} AgentJoust. Independent agent competition platform.</span>
-      <span>Licensed agents in all 50 states</span>
-    </div>
+  return `<footer class="site-footer">
+  <div class="site-footer-inner">
+    <a href="/" class="site-footer-logo">Agent <em>Joust</em></a>
+    <nav class="site-footer-nav">
+      <a href="/">Home</a>
+      <a href="/#how-it-works">How it works</a>
+      <a href="/for-agents/">For agents</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
+    </nav>
+  </div>
+  <div class="site-footer-inner">
+    <p class="site-footer-copy">© ${new Date().getFullYear()} Agent Joust — A product of Addison Myers Group LLC. Not affiliated with any carrier.</p>
   </div>
 </footer>`
 }
 
 const GLOBAL_SCRIPTS = `<script src="/js/global.js"></script>`
 
-module.exports = { head, header, footer, GLOBAL_SCRIPTS }
+module.exports = { head, header, footer, FOOTER_CSS, GLOBAL_SCRIPTS }

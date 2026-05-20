@@ -1,5 +1,7 @@
 'use strict'
 
+const { footer, FOOTER_CSS } = require('./layout')
+
 function homepage(config) {
   const apiUrl = config.apiUrl || 'https://sidecarleads.com'
 
@@ -1287,8 +1289,8 @@ body::after {
   .cell { padding: 16px 14px; font-size: 13px; }
   .how-section, .why-section { padding: 80px 20px; }
   .final-cta { margin: 0 20px 20px; padding: 80px 24px; }
-  .footer { padding: 30px 20px; }
 }
+${FOOTER_CSS}
 </style>
 </head>
 <body>
@@ -1792,16 +1794,7 @@ body::after {
 </section>
 
 <!-- FOOTER -->
-<footer class="footer">
-  <div>© ${new Date().getFullYear()} AgentJoust. All rights reserved.</div>
-  <div class="footer-links">
-    <a href="/privacy/">Privacy</a>
-    <a href="/terms/">Terms</a>
-    <a href="/tcpa/">TCPA</a>
-    <a href="/for-agents/">For agents</a>
-  </div>
-  <div class="footer-fine">NOT INSURANCE · A LEAD-MATCHING SERVICE</div>
-</footer>
+${footer()}
 
 
 <script>

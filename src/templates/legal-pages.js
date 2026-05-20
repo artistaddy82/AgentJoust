@@ -4,7 +4,7 @@
  * Company: Addison Myers Group LLC
  */
 
-const { head, header, GLOBAL_SCRIPTS } = require('./layout')
+const { head, header, footer, FOOTER_CSS, GLOBAL_SCRIPTS } = require('./layout')
 
 const YEAR    = new Date().getFullYear()
 const COMPANY = 'Addison Myers Group LLC'
@@ -48,20 +48,8 @@ ${header()}
     </p>
   </div>
 </main>
-<footer style="background:#14110d;border-top:1px solid rgba(245,241,232,.07);padding:48px 40px 32px;">
-  <div style="max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;margin-bottom:24px;">
-    <a href="/" style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:#f5f1e8;text-decoration:none;">Agent <em style="font-style:italic;color:#c8281c;">Joust</em></a>
-    <nav style="display:flex;gap:28px;flex-wrap:wrap;">
-      <a href="/" style="font-size:13px;color:rgba(245,241,232,.4);text-decoration:none;">Home</a>
-      <a href="/#how-it-works" style="font-size:13px;color:rgba(245,241,232,.4);text-decoration:none;">How it works</a>
-      <a href="/for-agents/" style="font-size:13px;color:rgba(245,241,232,.4);text-decoration:none;">For agents</a>
-      <a href="https://sidecarleads.com/login" target="_blank" rel="noopener" style="font-size:13px;color:rgba(245,241,232,.4);text-decoration:none;">Agent login</a>
-    </nav>
-  </div>
-  <div style="max-width:1280px;margin:0 auto;">
-    <p style="font-size:12px;color:rgba(245,241,232,.25);margin:0;">© ${YEAR} AgentJoust — Independent agent competition platform. Not affiliated with any carrier.</p>
-  </div>
-</footer>
+<style>${FOOTER_CSS}</style>
+${footer()}
 ${GLOBAL_SCRIPTS}
 </body>
 </html>`

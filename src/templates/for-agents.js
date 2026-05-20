@@ -1,5 +1,7 @@
 'use strict'
 
+const { footer, FOOTER_CSS } = require('./layout')
+
 function forAgents(config) {
   const apiUrl = config.apiUrl || 'https://sidecarleads.com'
 
@@ -838,6 +840,7 @@ body::after {
   .how-section, .apply-section { padding: 72px 20px; }
   .numbers-strip { padding: 48px 20px; }
 }
+${FOOTER_CSS}
 </style>
 </head>
 <body>
@@ -1197,22 +1200,7 @@ body::after {
 </section>
 
 <!-- ══ FOOTER ══ -->
-<footer class="footer">
-  <div class="footer-inner">
-    <a href="/" class="footer-logo">
-      Agent <em>Joust</em>
-    </a>
-    <nav class="footer-links">
-      <a href="/">Home</a>
-      <a href="/#how-it-works">How it works</a>
-      <a href="/for-agents/">For agents</a>
-      <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
-    </nav>
-  </div>
-  <div class="footer-inner">
-    <p class="footer-copy">© ${new Date().getFullYear()} AgentJoust — Independent agent competition platform. Not affiliated with any carrier.</p>
-  </div>
-</footer>
+${footer()}
 
 <script>
 // ── Nav scroll state ──────────────────────────────────────────────────────────
