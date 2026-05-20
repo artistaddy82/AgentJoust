@@ -8,7 +8,8 @@ const { head, header, GLOBAL_SCRIPTS } = require('./layout')
 
 const YEAR    = new Date().getFullYear()
 const COMPANY = 'Addison Myers Group LLC'
-const BRAND   = 'AgentJoust'
+const BRAND   = 'Agent Joust'
+const BYLINE  = 'Agent Joust — A product of Addison Myers Group LLC'
 const DOMAIN  = 'agentjoust.com'
 const EMAIL   = 'hello@agentjoust.com'
 
@@ -23,7 +24,7 @@ ${header()}
     <div style="margin-bottom:40px;">
       <div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--sage,#2d5a3d);margin-bottom:8px;">${BRAND}</div>
       <h1 style="font-family:'Fraunces',serif;font-size:clamp(28px,5vw,44px);font-weight:700;color:var(--ink,#14110d);margin:0 0 12px;">${title}</h1>
-      <p style="font-size:13px;color:#6b6253;margin:0;">Last updated: ${YEAR} &nbsp;·&nbsp; ${COMPANY}</p>
+      <p style="font-size:13px;color:#6b6253;margin:0;">Last updated: ${YEAR} &nbsp;·&nbsp; ${BYLINE}</p>
     </div>
 
     <div style="background:#fff;border-radius:12px;padding:40px 48px;box-shadow:0 1px 3px rgba(0,0,0,.06);">
@@ -74,7 +75,7 @@ function privacy({ siteUrl }) {
     canonical:   `${siteUrl}/privacy/`,
     html: `
 <h2>Overview</h2>
-<p>${BRAND} ("we," "us," "our") is a product of ${COMPANY}. This Privacy Policy explains how we collect, use, and protect information you provide when using ${DOMAIN} and its subdomains (the "Platform").</p>
+<p>${BYLINE}. This Privacy Policy explains how we collect, use, and protect information you provide when using ${DOMAIN} and its subdomains (the "Platform").</p>
 <div class="callout">
   <strong>Core promise:</strong> Your contact information is sealed the moment you submit a joust request. The two agents you don't choose <em>never</em> see it. Only your chosen winner receives your name, email, and phone number.
 </div>
@@ -118,7 +119,7 @@ function privacy({ siteUrl }) {
 <p>We may update this policy periodically. Material changes will be posted here with an updated date. Continued use of the Platform after changes constitutes acceptance.</p>
 
 <h2>Contact</h2>
-<p><strong>${BRAND}</strong> · ${COMPANY}<br>
+<p><strong>${BYLINE}</strong><br>
 Email: <a href="mailto:${EMAIL}">${EMAIL}</a></p>
 `,
   })
@@ -132,7 +133,7 @@ function terms({ siteUrl }) {
     canonical:   `${siteUrl}/terms/`,
     html: `
 <h2>Agreement</h2>
-<p>By using ${DOMAIN} or any subdomain (the "Platform"), you agree to these Terms of Service ("Terms") with ${COMPANY}, the operator of ${BRAND}. If you do not agree, do not use the Platform.</p>
+<p>By using ${DOMAIN} or any subdomain (the "Platform"), you agree to these Terms of Service ("Terms") with ${BYLINE}. If you do not agree, do not use the Platform.</p>
 
 <h2>What ${BRAND} Is</h2>
 <p>${BRAND} is a neutral marketplace where consumers solicit life insurance proposals from independent licensed agents. We are <strong>not</strong> an insurance company, insurer, or licensed insurance agent. We do not underwrite, issue, or sell insurance policies. We create the competitive environment; the agent you select is solely responsible for any policy they quote or place.</p>
@@ -174,13 +175,13 @@ function terms({ siteUrl }) {
 <p>You agree to indemnify and hold harmless ${COMPANY} and its officers, employees, and agents from any claims, losses, or damages arising from your use of the Platform or violation of these Terms.</p>
 
 <h2>Governing Law</h2>
-<p>These Terms are governed by the laws of the State of Florida. Any disputes shall be resolved in the courts of Florida.</p>
+<p>These Terms are governed by the laws of the State of North Carolina. Any disputes shall be resolved in the courts of North Carolina.</p>
 
 <h2>Changes to Terms</h2>
 <p>We may update these Terms at any time. Continued use of the Platform after changes constitutes acceptance of the revised Terms.</p>
 
 <h2>Contact</h2>
-<p><strong>${BRAND}</strong> · ${COMPANY}<br>
+<p><strong>${BYLINE}</strong><br>
 Email: <a href="mailto:${EMAIL}">${EMAIL}</a></p>
 `,
   })
@@ -229,7 +230,7 @@ function tcpa({ siteUrl }) {
 
 <h2>Contact</h2>
 <p>For questions about this disclosure or to exercise your rights, contact:</p>
-<p><strong>${BRAND}</strong> · ${COMPANY}<br>
+<p><strong>${BYLINE}</strong><br>
 Email: <a href="mailto:${EMAIL}">${EMAIL}</a></p>
 `,
   })
