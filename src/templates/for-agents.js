@@ -1,6 +1,6 @@
 'use strict'
 
-const { footer, FOOTER_CSS } = require('./layout')
+const { header, footer, NAV_CSS, NAV_SCRIPT, FOOTER_CSS } = require('./layout')
 
 function forAgents(config) {
   const apiUrl = config.apiUrl || 'https://sidecarleads.com'
@@ -840,28 +840,14 @@ body::after {
   .how-section, .apply-section { padding: 72px 20px; }
   .numbers-strip { padding: 48px 20px; }
 }
+${NAV_CSS}
 ${FOOTER_CSS}
 </style>
 </head>
 <body>
 
 <!-- ══ NAV ══ -->
-<nav class="nav" id="nav">
-  <a href="/" class="logo">
-    <svg viewBox="0 0 28 28" fill="none" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 25 L12 16 M25 3 L16 12" stroke="#14110d" stroke-width="2.2" stroke-linecap="round"/>
-      <circle cx="14" cy="14" r="2.8" fill="#c8281c"/>
-      <path d="M1 27 L5 23 M23 5 L27 1" stroke="#c8281c" stroke-width="1.8" stroke-linecap="round"/>
-    </svg>
-    Agent <span class="logo-joust">Joust</span>
-  </a>
-  <div class="nav-links">
-    <a href="/#how-it-works">How it works</a>
-    <a href="/for-agents/" aria-current="page">For agents</a>
-    <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
-    <a href="/#start" class="nav-cta">Get 3 quotes</a>
-  </div>
-</nav>
+${header()}
 
 <!-- ══ HERO ══ -->
 <section class="hero">
@@ -1203,11 +1189,7 @@ ${FOOTER_CSS}
 ${footer()}
 
 <script>
-// ── Nav scroll state ──────────────────────────────────────────────────────────
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
+// Nav scroll state handled by NAV_SCRIPT (injected after body)
 
 // ── Smooth scroll for anchor links ───────────────────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -1270,7 +1252,7 @@ document.getElementById('agentApplyForm').addEventListener('submit', async funct
   }
 });
 </script>
-
+${NAV_SCRIPT}
 </body>
 </html>`
 }

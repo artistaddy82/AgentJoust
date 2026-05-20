@@ -4,7 +4,7 @@
  * Company: Addison Myers Group LLC
  */
 
-const { head, header, footer, FOOTER_CSS, GLOBAL_SCRIPTS } = require('./layout')
+const { head, header, footer, NAV_CSS, NAV_SCRIPT, FOOTER_CSS, GLOBAL_SCRIPTS } = require('./layout')
 
 const YEAR    = new Date().getFullYear()
 const COMPANY = 'Addison Myers Group LLC'
@@ -15,7 +15,7 @@ const EMAIL   = 'hello@agentjoust.com'
 
 // Shared prose wrapper
 function legalShell({ title, description, canonical, slug, html }) {
-  return `${head({ title: `${title} · ${BRAND}`, description, canonical })}
+  return `${head({ title: `${title} · ${BRAND}`, description, canonical, extraHead: `<style>${NAV_CSS}${FOOTER_CSS}</style>` })}
 <body>
 ${header()}
 <main style="padding-top:80px;min-height:100vh;background:var(--cream,#f5f1e8);">
@@ -48,8 +48,8 @@ ${header()}
     </p>
   </div>
 </main>
-<style>${FOOTER_CSS}</style>
 ${footer()}
+${NAV_SCRIPT}
 ${GLOBAL_SCRIPTS}
 </body>
 </html>`

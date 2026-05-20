@@ -1,6 +1,6 @@
 'use strict'
 
-const { footer, FOOTER_CSS } = require('./layout')
+const { header, footer, NAV_CSS, NAV_SCRIPT, FOOTER_CSS } = require('./layout')
 
 function homepage(config) {
   const apiUrl = config.apiUrl || 'https://sidecarleads.com'
@@ -1290,29 +1290,14 @@ body::after {
   .how-section, .why-section { padding: 80px 20px; }
   .final-cta { margin: 0 20px 20px; padding: 80px 24px; }
 }
+${NAV_CSS}
 ${FOOTER_CSS}
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="logo">
-    <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M4 28 L14 18 M28 4 L18 14" stroke="#14110d" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="16" cy="16" r="3" fill="#c8281c"/>
-      <path d="M2 30 L6 26 M26 6 L30 2" stroke="#c8281c" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    Agent<span>Joust</span>
-  </div>
-  <div class="nav-links">
-    <a href="#how">How it works</a>
-    <a href="#why">Why us</a>
-    <a href="/for-agents/">For agents</a>
-    <a href="${config.myUrl || 'https://my.agentjoust.com'}" class="nav-my-quotes">My Quotes</a>
-  </div>
-  <button class="nav-cta" onclick="scrollToForm()">Get 3 quotes</button>
-</nav>
+${header()}
 
 <!-- HERO -->
 <section class="hero">
@@ -1718,7 +1703,7 @@ ${FOOTER_CSS}
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="how-section" id="how">
+<section class="how-section" id="how-it-works">
   <div class="section-tag">⚔ The Rules</div>
   <h2 class="section-title">A reverse auction for <em>your</em> business — not the other way around.</h2>
 
@@ -1800,11 +1785,7 @@ ${footer()}
 <script>
 const API_URL = '${apiUrl}';
 
-// Nav scroll state
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-});
+// Nav scroll state handled by NAV_SCRIPT (injected after body)
 
 // Scroll to form/stage
 function scrollToForm() {
@@ -2039,7 +2020,7 @@ function advanceStage() {
   });
 }
 </script>
-
+${NAV_SCRIPT}
 </body>
 </html>`
 }
