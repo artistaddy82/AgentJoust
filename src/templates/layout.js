@@ -63,6 +63,7 @@ function footer() {
       <a href="/for-agents/">For agents</a>
       <a href="/privacy/">Privacy</a>
       <a href="/terms/">Terms</a>
+      <a href="/tcpa/">TCPA</a>
       <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
     </nav>
   </div>
