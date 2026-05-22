@@ -1554,32 +1554,34 @@ ${header()}
             </div>
             <div class="form-field">
               <label>Health, generally</label>
-              <select id="aj-health">
-                <option value="excellent">Excellent</option>
-                <option value="good">Good</option>
-                <option value="average">Average</option>
-                <option value="fair">Fair / some conditions</option>
-              </select>
+              <div class="med-pills" id="aj-health-pills">
+                <button type="button" class="med-pill med-pill--on" data-val="excellent" onclick="pickHealth(this)"><span class="med-pill-check">✓</span> Excellent</button>
+                <button type="button" class="med-pill" data-val="good"    onclick="pickHealth(this)">Good</button>
+                <button type="button" class="med-pill" data-val="average" onclick="pickHealth(this)">Average</button>
+                <button type="button" class="med-pill" data-val="fair"    onclick="pickHealth(this)">Fair / some conditions</button>
+              </div>
+              <input type="hidden" id="aj-health" value="excellent" />
             </div>
           </div>
           <div class="form-row full">
             <div class="form-field">
-              <label>Prescription medications</label>
-              <select id="aj-meds" onchange="toggleMedsOther(this.value)">
-                <option value="none">None currently</option>
-                <option value="bp_chol">Blood pressure / Cholesterol</option>
-                <option value="diabetes">Diabetes (Type 1 or 2)</option>
-                <option value="heart">Heart / Cardiovascular</option>
-                <option value="mental_health">Mental health (anxiety, depression, etc.)</option>
-                <option value="cancer">Cancer history</option>
-                <option value="other">Other / Multiple conditions</option>
-              </select>
+              <label>Prescription medications <span class="label-hint">Select all that apply</span></label>
+              <div class="med-pills" id="aj-meds-pills">
+                <button type="button" class="med-pill med-pill--on" data-val="none"          onclick="toggleMedPill(this)"><span class="med-pill-check">✓</span> None currently</button>
+                <button type="button" class="med-pill" data-val="bp_chol"       onclick="toggleMedPill(this)">Blood pressure / Cholesterol</button>
+                <button type="button" class="med-pill" data-val="diabetes"      onclick="toggleMedPill(this)">Diabetes</button>
+                <button type="button" class="med-pill" data-val="heart"         onclick="toggleMedPill(this)">Heart / Cardiovascular</button>
+                <button type="button" class="med-pill" data-val="mental_health" onclick="toggleMedPill(this)">Mental health</button>
+                <button type="button" class="med-pill" data-val="thyroid"       onclick="toggleMedPill(this)">Thyroid</button>
+                <button type="button" class="med-pill" data-val="cancer"        onclick="toggleMedPill(this)">Cancer history</button>
+                <button type="button" class="med-pill" data-val="other"         onclick="toggleMedPill(this)">Other</button>
+              </div>
             </div>
           </div>
           <div class="form-row full" id="aj-meds-other-row" style="display:none;margin-top:-4px;">
             <div class="form-field">
               <label>Please describe</label>
-              <input type="text" id="aj-meds-other" placeholder="e.g. thyroid, asthma, ADHD…" />
+              <input type="text" id="aj-meds-other" placeholder="e.g. asthma, ADHD, arthritis…" />
             </div>
           </div>
 
@@ -1881,11 +1883,58 @@ function formatDob(el) {
   el.setSelectionRange(out.length, out.length);
 }
 
-// ── Medications "other" reveal ────────────────────────────────────────────────
-function toggleMedsOther(val) {
-  const row = document.getElementById('aj-meds-other-row');
-  row.style.display = val === 'other' ? 'grid' : 'none';
-  if (val !== 'other') document.getElementById('aj-meds-other').value = '';
+// ── Health single-select pills ────────────────────────────────────────────────
+function pickHealth(el) {
+  document.querySelectorAll('#aj-health-pills .med-pill').forEach(b => {
+    b.classList.remove('med-pill--on');
+    const ck = b.querySelector('.med-pill-check');
+    if (ck) ck.remove();
+  });
+  el.classList.add('med-pill--on');
+  el.insertAdjacentHTML('afterbegin', '<span class="med-pill-check">✓</span> ');
+  document.getElementById('aj-health').value = el.dataset.val;
+}
+
+// ── Medication multi-select pills ─────────────────────────────────────────────
+function toggleMedPill(el) {
+  const val      = el.dataset.val;
+  const pills    = document.querySelectorAll('#aj-meds-pills .med-pill');
+  const nonePill = document.querySelector('#aj-meds-pills [data-val="none"]');
+
+  function pillOn(btn) {
+    if (!btn.querySelector('.med-pill-check')) {
+      btn.insertAdjacentHTML('afterbegin', '<span class="med-pill-check">✓</span> ');
+    }
+    btn.classList.add('med-pill--on');
+  }
+  function pillOff(btn) {
+    const ck = btn.querySelector('.med-pill-check');
+    if (ck) ck.remove();
+    btn.classList.remove('med-pill--on');
+  }
+
+  if (val === 'none') {
+    pills.forEach(pillOff);
+    pillOn(nonePill);
+    document.getElementById('aj-meds-other-row').style.display = 'none';
+    document.getElementById('aj-meds-other').value = '';
+    return;
+  }
+
+  // Deselect "none" when picking a specific med
+  pillOff(nonePill);
+
+  // Toggle the clicked pill
+  el.classList.contains('med-pill--on') ? pillOff(el) : pillOn(el);
+
+  // If nothing remains selected, fall back to "none"
+  const anyOn = [...pills].some(b => b !== nonePill && b.classList.contains('med-pill--on'));
+  if (!anyOn) pillOn(nonePill);
+
+  // Show / hide "other" free-text field
+  const otherOn = document.querySelector('#aj-meds-pills [data-val="other"]').classList.contains('med-pill--on');
+  document.getElementById('aj-meds-other-row').style.display = otherOn ? 'grid' : 'none';
+  if (!otherOn) document.getElementById('aj-meds-other').value = '';
 }
 
 // ── 3-part form navigation ────────────────────────────────────────────────────
@@ -1970,8 +2019,8 @@ function advanceStage() {
   const type     = document.getElementById('aj-type').value;
   const term     = document.getElementById('aj-term').value;
   const tobacco  = document.getElementById('aj-tobacco').value;
-  const health   = document.getElementById('aj-health').value;
-  const meds      = document.getElementById('aj-meds').value;
+  const health    = document.getElementById('aj-health').value;
+  const meds      = [...document.querySelectorAll('#aj-meds-pills .med-pill--on')].map(b => b.dataset.val);
   const medsOther = document.getElementById('aj-meds-other').value.trim();
   const state     = document.getElementById('aj-state').value;
 
@@ -2010,7 +2059,9 @@ function advanceStage() {
       term_length:     term,
       tobacco_use:     tobacco,
       health_class:    health,
-      medications:     meds === 'other' && medsOther ? medsOther : meds,
+      medications:     meds.includes('other') && medsOther
+        ? [...meds.filter(v => v !== 'other'), medsOther].join(', ')
+        : meds.join(', '),
       state,
     }),
   })
