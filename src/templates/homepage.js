@@ -2143,8 +2143,8 @@ function advanceStage() {
   const btn = document.querySelector('.form-submit');
   if (btn) { btn.disabled = true; btn.textContent = 'Launching your joust…'; }
 
-  // Submit to my.agentjoust.com — generates unique token & sends magic link email
-  fetch('${config.myUrl || 'https://my.agentjoust.com'}/api/submit', {
+  // Submit to AgentJoust API — generates unique token & sends magic link email
+  fetch('${config.myUrl || 'https://clownfish-app-dfa3s.ondigitalocean.app'}/api/submit', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
