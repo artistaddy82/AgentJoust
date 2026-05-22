@@ -698,6 +698,60 @@ body::after {
 .dob-split input:last-child   { max-width: 84px; }
 .dob-sep { color: var(--muted); font-size: 18px; line-height: 1; flex-shrink: 0; }
 
+/* ── Panel 4: Success ── */
+.success-sword {
+  font-size: 52px; line-height: 1; text-align: center; margin-bottom: 14px;
+  animation: swordPop .55s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes swordPop {
+  from { opacity: 0; transform: scale(.3) rotate(-25deg); }
+  65%  { transform: scale(1.18) rotate(6deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.success-agents {
+  display: flex; gap: 10px; margin: 4px 0 0;
+}
+.success-agent {
+  flex: 1; background: #ede8dd; border: 1px solid var(--paper-deep);
+  border-radius: 14px; padding: 18px 8px 14px; text-align: center;
+  opacity: 0; animation: agentUp .45s cubic-bezier(.22,1,.36,1) both;
+}
+.sa-d1 { animation-delay: .28s; }
+.sa-d2 { animation-delay: .44s; }
+.sa-d3 { animation-delay: .60s; }
+@keyframes agentUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sa-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--paper-deep); border: 2px dashed rgba(20,17,13,.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; color: var(--muted); margin: 0 auto 10px;
+}
+.sa-name {
+  font-size: 11px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-soft); margin-bottom: 5px;
+}
+.sa-building {
+  font-size: 10px; color: var(--green); font-family: 'JetBrains Mono', monospace;
+  animation: blink 1.4s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: .35; } }
+.redirect-bar-wrap {
+  height: 3px; background: var(--paper-deep); border-radius: 2px;
+  margin: 18px 0 6px; overflow: hidden;
+}
+.redirect-bar {
+  height: 100%; background: var(--green); border-radius: 2px;
+  width: 100%; transform-origin: left;
+  animation: drainBar 5s linear both;
+}
+@keyframes drainBar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+.redirect-note {
+  text-align: center; font-size: 12px; color: var(--muted); letter-spacing: .02em;
+}
+
 /* ── Buttons ── */
 .form-next, .form-submit {
   width: 100%;
@@ -1649,6 +1703,40 @@ ${header()}
           </p>
         </div>
 
+        <!-- ── Panel 4: Success ── -->
+        <div class="form-panel" id="panel4">
+          <div class="success-sword">⚔</div>
+          <div class="panel-title" style="text-align:center;">Your Joust<br/>is <em>live!</em></div>
+          <p class="panel-sub" style="text-align:center;margin-bottom:20px;">Three licensed agents are now building competing proposals — completely blind to each other.</p>
+
+          <div class="success-agents">
+            <div class="success-agent sa-d1">
+              <div class="sa-avatar">?</div>
+              <div class="sa-name">Agent #1</div>
+              <div class="sa-building">⚔ Building…</div>
+            </div>
+            <div class="success-agent sa-d2">
+              <div class="sa-avatar">?</div>
+              <div class="sa-name">Agent #2</div>
+              <div class="sa-building">⚔ Building…</div>
+            </div>
+            <div class="success-agent sa-d3">
+              <div class="sa-avatar">?</div>
+              <div class="sa-name">Agent #3</div>
+              <div class="sa-building">⚔ Building…</div>
+            </div>
+          </div>
+
+          <a href="#" id="joust-room-link" class="form-submit" style="display:block;text-align:center;text-decoration:none;margin-top:20px;">
+            Enter My Joust Room →
+          </a>
+
+          <div class="redirect-bar-wrap">
+            <div class="redirect-bar" id="redirect-bar"></div>
+          </div>
+          <p class="redirect-note">Taking you there in <span id="redirect-count">5</span>s</p>
+        </div>
+
       </div>
     </div>
 
@@ -2004,6 +2092,18 @@ function goToPanel(n) {
     tab.classList.toggle('active', i === n);
     tab.classList.toggle('done',   i < n);
   });
+  // Panel 4: success state — all tabs done, show panel4
+  const p4 = document.getElementById('panel4');
+  if (p4) p4.classList.toggle('active', n === 4);
+  if (n === 4) {
+    [1,2,3].forEach(i => {
+      const tab = document.getElementById('tab' + i);
+      tab.classList.remove('active');
+      tab.classList.add('done');
+      const num = tab.querySelector('.step-tab-num');
+      if (num) num.textContent = '✓';
+    });
+  }
 }
 
 function advanceStage() {
@@ -2069,7 +2169,22 @@ function advanceStage() {
   .then(r => r.json())
   .then(json => {
     if (json.joustUrl) {
-      window.location.href = json.joustUrl;
+      // Wire up CTA link
+      const link = document.getElementById('joust-room-link');
+      if (link) link.href = json.joustUrl;
+      // Show success panel
+      goToPanel(4);
+      // Scroll form-block into view
+      const fb = document.getElementById('formBlock');
+      if (fb) fb.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // 5-second countdown then redirect
+      let secs = 5;
+      const countEl = document.getElementById('redirect-count');
+      const timer = setInterval(() => {
+        secs--;
+        if (countEl) countEl.textContent = secs;
+        if (secs <= 0) { clearInterval(timer); window.location.href = json.joustUrl; }
+      }, 1000);
     } else {
       throw new Error(json.error || 'No joust URL returned');
     }
