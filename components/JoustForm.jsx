@@ -34,6 +34,15 @@ export default function JoustForm() {
     if (k === 'medications') setShowMedsOther(val === 'other')
   }
 
+  // Auto-formats DOB as MM / DD / YYYY — strips non-digits then rebuilds separators
+  const handleDob = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 8)
+    let out = digits.slice(0, 2)
+    if (digits.length > 2) out += ' / ' + digits.slice(2, 4)
+    if (digits.length > 4) out += ' / ' + digits.slice(4, 8)
+    setFields(f => ({ ...f, dob: out }))
+  }
+
   const goNext = () => {
     if (step === 2 && !fields.dob) {
       setError('Please enter your date of birth.')
@@ -155,9 +164,10 @@ export default function JoustForm() {
                 <label>Date of birth</label>
                 <input
                   type="text"
+                  inputMode="numeric"
                   placeholder="MM / DD / YYYY"
                   value={fields.dob}
-                  onChange={set('dob')}
+                  onChange={handleDob}
                 />
               </div>
               <div className="form-field">
