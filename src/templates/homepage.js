@@ -671,6 +671,24 @@ body::after {
   background: #fff;
 }
 .form-field input::placeholder { color: rgba(20,17,13,.3); }
+.label-hint { font-size: 9px; color: rgba(20,17,13,.4); text-transform: none; letter-spacing: 0; margin-left: 6px; font-family: inherit; }
+
+/* ── Medication pills ── */
+.med-pills { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 2px; }
+.med-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 14px;
+  border: 1px solid rgba(20,17,13,.18);
+  border-radius: 20px;
+  font-size: 13px; font-family: inherit;
+  background: var(--paper); color: var(--ink);
+  cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.med-pill:hover { border-color: rgba(20,17,13,.4); background: #f0ede6; }
+.med-pill--on { background: var(--ink); color: #f5f1e8; border-color: var(--ink); }
+.med-pill--on:hover { background: #2a2520; }
+.med-pill-check { font-size: 11px; line-height: 1; }
 
 /* ── Buttons ── */
 .form-next, .form-submit {

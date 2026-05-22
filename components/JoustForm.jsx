@@ -4,12 +4,24 @@ import { useRouter } from 'next/navigation'
 
 const PANELS = ['Coverage', 'Health', 'Contact']
 
+const MED_OPTIONS = [
+  { value: 'none',          label: 'None currently' },
+  { value: 'bp_chol',       label: 'Blood pressure / Cholesterol' },
+  { value: 'diabetes',      label: 'Diabetes' },
+  { value: 'heart',         label: 'Heart / Cardiovascular' },
+  { value: 'mental_health', label: 'Mental health' },
+  { value: 'thyroid',       label: 'Thyroid' },
+  { value: 'cancer',        label: 'Cancer history' },
+  { value: 'other',         label: 'Other' },
+]
+
 export default function JoustForm() {
   const router = useRouter()
   const [step, setStep]       = useState(1)
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
-  const [showMedsOther, setShowMedsOther] = useState(false)
+  // derived — no state needed
+  // const showMedsOther is computed inline
 
   // Field state
   const [fields, setFields] = useState({
@@ -20,7 +32,7 @@ export default function JoustForm() {
     gender: 'male',
     tobacco: 'never',
     health: 'excellent',
-    medications: 'none',
+    medications: ['none'],
     medsOther: '',
     firstName: '',
     lastName: '',
@@ -31,7 +43,18 @@ export default function JoustForm() {
   const set = (k) => (e) => {
     const val = e.target.value
     setFields(f => ({ ...f, [k]: val }))
-    if (k === 'medications') setShowMedsOther(val === 'other')
+  }
+
+  const toggleMed = (val) => {
+    setFields(f => {
+      const cur = f.medications
+      if (val === 'none') return { ...f, medications: ['none'] }
+      const withoutNone = cur.filter(v => v !== 'none')
+      const next = withoutNone.includes(val)
+        ? withoutNone.filter(v => v !== val)
+        : [...withoutNone, val]
+      return { ...f, medications: next.length === 0 ? ['none'] : next }
+    })
   }
 
   // Auto-formats DOB as MM / DD / YYYY — strips non-digits then rebuilds separators
@@ -64,9 +87,9 @@ export default function JoustForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...fields,
-          medications: fields.medications === 'other' && fields.medsOther
-            ? fields.medsOther
-            : fields.medications,
+          medications: fields.medications.includes('other') && fields.medsOther
+            ? [...fields.medications.filter(v => v !== 'other'), fields.medsOther].join(', ')
+            : fields.medications.join(', '),
         }),
       })
       const data = await res.json()
@@ -200,25 +223,32 @@ export default function JoustForm() {
             </div>
             <div className="form-row full">
               <div className="form-field">
-                <label>Prescription medications</label>
-                <select value={fields.medications} onChange={set('medications')}>
-                  <option value="none">None currently</option>
-                  <option value="bp_chol">Blood pressure / Cholesterol</option>
-                  <option value="diabetes">Diabetes (Type 1 or 2)</option>
-                  <option value="heart">Heart / Cardiovascular</option>
-                  <option value="mental_health">Mental health (anxiety, depression, etc.)</option>
-                  <option value="cancer">Cancer history</option>
-                  <option value="other">Other / Multiple conditions</option>
-                </select>
+                <label>Prescription medications <span className="label-hint">Select all that apply</span></label>
+                <div className="med-pills">
+                  {MED_OPTIONS.map(opt => {
+                    const checked = fields.medications.includes(opt.value)
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        className={`med-pill${checked ? ' med-pill--on' : ''}`}
+                        onClick={() => toggleMed(opt.value)}
+                      >
+                        {checked && <span className="med-pill-check">✓</span>}
+                        {opt.label}
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
             </div>
-            {showMedsOther && (
+            {fields.medications.includes('other') && (
               <div className="form-row full" style={{ marginTop: '-4px' }}>
                 <div className="form-field">
                   <label>Please describe</label>
                   <input
                     type="text"
-                    placeholder="e.g. thyroid, asthma, ADHD…"
+                    placeholder="e.g. asthma, ADHD, arthritis…"
                     value={fields.medsOther}
                     onChange={set('medsOther')}
                   />
