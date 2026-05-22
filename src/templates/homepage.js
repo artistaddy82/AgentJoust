@@ -1554,13 +1554,12 @@ ${header()}
             </div>
             <div class="form-field">
               <label>Health, generally</label>
-              <div class="med-pills" id="aj-health-pills">
-                <button type="button" class="med-pill med-pill--on" data-val="excellent" onclick="pickHealth(this)"><span class="med-pill-check">✓</span> Excellent</button>
-                <button type="button" class="med-pill" data-val="good"    onclick="pickHealth(this)">Good</button>
-                <button type="button" class="med-pill" data-val="average" onclick="pickHealth(this)">Average</button>
-                <button type="button" class="med-pill" data-val="fair"    onclick="pickHealth(this)">Fair / some conditions</button>
-              </div>
-              <input type="hidden" id="aj-health" value="excellent" />
+              <select id="aj-health">
+                <option value="excellent">Excellent</option>
+                <option value="good">Good</option>
+                <option value="average">Average</option>
+                <option value="fair">Fair / some conditions</option>
+              </select>
             </div>
           </div>
           <div class="form-row full">
@@ -1873,26 +1872,12 @@ updateStage();
 // "Summon three agents" — validate, submit to SidecarLeads, then animate
 // ── DOB auto-format MM / DD / YYYY ───────────────────────────────────────────
 function formatDob(el) {
-  // Strip everything except digits, cap at 8
   const digits = el.value.replace(/\D/g, '').slice(0, 8);
   let out = digits.slice(0, 2);
   if (digits.length > 2) out += ' / ' + digits.slice(2, 4);
   if (digits.length > 4) out += ' / ' + digits.slice(4, 8);
-  el.value = out;
-  // Always place cursor at end — DOB is always typed left-to-right
-  el.setSelectionRange(out.length, out.length);
-}
-
-// ── Health single-select pills ────────────────────────────────────────────────
-function pickHealth(el) {
-  document.querySelectorAll('#aj-health-pills .med-pill').forEach(b => {
-    b.classList.remove('med-pill--on');
-    const ck = b.querySelector('.med-pill-check');
-    if (ck) ck.remove();
-  });
-  el.classList.add('med-pill--on');
-  el.insertAdjacentHTML('afterbegin', '<span class="med-pill-check">✓</span> ');
-  document.getElementById('aj-health').value = el.dataset.val;
+  // Guard: only reassign when needed — prevents secondary oninput on mobile
+  if (el.value !== out) el.value = out;
 }
 
 // ── Medication multi-select pills ─────────────────────────────────────────────
