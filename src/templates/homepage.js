@@ -690,6 +690,14 @@ body::after {
 .med-pill--on:hover { background: #2a2520; }
 .med-pill-check { font-size: 11px; line-height: 1; }
 
+/* ── DOB split inputs ── */
+.dob-split { display: flex; align-items: center; gap: 6px; }
+.dob-split input { flex: 1; min-width: 0; text-align: center; }
+.dob-split input:first-child,
+.dob-split input:nth-child(3) { max-width: 64px; }
+.dob-split input:last-child   { max-width: 84px; }
+.dob-sep { color: var(--muted); font-size: 18px; line-height: 1; flex-shrink: 0; }
+
 /* ── Buttons ── */
 .form-next, .form-submit {
   width: 100%;
@@ -1532,7 +1540,13 @@ ${header()}
           <div class="form-row">
             <div class="form-field">
               <label>Date of birth</label>
-              <input type="text" id="aj-dob" placeholder="MM / DD / YYYY" inputmode="numeric" autocomplete="bday" oninput="formatDob(this)" />
+              <div class="dob-split">
+                <input type="text" id="aj-dob-mm"   inputmode="numeric" placeholder="MM"   maxlength="2" oninput="dobPart(this,'aj-dob-dd',2)"   autocomplete="bday-month" />
+                <span class="dob-sep">/</span>
+                <input type="text" id="aj-dob-dd"   inputmode="numeric" placeholder="DD"   maxlength="2" oninput="dobPart(this,'aj-dob-yyyy',2)" autocomplete="bday-day" />
+                <span class="dob-sep">/</span>
+                <input type="text" id="aj-dob-yyyy" inputmode="numeric" placeholder="YYYY" maxlength="4" oninput="dobPart(this,null,4)"            autocomplete="bday-year" />
+              </div>
             </div>
             <div class="form-field">
               <label>Gender</label>
@@ -1871,13 +1885,12 @@ updateStage();
 
 // "Summon three agents" — validate, submit to SidecarLeads, then animate
 // ── DOB auto-format MM / DD / YYYY ───────────────────────────────────────────
-function formatDob(el) {
-  const digits = el.value.replace(/\D/g, '').slice(0, 8);
-  let out = digits.slice(0, 2);
-  if (digits.length > 2) out += ' / ' + digits.slice(2, 4);
-  if (digits.length > 4) out += ' / ' + digits.slice(4, 8);
-  // Guard: only reassign when needed — prevents secondary oninput on mobile
-  if (el.value !== out) el.value = out;
+// ── DOB three-part inputs (MM / DD / YYYY) ───────────────────────────────────
+function dobPart(el, nextId, maxLen) {
+  el.value = el.value.replace(/\D/g, '').slice(0, maxLen);
+  if (nextId && el.value.length >= maxLen) {
+    document.getElementById(nextId).focus();
+  }
 }
 
 // ── Medication multi-select pills ─────────────────────────────────────────────
@@ -1998,7 +2011,10 @@ function advanceStage() {
   const lname    = document.getElementById('aj-lname').value.trim();
   const email    = document.getElementById('aj-email').value.trim();
   const phone    = document.getElementById('aj-phone').value.trim();
-  const dob      = document.getElementById('aj-dob').value.trim();
+  const dobMm    = document.getElementById('aj-dob-mm').value.trim();
+  const dobDd    = document.getElementById('aj-dob-dd').value.trim();
+  const dobYyyy  = document.getElementById('aj-dob-yyyy').value.trim();
+  const dob      = dobMm && dobDd && dobYyyy ? dobMm + ' / ' + dobDd + ' / ' + dobYyyy : '';
   const gender   = document.getElementById('aj-gender').value;
   const coverage = document.getElementById('aj-coverage').value;
   const type     = document.getElementById('aj-type').value;
