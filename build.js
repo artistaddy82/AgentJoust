@@ -12,7 +12,7 @@ const path = require('path')
 // ── Config ────────────────────────────────────────────────────────────────────
 const SITE_URL = process.env.SITE_URL || 'https://agentjoust.com'
 const API_URL  = process.env.API_URL  || 'https://sidecarleads.com'
-const MY_URL   = process.env.MY_URL   || 'https://my.agentjoust.com'
+const MY_URL   = process.env.MY_URL   || 'https://clownfish-app-dfa3s.ondigitalocean.app'
 
 const config = { siteUrl: SITE_URL, apiUrl: API_URL, myUrl: MY_URL }
 
