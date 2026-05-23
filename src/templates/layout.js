@@ -35,13 +35,74 @@ const NAV_CSS = `
 .site-nav-links a:hover { color:#c8281c; }
 .site-nav-cta { background:#14110d; color:#f5f1e8; padding:10px 18px; border-radius:100px; font-size:13px; font-weight:600; text-decoration:none; letter-spacing:.02em; transition:transform .2s,background .2s; white-space:nowrap; }
 .site-nav-cta:hover { background:#c8281c; transform:translateY(-1px); }
-@media(max-width:640px){.site-nav{padding:16px 20px;}.site-nav-links{display:none;}}`
+@media(max-width:640px){.site-nav{padding:16px 20px;}.site-nav-links{display:none;}}
+.mqm-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(20,17,13,.55);backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+.mqm-box{background:#f5f1e8;border-radius:12px;padding:40px 36px;max-width:420px;width:calc(100% - 40px);position:relative;box-shadow:0 20px 60px rgba(20,17,13,.25);}
+.mqm-close{position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#6b6253;font-size:22px;line-height:1;padding:0;}
+.mqm-title{font-family:'Fraunces',serif;font-size:22px;color:#14110d;margin:0 0 8px;}
+.mqm-sub{color:#6b6253;font-size:14px;line-height:1.6;margin:0 0 24px;}
+.mqm-input{width:100%;box-sizing:border-box;padding:12px 16px;border:1.5px solid #d4cbbe;border-radius:8px;font-size:15px;background:#fff;color:#14110d;margin-bottom:12px;outline:none;}
+.mqm-input:focus{border-color:#14110d;}
+.mqm-btn{width:100%;background:#14110d;color:#f5f1e8;border:none;padding:13px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;}
+.mqm-btn:hover{background:#c8281c;}
+.mqm-btn:disabled{opacity:.6;cursor:default;background:#14110d;}
+.mqm-err{display:none;color:#c8281c;font-size:13px;margin-top:8px;}
+.mqm-success{display:none;text-align:center;padding:8px 0;}`
 
 const NAV_SCRIPT = `<script>
 (function(){
   var n = document.getElementById('site-nav');
   if(!n) return;
   window.addEventListener('scroll', function(){ n.classList.toggle('scrolled', window.scrollY > 20); }, { passive: true });
+})();
+(function(){
+  var modal   = document.getElementById('my-quotes-modal');
+  if(!modal) return;
+  var emailEl = document.getElementById('mqm-email');
+  var submitBtn = document.getElementById('mqm-submit');
+  var errEl   = document.getElementById('mqm-err');
+  var formEl  = document.getElementById('mqm-form');
+  var successEl = document.getElementById('mqm-success');
+
+  function openModal() {
+    modal.style.display = 'flex';
+    setTimeout(function(){ emailEl.focus(); }, 80);
+  }
+  function closeModal() {
+    modal.style.display = 'none';
+    formEl.style.display = '';
+    successEl.style.display = 'none';
+    errEl.style.display = 'none';
+    emailEl.value = '';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send my link →';
+  }
+
+  window.openMyQuotesModal = function(e){ if(e) e.preventDefault(); openModal(); };
+  document.getElementById('mqm-close-btn').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target === modal) closeModal(); });
+
+  submitBtn.addEventListener('click', function(){
+    var email = emailEl.value.trim();
+    errEl.style.display = 'none';
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      errEl.style.display = 'block';
+      return;
+    }
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    fetch('https://sidecarleads.com/jousts/lookup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email }),
+    }).catch(function(){}).finally(function(){
+      formEl.style.display = 'none';
+      successEl.style.display = 'block';
+    });
+  });
+
+  emailEl.addEventListener('keydown', function(e){ if(e.key === 'Enter') submitBtn.click(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && modal.style.display === 'flex') closeModal(); });
 })();
 </script>`
 
@@ -58,11 +119,29 @@ function header() {
   <div class="site-nav-links">
     <a href="/#how-it-works">How it works</a>
     <a href="/for-agents/">For agents</a>
-    <a href="https://my.sidecarleads.com">My Quotes</a>
+    <a href="#my-quotes" onclick="openMyQuotesModal(event)">My Quotes</a>
     <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
   </div>
   <a href="/#form" class="site-nav-cta">Get 3 quotes</a>
-</nav>`
+</nav>
+
+<div id="my-quotes-modal" class="mqm-overlay">
+  <div class="mqm-box">
+    <button class="mqm-close" id="mqm-close-btn" aria-label="Close">&#x2715;</button>
+    <h2 class="mqm-title">Find your quotes</h2>
+    <p class="mqm-sub">Enter the email you used when you submitted your request — we'll resend your private link.</p>
+    <div id="mqm-form">
+      <input id="mqm-email" class="mqm-input" type="email" placeholder="your@email.com" autocomplete="email">
+      <button id="mqm-submit" class="mqm-btn">Send my link &#x2192;</button>
+      <p class="mqm-err" id="mqm-err">Please enter a valid email address.</p>
+    </div>
+    <div class="mqm-success" id="mqm-success">
+      <div style="font-size:36px;margin-bottom:12px">&#x2709;&#xFE0F;</div>
+      <p style="color:#14110d;font-weight:600;font-size:16px;margin:0 0 6px">Check your inbox</p>
+      <p style="color:#6b6253;font-size:14px;margin:0">We sent your joust link — it may take a minute to arrive.</p>
+    </div>
+  </div>
+</div>`
 }
 
 const FOOTER_CSS = `
