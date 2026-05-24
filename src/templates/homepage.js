@@ -1314,7 +1314,7 @@ body::after {
 @media (max-width: 900px) {
   .nav { padding: 16px 20px; }
   .nav-links { display: none; }
-  .hero { padding-top: 80px; }
+  .hero { padding-top: 80px; min-height: 0; }
   .hero-bg { width: 100%; opacity: 0.45; }
   .hero-bg::before {
     background: linear-gradient(to bottom,
