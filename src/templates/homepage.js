@@ -1509,7 +1509,7 @@ ${header()}
     </div>
     <div class="meta-item">
       <span class="num">0</span>
-      <span class="label">Agent contact until you pick</span>
+      <span class="label">Agent contact until<br>you pick</span>
     </div>
     <div class="meta-item">
       <span class="num">24<em>hr</em></span>
