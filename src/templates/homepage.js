@@ -1302,73 +1302,98 @@ body::after {
 @media (max-width: 900px) {
   .nav { padding: 16px 20px; }
   .nav-links { display: none; }
-  .hero {
-    padding-top: 80px;
-  }
-  .hero-bg {
-    width: 100%;
-    opacity: 0.45;
-  }
+  .hero { padding-top: 80px; }
+  .hero-bg { width: 100%; opacity: 0.45; }
   .hero-bg::before {
     background: linear-gradient(to bottom,
       rgba(245, 241, 232, 0.6) 0%,
       rgba(245, 241, 232, 0.85) 60%,
       var(--paper) 100%);
   }
-  .hero-inner {
-    padding: 40px 20px 40px;
-  }
-  .hero-content {
-    max-width: 100%;
-  }
+  .hero-inner { padding: 32px 20px 32px; }
+  .hero-content { max-width: 100%; }
   .hero-meta {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 20px;
     margin-left: calc(-1 * (50vw - 50%) - 20px);
     margin-right: calc(-1 * (50vw - 50%) - 20px);
-    padding: 28px 20px 24px;
+    padding: 20px 20px 20px;
   }
   .meta-item .num { font-size: 36px; }
   .meta-item .label { font-size: 10px; letter-spacing: 0.1em; }
+
+  /* ── Scroll stage ── */
   .stage { min-height: 280vh; }
+  .stage-pin { padding: 16px 20px; overflow: visible; }
+
+  /* Step rail — horizontal across the top instead of left-side vertical */
+  .step-rail {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 16px;
+    transform: none;
+    flex-direction: row;
+    gap: 0;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  /* Horizontal connecting line behind the dots */
+  .step-rail::before {
+    content: '';
+    position: absolute;
+    left: calc(100% / 6);
+    right: calc(100% / 6);
+    top: 4px;
+    height: 1px;
+    background: rgba(20,17,13,.15);
+  }
+  .rail-step {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
+    flex: 1;
+    position: relative;
+  }
+  .rail-step:last-child { padding-bottom: 0; }
+  /* Hide old vertical connectors */
+  .rail-step:not(:last-child)::after { display: none; }
+  .rail-dot { width: 9px; height: 9px; margin-top: 0; margin-bottom: 6px; }
+  /* Show step labels on mobile now that they're at the top */
+  .rail-text { display: block; text-align: center; }
+  .rail-num  { font-size: 9px; margin-bottom: 3px; }
+  .rail-title { font-size: 11px; line-height: 1.3; }
+
+  /* Form — pushed below step rail, spans full width */
+  .form-block {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 80px;
+    width: auto;
+  }
+  .form-panel { padding: 20px 20px 24px; }
+
+  /* Cards stage */
   .cards-stage {
     flex-direction: column;
     gap: 12px;
-    padding: 80px 20px 20px;
+    padding: 60px 20px 20px;
     overflow-y: auto;
   }
   .proposal-card { flex: 0 0 auto; width: 100%; max-width: 360px; }
   .proposal-card[data-pos] { transform: none; }
   .cards-stage.crowned .proposal-card[data-pos="left"],
-  .cards-stage.crowned .proposal-card[data-pos="right"] {
-    transform: scale(0.94);
-  }
-  .cards-stage.crowned .proposal-card[data-pos="center"] {
-    transform: scale(1.02);
-  }
-  .stage-pin { padding: 20px; }
-  .step-rail {
-    left: 10px;
-    gap: 0;
-  }
-  .rail-text { display: none; }
-  .rail-dot  { width: 9px; height: 9px; margin-top: 0; }
-  .rail-step {
-    align-items: center;
-    padding-bottom: 28px;
-  }
-  .rail-step:last-child { padding-bottom: 0; }
-  .rail-step:not(:last-child)::after {
-    left: 4px;
-    top: 11px;
-    height: calc(100% + 2px);
-  }
-  .form-block { padding: 28px; width: calc(100% - 40px); }
+  .cards-stage.crowned .proposal-card[data-pos="right"] { transform: scale(0.94); }
+  .cards-stage.crowned .proposal-card[data-pos="center"] { transform: scale(1.02); }
+
+  /* Content sections — cut the huge desktop padding */
+  .section-title { margin-bottom: 40px; }
   .steps-grid { grid-template-columns: 1fr; }
+  .how-section, .why-section { padding: 48px 20px; }
   .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
   .cell { padding: 16px 14px; font-size: 13px; }
-  .how-section, .why-section { padding: 80px 20px; }
-  .final-cta { margin: 0 20px 20px; padding: 80px 24px; }
+  .final-cta { margin: 0 16px 16px; padding: 56px 20px; }
 }
 ${NAV_CSS}
 ${FOOTER_CSS}
