@@ -1339,26 +1339,36 @@ body::after {
   .meta-item .num { font-size: 38px; }
   .meta-item .label { font-size: 12px; letter-spacing: 0.08em; }
 
-  /* ── Scroll stage ── */
-  .stage { min-height: 280vh; }
-  .stage-pin { padding: 0; overflow: visible; }
-
-  /* Step rail — hidden on mobile; form has its own 1/2/3 tabs and the rail
-     overlaps both the form header and the cards when they appear */
+  /* ── Scroll stage — removed on mobile; plain static section instead ── */
+  .stage { min-height: auto; }
+  .stage-pin {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    padding: 24px 0 40px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
   .step-rail { display: none; }
+  .scroll-hint { display: none; }
 
-  /* Form — hangs from top of sticky viewport, full width with side margins */
+  /* Cards demo — animated scroll experience hidden on mobile */
+  .cards-stage { display: none !important; }
+
+  /* Form — static flow, full width with side margins */
   .form-block {
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    top: 0;
+    position: static;
     width: auto;
+    margin: 0 12px;
     background: transparent;
     border: none;
     box-shadow: none;
     border-radius: 0;
     overflow: visible;
+    /* Override JS .exit class so form always stays visible on mobile */
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
   }
   /* White card wraps only the tabs + panels — intro floats above on cream bg */
   .form-card {
