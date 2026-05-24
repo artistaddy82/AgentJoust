@@ -1352,8 +1352,17 @@ body::after {
   .step-rail { display: none; }
   .scroll-hint { display: none; }
 
-  /* Cards demo — animated scroll experience hidden on mobile */
-  .cards-stage { display: none !important; }
+  /* Cards — shown as static section below the form */
+  .cards-stage {
+    position: static !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    padding: 20px 12px 8px;
+    gap: 10px;
+  }
 
   /* Form — static flow, full width with side margins */
   .form-block {
