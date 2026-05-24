@@ -1851,7 +1851,7 @@ ${header()}
 <!-- HOW IT WORKS -->
 <section class="how-section" id="how-it-works">
   <div class="section-tag">⚔ The Rules</div>
-  <h2 class="section-title">A reverse auction for <em>your</em> business — not the other way around.</h2>
+  <h2 class="section-title">Agents compete. <em>You</em> choose.</h2>
 
   <div class="steps-grid">
     <div class="step-card">
