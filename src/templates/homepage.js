@@ -1404,7 +1404,7 @@ body::after {
   .cards-stage.crowned .proposal-card[data-pos="left"],
   .cards-stage.crowned .proposal-card[data-pos="right"] { transform: none; opacity: 0.4; }
   .cards-stage.crowned .proposal-card[data-pos="center"] { transform: none; }
-  .crown-svg { display: none; }
+  .crown-svg { display: block; width: 32px; height: 32px; top: -38px; }
   .crown-badge {
     position: relative;
     top: auto; left: auto;
@@ -1412,9 +1412,9 @@ body::after {
     opacity: 0;
     display: block;
     width: fit-content;
-    margin: 0 auto 8px;
-    padding: 3px 7px;
-    font-size: 7px;
+    margin: 0 auto 6px;
+    padding: 3px 8px;
+    font-size: 10px;
     border-radius: 6px;
     transition: opacity .4s .2s;
   }
