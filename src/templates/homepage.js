@@ -1323,18 +1323,18 @@ body::after {
       var(--paper) 100%);
   }
   .hero-inner {
-    padding: 24px 20px 20px;
+    padding: 24px 20px 0;
     min-height: 0;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 20px;
   }
   .hero-content { max-width: 100%; flex: none; }
   .hero-meta {
+    position: static;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-left: calc(-1 * (50vw - 50%) - 20px);
-    margin-right: calc(-1 * (50vw - 50%) - 20px);
-    padding: 20px 20px 20px;
+    gap: 16px;
+    padding: 24px 20px;
+    margin: 0;
   }
   /* ── Global type scale ── */
   .subhead { font-size: 19px; line-height: 1.5; }
@@ -1350,7 +1350,7 @@ body::after {
     position: relative;
     height: auto;
     overflow: visible;
-    padding: 24px 0 40px;
+    padding: 40px 20px 48px;
     justify-content: flex-start;
     align-items: stretch;
   }
@@ -1365,15 +1365,15 @@ body::after {
     align-items: stretch;
     opacity: 1 !important;
     pointer-events: auto !important;
-    padding: 20px 12px 8px;
+    padding: 40px 0 0;
     gap: 10px;
   }
 
-  /* Form — static flow, full width with side margins */
+  /* Form — static flow, stage-pin handles horizontal padding */
   .form-block {
     position: static;
     width: auto;
-    margin: 0 12px;
+    margin: 0;
     background: transparent;
     border: none;
     box-shadow: none;
@@ -1404,15 +1404,6 @@ body::after {
   .form-mobile-intro .stage-step-title { font-size: 22px; margin-bottom: 10px; }
   .form-mobile-intro .stage-step-body { font-size: 17px; line-height: 1.55; }
 
-  /* Cards stage — column: side-by-side cards, then step text below */
-  .cards-stage {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px 12px;
-    overflow: hidden;
-  }
   .cards-row-wrap { display: flex; flex-direction: row; gap: 6px; width: 100%; }
   .stage-step {
     display: block;
@@ -1468,7 +1459,7 @@ body::after {
   .why-section { padding: 48px 20px; }
   .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
   .cell { padding: 16px 14px; font-size: 15px; }
-  .final-cta { margin: 0 16px 16px; padding: 56px 20px; }
+  .final-cta { margin: 0 16px 40px; padding: 48px 20px; }
   .final-cta p { font-size: 17px; }
 }
 ${NAV_CSS}
