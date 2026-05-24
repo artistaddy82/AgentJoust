@@ -1374,40 +1374,54 @@ body::after {
   }
   .form-panel { padding: 20px 20px 24px; }
 
-  /* Cards stage */
+  /* Cards stage — 3 side-by-side compact cards on mobile */
   .cards-stage {
-    flex-direction: column;
-    gap: 12px;
-    padding: 20px;
-    overflow-y: auto;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 6px;
+    padding: 20px 12px 12px;
+    overflow: hidden;
   }
-  .proposal-card { flex: 0 0 auto; width: 100%; max-width: 100%; padding: 20px; }
+  .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 12px 10px; }
   .proposal-card[data-pos] { transform: none; }
-  /* No dramatic transforms on mobile — just dim the losers */
   .cards-stage.crowned .proposal-card[data-pos="left"],
-  .cards-stage.crowned .proposal-card[data-pos="right"] { transform: none; opacity: 0.55; }
+  .cards-stage.crowned .proposal-card[data-pos="right"] { transform: none; opacity: 0.4; }
   .cards-stage.crowned .proposal-card[data-pos="center"] { transform: none; }
-  /* Crown SVG floats above the card (top: -64px) — overlaps the card above it on mobile */
+  /* Crown SVG floats at top:-64px — hides behind neighbor cards in side-by-side */
   .crown-svg { display: none; }
-  /* Move winner badge inside card flow */
+  /* Winner badge: pull into card flow */
   .crown-badge {
     position: relative;
-    top: auto;
-    left: auto;
+    top: auto; left: auto;
     transform: none;
     opacity: 0;
     display: block;
-    margin: 0 auto 14px;
+    width: fit-content;
+    margin: 0 auto 10px;
+    padding: 3px 8px;
+    font-size: 8px;
+    border-radius: 6px;
     transition: opacity .4s .2s;
-    border-radius: 8px;
   }
   .cards-stage.crowned .proposal-card[data-pos="center"] .crown-badge {
     transform: none;
     opacity: 1;
   }
-  /* Compact price on mobile */
-  .price-amount { font-size: 36px; }
+  /* Compact card internals for narrow columns */
+  .card-header { flex-direction: column; gap: 1px; align-items: flex-start; margin-bottom: 8px; padding-bottom: 8px; }
+  .agent-id { font-size: 8px; }
+  .agent-rating { font-size: 11px; }
+  .card-carrier { font-size: 13px; margin-bottom: 2px; }
+  .card-policy { font-size: 8px; margin-bottom: 10px; }
+  .price-label { font-size: 8px; margin-bottom: 2px; }
+  .price-block { margin-bottom: 10px; }
+  .price-amount { font-size: 26px; gap: 1px; }
+  .price-amount .currency { font-size: 12px; }
+  .price-amount .period { font-size: 10px; margin-left: 1px; }
+  .coverage-list { font-size: 10px; }
+  .coverage-list li { flex-direction: column; padding: 3px 0; gap: 0; align-items: flex-start; }
+  .coverage-list li span:first-child { font-size: 8px; color: var(--muted); }
+  .coverage-list li span:last-child { font-weight: 600; }
 
   /* Content sections — cut the huge desktop padding */
   .section-title { margin-bottom: 40px; }
