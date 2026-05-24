@@ -1459,7 +1459,8 @@ body::after {
   .steps-grid { grid-template-columns: 1fr; }
   .step-title { font-size: 22px; }
   .step-text { font-size: 17px; }
-  .how-section, .why-section { padding: 48px 20px; }
+  .how-section { display: none; }
+  .why-section { padding: 48px 20px; }
   .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
   .cell { padding: 16px 14px; font-size: 15px; }
   .final-cta { margin: 0 16px 16px; padding: 56px 20px; }
