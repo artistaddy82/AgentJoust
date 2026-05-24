@@ -1357,6 +1357,7 @@ body::after {
   }
   /* White card wraps only the tabs + panels — intro floats above on cream bg */
   .form-card {
+    display: block;
     background: #fff;
     border: 1px solid rgba(20,17,13,.1);
     border-radius: 0 0 18px 18px;
@@ -1364,10 +1365,10 @@ body::after {
     overflow: hidden;
   }
   .form-panel { padding: 20px 20px 24px; }
-  .form-mobile-intro { display: block; padding: 0 4px 14px; }
-  .form-mobile-intro .stage-step-num { font-size: 28px; margin-bottom: 3px; }
-  .form-mobile-intro .stage-step-title { font-size: 20px; margin-bottom: 8px; }
-  .form-mobile-intro .stage-step-body { font-size: 13px; }
+  .form-mobile-intro { display: block; padding: 0 4px 16px; }
+  .form-mobile-intro .stage-step-num { font-size: 32px; margin-bottom: 4px; }
+  .form-mobile-intro .stage-step-title { font-size: 22px; margin-bottom: 10px; }
+  .form-mobile-intro .stage-step-body { font-size: 15px; line-height: 1.55; }
 
   /* Cards stage — column: side-by-side cards, then step text below */
   .cards-stage {
@@ -1382,12 +1383,12 @@ body::after {
   .stage-step {
     display: block;
     width: 100%;
-    padding-top: 10px;
+    padding-top: 12px;
     border-top: 1px solid rgba(20,17,13,.08);
   }
-  .stage-step-num { font-size: 16px; margin-bottom: 1px; }
-  .stage-step-title { font-size: 13px; margin-bottom: 3px; }
-  .stage-step-body { font-size: 11px; }
+  .stage-step-num { font-size: 24px; margin-bottom: 2px; }
+  .stage-step-title { font-size: 17px; margin-bottom: 5px; }
+  .stage-step-body { font-size: 13px; line-height: 1.5; }
   .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 10px 8px; }
   .proposal-card[data-pos] { transform: none; }
   .cards-stage.crowned .proposal-card[data-pos="left"],
