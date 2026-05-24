@@ -1322,8 +1322,13 @@ body::after {
       rgba(245, 241, 232, 0.85) 60%,
       var(--paper) 100%);
   }
-  .hero-inner { padding: 32px 20px 32px; }
-  .hero-content { max-width: 100%; }
+  .hero-inner {
+    padding: 24px 20px 20px;
+    min-height: 0;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+  .hero-content { max-width: 100%; flex: none; }
   .hero-meta {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
