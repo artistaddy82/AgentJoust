@@ -1324,72 +1324,36 @@ body::after {
 
   /* ── Scroll stage ── */
   .stage { min-height: 280vh; }
-  .stage-pin { padding: 16px 20px; overflow: visible; }
+  .stage-pin { padding: 0; overflow: visible; }
 
-  /* Step rail — horizontal across the top instead of left-side vertical */
-  .step-rail {
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    top: 16px;
-    transform: none;
-    flex-direction: row;
-    gap: 0;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  /* Horizontal connecting line behind the dots */
-  .step-rail::before {
-    content: '';
-    position: absolute;
-    left: calc(100% / 6);
-    right: calc(100% / 6);
-    top: 4px;
-    height: 1px;
-    background: rgba(20,17,13,.15);
-  }
-  .rail-step {
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 0;
-    flex: 1;
-    position: relative;
-  }
-  .rail-step:last-child { padding-bottom: 0; }
-  /* Hide old vertical connectors */
-  .rail-step:not(:last-child)::after { display: none; }
-  .rail-dot { width: 9px; height: 9px; margin-top: 0; margin-bottom: 6px; }
-  /* Show step labels on mobile now that they're at the top */
-  .rail-text { display: block; text-align: center; }
-  .rail-num  { font-size: 9px; margin-bottom: 3px; }
-  .rail-title { font-size: 11px; line-height: 1.3; }
+  /* Step rail — hidden on mobile; form has its own 1/2/3 tabs and the rail
+     overlaps both the form header and the cards when they appear */
+  .step-rail { display: none; }
 
-  /* Form — pushed below step rail, spans full width */
+  /* Form — hangs from top of sticky viewport, full width with side margins */
   .form-block {
     position: absolute;
-    left: 20px;
-    right: 20px;
-    top: 80px;
+    left: 12px;
+    right: 12px;
+    top: 0;
     width: auto;
   }
   .form-panel { padding: 20px 20px 24px; }
 
-  /* Cards stage — 3 side-by-side compact cards on mobile */
+  /* Cards stage — 3 compact side-by-side columns */
   .cards-stage {
     flex-direction: row;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 6px;
-    padding: 20px 12px 12px;
+    padding: 12px;
     overflow: hidden;
   }
-  .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 12px 10px; }
+  .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 10px 8px; }
   .proposal-card[data-pos] { transform: none; }
   .cards-stage.crowned .proposal-card[data-pos="left"],
   .cards-stage.crowned .proposal-card[data-pos="right"] { transform: none; opacity: 0.4; }
   .cards-stage.crowned .proposal-card[data-pos="center"] { transform: none; }
-  /* Crown SVG floats at top:-64px — hides behind neighbor cards in side-by-side */
   .crown-svg { display: none; }
-  /* Winner badge: pull into card flow */
   .crown-badge {
     position: relative;
     top: auto; left: auto;
@@ -1397,9 +1361,9 @@ body::after {
     opacity: 0;
     display: block;
     width: fit-content;
-    margin: 0 auto 10px;
-    padding: 3px 8px;
-    font-size: 8px;
+    margin: 0 auto 8px;
+    padding: 3px 7px;
+    font-size: 7px;
     border-radius: 6px;
     transition: opacity .4s .2s;
   }
@@ -1407,21 +1371,18 @@ body::after {
     transform: none;
     opacity: 1;
   }
-  /* Compact card internals for narrow columns */
-  .card-header { flex-direction: column; gap: 1px; align-items: flex-start; margin-bottom: 8px; padding-bottom: 8px; }
-  .agent-id { font-size: 8px; }
-  .agent-rating { font-size: 11px; }
-  .card-carrier { font-size: 13px; margin-bottom: 2px; }
-  .card-policy { font-size: 8px; margin-bottom: 10px; }
-  .price-label { font-size: 8px; margin-bottom: 2px; }
-  .price-block { margin-bottom: 10px; }
-  .price-amount { font-size: 26px; gap: 1px; }
-  .price-amount .currency { font-size: 12px; }
-  .price-amount .period { font-size: 10px; margin-left: 1px; }
-  .coverage-list { font-size: 10px; }
-  .coverage-list li { flex-direction: column; padding: 3px 0; gap: 0; align-items: flex-start; }
-  .coverage-list li span:first-child { font-size: 8px; color: var(--muted); }
-  .coverage-list li span:last-child { font-weight: 600; }
+  /* Strip cards to: agent · id, rating, carrier, price only */
+  .card-header { flex-direction: column; gap: 1px; align-items: flex-start; margin-bottom: 6px; padding-bottom: 6px; }
+  .agent-id    { font-size: 7px; }
+  .agent-rating { font-size: 10px; }
+  .card-carrier { font-size: 12px; margin-bottom: 0; letter-spacing: -0.01em; }
+  .card-policy  { display: none; }
+  .price-label  { display: none; }
+  .price-block  { margin-bottom: 0; }
+  .price-amount { font-size: 24px; gap: 1px; }
+  .price-amount .currency { font-size: 11px; }
+  .price-amount .period   { font-size: 9px; margin-left: 1px; }
+  .coverage-list { display: none; }
 
   /* Content sections — cut the huge desktop padding */
   .section-title { margin-bottom: 40px; }
