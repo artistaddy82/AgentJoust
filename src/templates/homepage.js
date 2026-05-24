@@ -1378,14 +1378,36 @@ body::after {
   .cards-stage {
     flex-direction: column;
     gap: 12px;
-    padding: 60px 20px 20px;
+    padding: 20px;
     overflow-y: auto;
+    align-items: center;
   }
-  .proposal-card { flex: 0 0 auto; width: 100%; max-width: 360px; }
+  .proposal-card { flex: 0 0 auto; width: 100%; max-width: 100%; padding: 20px; }
   .proposal-card[data-pos] { transform: none; }
+  /* No dramatic transforms on mobile — just dim the losers */
   .cards-stage.crowned .proposal-card[data-pos="left"],
-  .cards-stage.crowned .proposal-card[data-pos="right"] { transform: scale(0.94); }
-  .cards-stage.crowned .proposal-card[data-pos="center"] { transform: scale(1.02); }
+  .cards-stage.crowned .proposal-card[data-pos="right"] { transform: none; opacity: 0.55; }
+  .cards-stage.crowned .proposal-card[data-pos="center"] { transform: none; }
+  /* Crown SVG floats above the card (top: -64px) — overlaps the card above it on mobile */
+  .crown-svg { display: none; }
+  /* Move winner badge inside card flow */
+  .crown-badge {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    opacity: 0;
+    display: block;
+    margin: 0 auto 14px;
+    transition: opacity .4s .2s;
+    border-radius: 8px;
+  }
+  .cards-stage.crowned .proposal-card[data-pos="center"] .crown-badge {
+    transform: none;
+    opacity: 1;
+  }
+  /* Compact price on mobile */
+  .price-amount { font-size: 36px; }
 
   /* Content sections — cut the huge desktop padding */
   .section-title { margin-bottom: 40px; }
