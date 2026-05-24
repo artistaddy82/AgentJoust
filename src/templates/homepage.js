@@ -1497,7 +1497,7 @@ ${header()}
             <polyline points="12 5 19 12 12 19"/>
           </svg>
         </button>
-        <a href="#how" class="btn-secondary">See how it works</a>
+        <a href="#how-it-works" class="btn-secondary">See how it works</a>
       </div>
     </div>
 
