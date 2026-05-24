@@ -1302,6 +1302,8 @@ body::after {
 .form-mobile-intro { display: none; }
 .cards-mobile-intro { display: none; }
 .stage-step { display: none; }
+/* form-card transparent on desktop — form-block itself is the white card there */
+.form-card { display: contents; }
 .stage-step-num { font-family: 'Fraunces', serif; font-style: italic; color: #c8281c; display: block; }
 .stage-step-title { font-family: 'Fraunces', serif; font-weight: 600; color: #14110d; margin: 0; }
 .stage-step-body { color: #6b6253; margin: 0; line-height: 1.5; }
@@ -1347,12 +1349,25 @@ body::after {
     right: 12px;
     top: 0;
     width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+  /* White card wraps only the tabs + panels — intro floats above on cream bg */
+  .form-card {
+    background: #fff;
+    border: 1px solid rgba(20,17,13,.1);
+    border-radius: 0 0 18px 18px;
+    box-shadow: 0 8px 32px rgba(20,17,13,.12);
+    overflow: hidden;
   }
   .form-panel { padding: 20px 20px 24px; }
-  .form-mobile-intro { display: block; padding: 0 4px 12px; }
-  .form-mobile-intro .stage-step-num { font-size: 20px; margin-bottom: 2px; }
-  .form-mobile-intro .stage-step-title { font-size: 16px; margin-bottom: 6px; }
-  .form-mobile-intro .stage-step-body { font-size: 12px; }
+  .form-mobile-intro { display: block; padding: 0 4px 14px; }
+  .form-mobile-intro .stage-step-num { font-size: 28px; margin-bottom: 3px; }
+  .form-mobile-intro .stage-step-title { font-size: 20px; margin-bottom: 8px; }
+  .form-mobile-intro .stage-step-body { font-size: 13px; }
 
   /* Cards stage — column: side-by-side cards, then step text below */
   .cards-stage {
@@ -1522,6 +1537,9 @@ ${header()}
         <h3 class="stage-step-title">You set the terms</h3>
         <p class="stage-step-body">Tell us your basics — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it during the joust.</p>
       </div>
+
+      <!-- White card wrapping only the form tabs + panels (intro sits above on cream bg) -->
+      <div class="form-card">
 
       <!-- Step tracker -->
       <div class="form-steps-bar">
@@ -1792,10 +1810,19 @@ ${header()}
         </div>
 
       </div>
+
+      </div><!-- /form-card -->
     </div>
 
     <!-- The three cards -->
     <div class="cards-stage" id="cardsStage">
+
+      <!-- Mobile-only step ii (hidden on desktop) -->
+      <div class="stage-step">
+        <span class="stage-step-num">ii.</span>
+        <h3 class="stage-step-title">Agents bid in private</h3>
+        <p class="stage-step-body">Three vetted, licensed independent agents review your profile and submit their best proposal. They can't see each other's bids.</p>
+      </div>
 
       <!-- Wrapper: flex row on mobile, display:contents on desktop -->
       <div class="cards-row-wrap">
@@ -1877,12 +1904,7 @@ ${header()}
 
       </div><!-- /cards-row-wrap -->
 
-      <!-- Mobile-only step explanations (hidden on desktop; step-rail handles desktop) -->
-      <div class="stage-step">
-        <span class="stage-step-num">ii.</span>
-        <h3 class="stage-step-title">Agents bid in private</h3>
-        <p class="stage-step-body">Three vetted, licensed independent agents review your profile and submit their best proposal. They can't see each other's bids.</p>
-      </div>
+      <!-- Mobile-only step iii (hidden on desktop) -->
       <div class="stage-step">
         <span class="stage-step-num">iii.</span>
         <h3 class="stage-step-title">You crown the winner</h3>
