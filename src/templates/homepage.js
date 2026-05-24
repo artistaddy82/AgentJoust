@@ -1298,9 +1298,13 @@ body::after {
   letter-spacing: 0.05em;
 }
 
-/* Mobile-only intro elements — hidden on desktop */
+/* Mobile-only intro/step elements — hidden on desktop */
 .form-mobile-intro { display: none; }
 .cards-mobile-intro { display: none; }
+.stage-step { display: none; }
+.stage-step-num { font-family: 'Fraunces', serif; font-style: italic; color: #c8281c; display: block; }
+.stage-step-title { font-family: 'Fraunces', serif; font-weight: 600; color: #14110d; margin: 0; }
+.stage-step-body { color: #6b6253; margin: 0; line-height: 1.5; }
 /* Cards row wrapper — transparent on desktop so cards stay direct flex children */
 .cards-row-wrap { display: contents; }
 
@@ -1345,11 +1349,12 @@ body::after {
     width: auto;
   }
   .form-panel { padding: 20px 20px 24px; }
-  .form-mobile-intro { display: block; text-align: center; padding: 0 4px 10px; }
-  .form-mobile-intro .section-tag { font-size: 10px; margin-bottom: 5px; }
-  .form-mobile-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: #14110d; margin: 0; line-height: 1.2; }
+  .form-mobile-intro { display: block; padding: 0 4px 12px; }
+  .form-mobile-intro .stage-step-num { font-size: 20px; margin-bottom: 2px; }
+  .form-mobile-intro .stage-step-title { font-size: 16px; margin-bottom: 6px; }
+  .form-mobile-intro .stage-step-body { font-size: 12px; }
 
-  /* Cards stage — column: intro header on top, then side-by-side cards */
+  /* Cards stage — column: side-by-side cards, then step text below */
   .cards-stage {
     flex-direction: column;
     align-items: center;
@@ -1358,11 +1363,16 @@ body::after {
     padding: 20px 12px;
     overflow: hidden;
   }
-  .cards-mobile-intro { display: block; text-align: center; width: 100%; margin-bottom: 2px; }
-  .cards-mobile-intro .section-tag { font-size: 10px; margin-bottom: 6px; }
-  .cards-mobile-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: #14110d; margin: 0 0 4px; line-height: 1.2; }
-  .cards-mobile-sub { font-size: 11px; color: #6b6253; margin: 0; line-height: 1.4; }
   .cards-row-wrap { display: flex; flex-direction: row; gap: 6px; width: 100%; }
+  .stage-step {
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid rgba(20,17,13,.08);
+  }
+  .stage-step-num { font-size: 16px; margin-bottom: 1px; }
+  .stage-step-title { font-size: 13px; margin-bottom: 3px; }
+  .stage-step-body { font-size: 11px; }
   .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 10px 8px; }
   .proposal-card[data-pos] { transform: none; }
   .cards-stage.crowned .proposal-card[data-pos="left"],
@@ -1506,10 +1516,11 @@ ${header()}
     <!-- The form -->
     <div class="form-block" id="formBlock">
 
-      <!-- Mobile-only section intro (hidden on desktop) -->
+      <!-- Mobile-only step i intro (hidden on desktop; step-rail handles desktop) -->
       <div class="form-mobile-intro">
-        <div class="section-tag">⚔ Start your joust</div>
-        <h3 class="form-mobile-title">Get 3 competing quotes — free.</h3>
+        <span class="stage-step-num">i.</span>
+        <h3 class="stage-step-title">You set the terms</h3>
+        <p class="stage-step-body">Tell us your basics — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it during the joust.</p>
       </div>
 
       <!-- Step tracker -->
@@ -1786,13 +1797,6 @@ ${header()}
     <!-- The three cards -->
     <div class="cards-stage" id="cardsStage">
 
-      <!-- Mobile-only section intro (hidden on desktop) -->
-      <div class="cards-mobile-intro">
-        <div class="section-tag">⚔ Sample proposals</div>
-        <h3 class="cards-mobile-title">Three agents. <em>You choose.</em></h3>
-        <p class="cards-mobile-sub">Contact info stays sealed until you crown a winner.</p>
-      </div>
-
       <!-- Wrapper: flex row on mobile, display:contents on desktop -->
       <div class="cards-row-wrap">
 
@@ -1872,6 +1876,18 @@ ${header()}
       </div>
 
       </div><!-- /cards-row-wrap -->
+
+      <!-- Mobile-only step explanations (hidden on desktop; step-rail handles desktop) -->
+      <div class="stage-step">
+        <span class="stage-step-num">ii.</span>
+        <h3 class="stage-step-title">Agents bid in private</h3>
+        <p class="stage-step-body">Three vetted, licensed independent agents review your profile and submit their best proposal. They can't see each other's bids.</p>
+      </div>
+      <div class="stage-step">
+        <span class="stage-step-num">iii.</span>
+        <h3 class="stage-step-title">You crown the winner</h3>
+        <p class="stage-step-body">Compare side-by-side. Only the winner gets your contact info from us. The other two agents never see it. Ever.</p>
+      </div>
 
       <div class="clash" id="clash"></div>
     </div>
