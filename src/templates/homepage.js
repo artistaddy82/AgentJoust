@@ -1298,6 +1298,12 @@ body::after {
   letter-spacing: 0.05em;
 }
 
+/* Mobile-only intro elements — hidden on desktop */
+.form-mobile-intro { display: none; }
+.cards-mobile-intro { display: none; }
+/* Cards row wrapper — transparent on desktop so cards stay direct flex children */
+.cards-row-wrap { display: contents; }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 900px) {
   .nav { padding: 16px 20px; }
@@ -1339,15 +1345,24 @@ body::after {
     width: auto;
   }
   .form-panel { padding: 20px 20px 24px; }
+  .form-mobile-intro { display: block; text-align: center; padding: 0 4px 10px; }
+  .form-mobile-intro .section-tag { font-size: 10px; margin-bottom: 5px; }
+  .form-mobile-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: #14110d; margin: 0; line-height: 1.2; }
 
-  /* Cards stage — 3 compact side-by-side columns */
+  /* Cards stage — column: intro header on top, then side-by-side cards */
   .cards-stage {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 12px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px 12px;
     overflow: hidden;
   }
+  .cards-mobile-intro { display: block; text-align: center; width: 100%; margin-bottom: 2px; }
+  .cards-mobile-intro .section-tag { font-size: 10px; margin-bottom: 6px; }
+  .cards-mobile-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 600; color: #14110d; margin: 0 0 4px; line-height: 1.2; }
+  .cards-mobile-sub { font-size: 11px; color: #6b6253; margin: 0; line-height: 1.4; }
+  .cards-row-wrap { display: flex; flex-direction: row; gap: 6px; width: 100%; }
   .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 10px 8px; }
   .proposal-card[data-pos] { transform: none; }
   .cards-stage.crowned .proposal-card[data-pos="left"],
@@ -1490,6 +1505,12 @@ ${header()}
 
     <!-- The form -->
     <div class="form-block" id="formBlock">
+
+      <!-- Mobile-only section intro (hidden on desktop) -->
+      <div class="form-mobile-intro">
+        <div class="section-tag">⚔ Start your joust</div>
+        <h3 class="form-mobile-title">Get 3 competing quotes — free.</h3>
+      </div>
 
       <!-- Step tracker -->
       <div class="form-steps-bar">
@@ -1765,6 +1786,16 @@ ${header()}
     <!-- The three cards -->
     <div class="cards-stage" id="cardsStage">
 
+      <!-- Mobile-only section intro (hidden on desktop) -->
+      <div class="cards-mobile-intro">
+        <div class="section-tag">⚔ Sample proposals</div>
+        <h3 class="cards-mobile-title">Three agents. <em>You choose.</em></h3>
+        <p class="cards-mobile-sub">Contact info stays sealed until you crown a winner.</p>
+      </div>
+
+      <!-- Wrapper: flex row on mobile, display:contents on desktop -->
+      <div class="cards-row-wrap">
+
       <div class="proposal-card" data-pos="left">
         <div class="card-header">
           <span class="agent-id">Agent · 047</span>
@@ -1839,6 +1870,8 @@ ${header()}
           <li><span>Conversion</span><span>Yes, age 70</span></li>
         </ul>
       </div>
+
+      </div><!-- /cards-row-wrap -->
 
       <div class="clash" id="clash"></div>
     </div>
