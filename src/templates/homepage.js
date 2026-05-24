@@ -1331,8 +1331,13 @@ body::after {
     margin-right: calc(-1 * (50vw - 50%) - 20px);
     padding: 20px 20px 20px;
   }
-  .meta-item .num { font-size: 36px; }
-  .meta-item .label { font-size: 10px; letter-spacing: 0.1em; }
+  /* ── Global type scale ── */
+  .subhead { font-size: 19px; line-height: 1.5; }
+  .btn-primary { font-size: 17px; padding: 16px 28px; }
+  .btn-secondary { font-size: 16px; }
+  .section-tag { font-size: 13px; }
+  .meta-item .num { font-size: 38px; }
+  .meta-item .label { font-size: 12px; letter-spacing: 0.08em; }
 
   /* ── Scroll stage ── */
   .stage { min-height: 280vh; }
@@ -1365,10 +1370,15 @@ body::after {
     overflow: hidden;
   }
   .form-panel { padding: 20px 20px 24px; }
+  .panel-title { font-size: 28px; }
+  .panel-sub { font-size: 16px; }
+  .form-field label { font-size: 12px; }
+  .form-field input, .form-field select { font-size: 16px; }
+  .form-next, .form-submit { font-size: 17px; padding: 16px; }
   .form-mobile-intro { display: block; padding: 0 4px 16px; }
   .form-mobile-intro .stage-step-num { font-size: 32px; margin-bottom: 4px; }
   .form-mobile-intro .stage-step-title { font-size: 22px; margin-bottom: 10px; }
-  .form-mobile-intro .stage-step-body { font-size: 15px; line-height: 1.55; }
+  .form-mobile-intro .stage-step-body { font-size: 17px; line-height: 1.55; }
 
   /* Cards stage — column: side-by-side cards, then step text below */
   .cards-stage {
@@ -1386,9 +1396,9 @@ body::after {
     padding-top: 12px;
     border-top: 1px solid rgba(20,17,13,.08);
   }
-  .stage-step-num { font-size: 24px; margin-bottom: 2px; }
-  .stage-step-title { font-size: 17px; margin-bottom: 5px; }
-  .stage-step-body { font-size: 13px; line-height: 1.5; }
+  .stage-step-num { font-size: 26px; margin-bottom: 2px; }
+  .stage-step-title { font-size: 19px; margin-bottom: 5px; }
+  .stage-step-body { font-size: 15px; line-height: 1.5; }
   .proposal-card { flex: 1 1 0; min-width: 0; width: auto; max-width: none; padding: 10px 8px; }
   .proposal-card[data-pos] { transform: none; }
   .cards-stage.crowned .proposal-card[data-pos="left"],
@@ -1425,13 +1435,16 @@ body::after {
   .price-amount .period   { font-size: 9px; margin-left: 1px; }
   .coverage-list { display: none; }
 
-  /* Content sections — cut the huge desktop padding */
+  /* Content sections */
   .section-title { margin-bottom: 40px; }
   .steps-grid { grid-template-columns: 1fr; }
+  .step-title { font-size: 22px; }
+  .step-text { font-size: 17px; }
   .how-section, .why-section { padding: 48px 20px; }
   .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
-  .cell { padding: 16px 14px; font-size: 13px; }
+  .cell { padding: 16px 14px; font-size: 15px; }
   .final-cta { margin: 0 16px 16px; padding: 56px 20px; }
+  .final-cta p { font-size: 17px; }
 }
 ${NAV_CSS}
 ${FOOTER_CSS}
