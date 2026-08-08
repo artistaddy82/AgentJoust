@@ -1,9 +1,9 @@
 import './globals.css'
 
 export const metadata = {
-  title: { default: 'AgentJoust', template: '%s — AgentJoust' },
+  title: { default: 'Life Insurance TRIO', template: '%s — Life Insurance TRIO' },
   description: 'Three life insurance agents compete. You choose the winner. Your contact info is sealed until you decide.',
-  metadataBase: new URL(process.env.SITE_URL || 'https://agentjoust.com'),
+  metadataBase: new URL(process.env.SITE_URL || 'https://lifeinsurancetrio.com'),
 }
 
 export default function RootLayout({ children }) {

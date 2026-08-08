@@ -67,7 +67,7 @@ export default function AgentApplyForm() {
       ))}
       <div style={{ display:'flex', flexDirection:'column', gap:'6px', marginBottom:'24px' }}>
         <label style={{ fontFamily:'JetBrains Mono,monospace', fontSize:'10px', letterSpacing:'0.15em', textTransform:'uppercase', color:'rgba(245,241,232,.4)' }}>Anything else? (optional)</label>
-        <textarea value={fields.message} onChange={set('message')} placeholder="Years in business, production volume, why you want to joust…"
+        <textarea value={fields.message} onChange={set('message')} placeholder="Years in business, production volume, why you want to compete…"
           style={{ background:'rgba(245,241,232,.07)', border:'1px solid rgba(245,241,232,.12)', borderRadius:'10px', padding:'12px 14px', fontFamily:'inherit', fontSize:'14px', color:'var(--paper)', outline:'none', resize:'vertical', minHeight:'88px' }} />
       </div>
       {status === 'error' && <p style={{ color:'#f08078', fontSize:'13px', textAlign:'center', marginBottom:'12px' }}>Please fill in your name and email.</p>}

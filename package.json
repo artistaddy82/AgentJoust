@@ -1,7 +1,7 @@
 {
   "name": "agentjoust",
   "version": "1.0.0",
-  "description": "AgentJoust.com — life insurance agent comparison platform",
+  "description": "Life Insurance TRIO (lifeinsurancetrio.com) — life insurance agent comparison platform",
   "scripts": {
     "build": "node build.js",
     "dev": "node build.js && python3 -m http.server 4323 --directory dist"

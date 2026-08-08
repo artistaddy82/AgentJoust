@@ -10,7 +10,7 @@ function homepage(config) {
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AgentJoust — Three agents compete. You win.</title>
+<title>Life Insurance TRIO — Three agents compete. You win.</title>
 <meta name="description" content="Compare three life insurance proposals from top licensed independent agents. Your contact info stays locked until you choose your winner — agents compete completely blind." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1488,7 +1488,7 @@ ${header()}
 
       <div class="hero-cta-row">
         <button class="btn-primary" onclick="scrollToForm()">
-          Start the joust
+          Start comparing
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
@@ -1536,7 +1536,7 @@ ${header()}
         <div class="rail-dot"></div>
         <div class="rail-text">
           <div class="rail-num">Step 02</div>
-          <div class="rail-title">Three agents<br>joust</div>
+          <div class="rail-title">Three agents<br>compete</div>
         </div>
       </div>
       <div class="rail-step" id="step3">
@@ -1565,7 +1565,7 @@ ${header()}
       <div class="form-mobile-intro">
         <span class="stage-step-num">i.</span>
         <h3 class="stage-step-title">You set the terms</h3>
-        <p class="stage-step-body">Tell us your basics — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it during the joust.</p>
+        <p class="stage-step-body">Tell us your basics — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it while they compete.</p>
       </div>
 
       <!-- White card wrapping only the form tabs + panels (intro sits above on cream bg) -->
@@ -1808,7 +1808,7 @@ ${header()}
         <!-- ── Panel 4: Success ── -->
         <div class="form-panel" id="panel4">
           <div class="success-sword">⚔</div>
-          <div class="panel-title" style="text-align:center;">Your Joust<br/>is <em>live!</em></div>
+          <div class="panel-title" style="text-align:center;">Your Trio<br/>is <em>live!</em></div>
           <p class="panel-sub" style="text-align:center;margin-bottom:20px;">Three licensed agents are now building competing proposals — completely blind to each other.</p>
 
           <div class="success-agents">
@@ -1830,7 +1830,7 @@ ${header()}
           </div>
 
           <a href="#" id="joust-room-link" class="form-submit" style="display:block;text-align:center;text-decoration:none;margin-top:20px;">
-            Enter My Joust Room →
+            Enter My Trio Room →
           </a>
 
           <div class="redirect-bar-wrap">
@@ -1955,7 +1955,7 @@ ${header()}
     <div class="step-card">
       <div class="step-num">i.</div>
       <h3 class="step-title">You set the terms</h3>
-      <p class="step-text">Tell us your <strong>basics</strong> — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it during the joust.</p>
+      <p class="step-text">Tell us your <strong>basics</strong> — coverage, health, and how to reach you. Your contact info is sealed in a vault the moment you submit. Agents never see it while they compete.</p>
     </div>
     <div class="step-card">
       <div class="step-num">ii.</div>
@@ -1978,7 +1978,7 @@ ${header()}
   <div class="compare-table">
     <div class="compare-row head">
       <div class="cell"></div>
-      <div class="cell brand">Agent<em>Joust</em></div>
+      <div class="cell brand">Life Insurance <em>TRIO</em></div>
       <div class="cell">Typical lead site</div>
     </div>
     <div class="compare-row">
@@ -2014,7 +2014,7 @@ ${header()}
   <h2>Ready to make agents <em>fight</em> for your business?</h2>
   <p>Three proposals. Your contact info locked until you crown a winner. Typical turnaround within 24 hours.</p>
   <button class="btn-primary" onclick="scrollToForm()">
-    Start the joust
+    Start comparing
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <line x1="5" y1="12" x2="19" y2="12"/>
       <polyline points="12 5 19 12 12 19"/>
@@ -2264,9 +2264,9 @@ function advanceStage() {
 
   // Disable button to prevent double-submit
   const btn = document.querySelector('.form-submit');
-  if (btn) { btn.disabled = true; btn.textContent = 'Launching your joust…'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Launching your trio…'; }
 
-  // Submit to AgentJoust API — generates unique token & sends magic link email
+  // Submit to Life Insurance TRIO API — generates unique token & sends magic link email
   fetch('${config.myUrl || 'https://clownfish-app-dfa3s.ondigitalocean.app'}/api/submit', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -2314,7 +2314,7 @@ function advanceStage() {
   })
   .catch(() => {
     // Fallback: scroll animation while we figure out what went wrong
-    if (btn) { btn.disabled = false; btn.textContent = 'Start My Joust'; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Start My Trio'; }
     manualAdvance = true;
     const rect = stage.getBoundingClientRect();
     const stageTop = window.scrollY + rect.top;

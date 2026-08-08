@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
 
 const API_URL  = process.env.API_URL  || 'https://sidecarleads.com'
-const SITE_URL = process.env.SITE_URL || 'https://agentjoust.com'
+const SITE_URL = process.env.SITE_URL || 'https://lifeinsurancetrio.com'
 
 export async function POST(request) {
   try {
     const body = await request.json()
 
-    // Generate a unique joust token for this consumer's personal room
+    // Generate a unique comparison token for this consumer's personal room
     const token = uuidv4()
 
     const payload = {
@@ -43,19 +43,19 @@ export async function POST(request) {
       const joustUrl = `${SITE_URL}/joust/${token}`
 
       await resend.emails.send({
-        from:    process.env.RESEND_FROM || 'AgentJoust <noreply@agentjoust.com>',
+        from:    process.env.RESEND_FROM || 'Life Insurance TRIO <noreply@lifeinsurancetrio.com>',
         to:      body.email,
-        subject: '⚔ Your joust is live — agents are competing',
+        subject: '⚔ Your trio is live — agents are competing',
         html: `
           <!DOCTYPE html>
           <html>
           <body style="font-family:'Inter',sans-serif;background:#f5f1e8;margin:0;padding:40px 20px;">
             <div style="max-width:520px;margin:0 auto;">
               <div style="font-family:'Georgia',serif;font-size:24px;font-weight:600;margin-bottom:8px;color:#14110d;">
-                Agent<span style="font-style:italic;color:#c8281c;">Joust</span>
+                Life Insurance <span style="font-style:italic;color:#c8281c;">TRIO</span>
               </div>
               <h1 style="font-family:'Georgia',serif;font-size:32px;font-weight:400;color:#14110d;margin:24px 0 16px;line-height:1.2;">
-                Your joust is <em>live.</em>
+                Your trio is <em>live.</em>
               </h1>
               <p style="font-size:16px;color:#6b6253;line-height:1.65;margin-bottom:32px;">
                 Hi ${body.firstName || 'there'} — three agents have been briefed on your coverage needs.
@@ -64,7 +64,7 @@ export async function POST(request) {
               <a href="${joustUrl}"
                  style="display:inline-block;background:#2d5a3d;color:#fff;padding:16px 36px;
                         border-radius:100px;font-size:16px;font-weight:600;text-decoration:none;">
-                View your joust room →
+                View your comparison room →
               </a>
               <p style="font-size:12px;color:#6b6253;margin-top:32px;line-height:1.6;">
                 Your contact info is sealed until you choose your winner.<br/>
@@ -72,7 +72,7 @@ export async function POST(request) {
               </p>
               <hr style="border:none;border-top:1px solid rgba(20,17,13,.1);margin:32px 0;" />
               <p style="font-size:11px;color:#6b6253;">
-                AgentJoust · Not affiliated with any carrier ·
+                Life Insurance TRIO · Not affiliated with any carrier ·
                 <a href="${SITE_URL}/privacy" style="color:#6b6253;">Privacy</a>
               </p>
             </div>

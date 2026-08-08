@@ -9,7 +9,7 @@ static_sites:
     output_dir: dist
     envs:
       - key: SITE_URL
-        value: https://agentjoust.com
+        value: https://lifeinsurancetrio.com
       - key: API_URL
         value: https://sidecarleads.com
       - key: MY_URL

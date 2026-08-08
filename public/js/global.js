@@ -1,5 +1,5 @@
 /**
- * global.js — AgentJoust site-wide interactions
+ * global.js — Life Insurance TRIO site-wide interactions
  */
 ;(function () {
   'use strict'

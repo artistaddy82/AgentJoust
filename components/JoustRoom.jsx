@@ -60,7 +60,7 @@ export default function JoustRoom({ token, initialData }) {
       {/* Header */}
       <div className="jr-header">
         <div className="jr-token-label">
-          <span className="jr-token-mono">JOUST · {token.slice(0, 8).toUpperCase()}</span>
+          <span className="jr-token-mono">TRIO · {token.slice(0, 8).toUpperCase()}</span>
           {!isComplete && (
             <span className="jr-live-dot">
               <span className="jr-pulse" />
@@ -72,7 +72,7 @@ export default function JoustRoom({ token, initialData }) {
         <h1 className="jr-headline">
           {isComplete
             ? <>Your winner has been <em>crowned.</em></>
-            : <>Your joust is <em>live.</em></>
+            : <>Your trio is <em>live.</em></>
           }
         </h1>
         <p className="jr-sub">

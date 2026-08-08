@@ -6,7 +6,7 @@ export async function GET(request, { params }) {
   const { token } = params
 
   try {
-    // Fetch proposals from SidecarLeads for this joust token
+    // Fetch proposals from SidecarLeads for this comparison token
     const res = await fetch(`${API_URL}/jousts/${token}/proposals`, {
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',

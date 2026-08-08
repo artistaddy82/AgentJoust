@@ -10,8 +10,8 @@ function forAgents(config) {
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For Agents — AgentJoust</title>
-<meta name="description" content="Stop buying leads. Start winning consumers. AgentJoust delivers life insurance buyers who are actively comparing — you compete on proposal quality, not dial speed." />
+<title>For Agents — Life Insurance TRIO</title>
+<meta name="description" content="Stop buying leads. Start winning consumers. Life Insurance TRIO delivers life insurance buyers who are actively comparing — you compete on proposal quality, not dial speed." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -276,7 +276,7 @@ body::after {
 }
 
 /* ══════════════════════════════════════
-   VS STRIP — old way vs joust way
+   VS STRIP — old way vs trio way
 ══════════════════════════════════════ */
 .vs-section {
   background: var(--paper);
@@ -859,7 +859,7 @@ ${header()}
         Stop buying<br>leads. <em>Start<br>winning</em> consumers.
       </h1>
       <p class="hero-sub">
-        AgentJoust delivers life insurance buyers who are already comparing proposals —
+        Life Insurance TRIO delivers life insurance buyers who are already comparing proposals —
         and you compete on what you do best, not on who dials fastest.
         No cold calls. No spam complaints. No wasted hours.
       </p>
@@ -879,7 +879,7 @@ ${header()}
       <div class="proof-card">
         <span class="proof-icon">🎯</span>
         <div class="proof-title">Buyers, not leads</div>
-        <p class="proof-body">Every consumer on AgentJoust has already decided they need life insurance. You're competing for the sale, not trying to create demand.</p>
+        <p class="proof-body">Every consumer on Life Insurance TRIO has already decided they need life insurance. You're competing for the sale, not trying to create demand.</p>
       </div>
       <div class="proof-card">
         <span class="proof-icon">⚔️</span>
@@ -896,7 +896,7 @@ ${header()}
   </div>
 </section>
 
-<!-- ══ OLD WAY VS JOUST ══ -->
+<!-- ══ OLD WAY VS TRIO ══ -->
 <section class="vs-section">
   <div class="section-label">The difference</div>
   <h2 class="section-headline">The old way is costing you.</h2>
@@ -939,7 +939,7 @@ ${header()}
     </div>
 
     <div class="vs-col new">
-      <div class="vs-badge">AgentJoust</div>
+      <div class="vs-badge">Life Insurance TRIO</div>
       <div class="vs-col-title">Compete for buyers who've decided</div>
       <ul class="vs-list">
         <li>
@@ -964,7 +964,7 @@ ${header()}
         </li>
         <li>
           <span class="vs-icon">✓</span>
-          Pay only when you're in a joust — no wasted spend
+          Pay only when you're competing — no wasted spend
         </li>
       </ul>
     </div>
@@ -974,7 +974,7 @@ ${header()}
 <!-- ══ HOW IT WORKS — AGENT VIEW ══ -->
 <section class="how-section" id="how-it-works">
   <div class="how-inner">
-    <div class="section-label">Your side of the joust</div>
+    <div class="section-label">Your side of the competition</div>
     <h2 class="section-headline">Three steps. One winner. You.</h2>
     <p class="section-sub">Here's exactly what happens from the moment a consumer enters the arena.</p>
 
@@ -1032,11 +1032,11 @@ ${header()}
     </div>
     <div class="num-item">
       <div class="num">0</div>
-      <div class="label">Spam complaints<br>on joust wins</div>
+      <div class="label">Spam complaints<br>on won matchups</div>
     </div>
     <div class="num-item">
       <div class="num">24<span>hr</span></div>
-      <div class="label">Max response window<br>per joust</div>
+      <div class="label">Max response window<br>per matchup</div>
     </div>
     <div class="num-item">
       <div class="num">50</div>
@@ -1050,7 +1050,7 @@ ${header()}
   <div class="qualify-inner">
     <div class="section-label">Requirements</div>
     <h2 class="section-headline">Who we're looking for</h2>
-    <p class="section-sub">AgentJoust is a curated network. We keep it selective so every consumer gets three serious proposals — not three cold reads.</p>
+    <p class="section-sub">Life Insurance TRIO is a curated network. We keep it selective so every consumer gets three serious proposals — not three cold reads.</p>
 
     <div class="qualify-grid">
       <div>
@@ -1115,7 +1115,7 @@ ${header()}
 <section class="apply-section" id="apply">
   <div class="apply-inner">
     <div class="section-label">Join the arena</div>
-    <h2 class="section-headline">Apply to joust.</h2>
+    <h2 class="section-headline">Apply to compete.</h2>
     <p class="section-sub">We review every application. If you're a fit, we'll reach out within 2 business days to get you set up.</p>
 
     <div class="apply-form">
@@ -1164,14 +1164,14 @@ ${header()}
         <div class="form-row full">
           <div class="field-group">
             <label for="message">Anything else we should know? (optional)</label>
-            <textarea id="message" name="message" placeholder="Years in the business, production volume, why you want to joust…"></textarea>
+            <textarea id="message" name="message" placeholder="Years in the business, production volume, why you want to compete…"></textarea>
           </div>
         </div>
 
         <hr class="form-divider" />
 
         <div class="form-submit-row">
-          <p class="form-disclaimer">By submitting you agree to be contacted by AgentJoust regarding your application. We don't sell your info.</p>
+          <p class="form-disclaimer">By submitting you agree to be contacted by Life Insurance TRIO regarding your application. We don't sell your info.</p>
           <button type="submit" class="submit-btn" id="applySubmit">
             Submit application
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1243,7 +1243,7 @@ document.getElementById('agentApplyForm').addEventListener('submit', async funct
       throw new Error('server');
     }
   } catch {
-    msg.textContent = 'Something went wrong — please email us at hello@agentjoust.com.';
+    msg.textContent = 'Something went wrong — please email us at hello@lifeinsurancetrio.com.';
     msg.className = 'form-message error';
     msg.style.display = 'block';
   } finally {

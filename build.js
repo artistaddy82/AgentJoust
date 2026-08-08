@@ -1,6 +1,6 @@
 'use strict'
 /**
- * build.js — AgentJoust static site generator
+ * build.js — Life Insurance TRIO static site generator
  *
  * Usage:
  *   node build.js   — full build to dist/
@@ -10,7 +10,7 @@ const fs   = require('fs')
 const path = require('path')
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const SITE_URL = process.env.SITE_URL || 'https://agentjoust.com'
+const SITE_URL = process.env.SITE_URL || 'https://lifeinsurancetrio.com'
 const API_URL  = process.env.API_URL  || 'https://sidecarleads.com'
 const MY_URL   = process.env.MY_URL   || 'https://clownfish-app-dfa3s.ondigitalocean.app'
 
@@ -48,7 +48,7 @@ function copyDir(src, dest) {
 // ── Build ─────────────────────────────────────────────────────────────────────
 async function build() {
   const start = Date.now()
-  console.log('\n🔨 AgentJoust build starting…\n')
+  console.log('\n🔨 Life Insurance TRIO build starting…\n')
   mkdirp('dist')
 
   console.log('Assets:')

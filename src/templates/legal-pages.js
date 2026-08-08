@@ -1,6 +1,6 @@
 'use strict'
 /**
- * AgentJoust legal pages — Privacy, Terms, TCPA
+ * Life Insurance TRIO legal pages — Privacy, Terms, TCPA
  * Company: Addison Myers Group LLC
  */
 
@@ -8,10 +8,10 @@ const { head, header, footer, NAV_CSS, NAV_SCRIPT, FOOTER_CSS, GLOBAL_SCRIPTS } 
 
 const YEAR    = new Date().getFullYear()
 const COMPANY = 'Addison Myers Group LLC'
-const BRAND   = 'Agent Joust'
-const BYLINE  = 'Agent Joust — A product of Addison Myers Group LLC'
-const DOMAIN  = 'agentjoust.com'
-const EMAIL   = 'hello@agentjoust.com'
+const BRAND   = 'Life Insurance TRIO'
+const BYLINE  = 'Life Insurance TRIO — A product of Addison Myers Group LLC'
+const DOMAIN  = 'lifeinsurancetrio.com'
+const EMAIL   = 'hello@lifeinsurancetrio.com'
 
 // Shared prose wrapper
 function legalShell({ title, description, canonical, slug, html }) {
@@ -59,17 +59,17 @@ ${GLOBAL_SCRIPTS}
 function privacy({ siteUrl }) {
   return legalShell({
     title:       'Privacy Policy',
-    description: 'How AgentJoust collects, uses, and protects your personal information.',
+    description: 'How Life Insurance TRIO collects, uses, and protects your personal information.',
     canonical:   `${siteUrl}/privacy/`,
     html: `
 <h2>Overview</h2>
 <p>${BYLINE}. This Privacy Policy explains how we collect, use, and protect information you provide when using ${DOMAIN} and its subdomains (the "Platform").</p>
 <div class="callout">
-  <strong>Core promise:</strong> Your contact information is sealed the moment you submit a joust request. The two agents you don't choose <em>never</em> see it. Only your chosen winner receives your name, email, and phone number.
+  <strong>Core promise:</strong> Your contact information is sealed the moment you submit a comparison request. The two agents you don't choose <em>never</em> see it. Only your chosen winner receives your name, email, and phone number.
 </div>
 
 <h2>Information We Collect</h2>
-<p>When you submit a joust request we collect:</p>
+<p>When you submit a comparison request we collect:</p>
 <ul>
   <li><strong>Contact details</strong> — first name, last name, email address, phone number</li>
   <li><strong>Insurance details</strong> — policy type, coverage amount, term length, tobacco use, health class, and any medications disclosed</li>
@@ -79,7 +79,7 @@ function privacy({ siteUrl }) {
 
 <h2>How We Use Your Information</h2>
 <ul>
-  <li>Create and manage your joust request and unique joust room</li>
+  <li>Create and manage your comparison request and unique comparison room</li>
   <li>Send you your magic-link email so you can return to view proposals</li>
   <li>Share your insurance details (not contact details) with invited agents so they can prepare proposals</li>
   <li>Release your contact details <strong>only to your chosen winning agent</strong> after you crown a winner</li>
@@ -88,14 +88,14 @@ function privacy({ siteUrl }) {
 </ul>
 
 <h2>Information Shared With Agents</h2>
-<p>During an active joust, participating agents see your coverage needs and health information but <strong>not</strong> your name, email, or phone number. Only after you select a winner does that agent receive your full contact information. Agents who are not selected receive no contact information from us.</p>
+<p>During an active comparison, participating agents see your coverage needs and health information but <strong>not</strong> your name, email, or phone number. Only after you select a winner does that agent receive your full contact information. Agents who are not selected receive no contact information from us.</p>
 <p>Agents on our platform are independent licensed professionals and are subject to their own privacy obligations. Once contact information is released to a winning agent, their privacy practices govern any further communications.</p>
 
 <h2>Cookies and Tracking</h2>
-<p>We use standard web technologies (cookies, local storage, page-view beacons) to understand how visitors use the Platform, remember your joust token, and improve performance. We do not use third-party advertising trackers. You may disable cookies in your browser, though some features may not function correctly.</p>
+<p>We use standard web technologies (cookies, local storage, page-view beacons) to understand how visitors use the Platform, remember your comparison token, and improve performance. We do not use third-party advertising trackers. You may disable cookies in your browser, though some features may not function correctly.</p>
 
 <h2>Data Retention</h2>
-<p>Joust records are retained for up to 3 years for compliance and dispute-resolution purposes. You may request deletion of your data at any time by emailing <a href="mailto:${EMAIL}">${EMAIL}</a>.</p>
+<p>Comparison records are retained for up to 3 years for compliance and dispute-resolution purposes. You may request deletion of your data at any time by emailing <a href="mailto:${EMAIL}">${EMAIL}</a>.</p>
 
 <h2>Children's Privacy</h2>
 <p>The Platform is not directed to individuals under 18. We do not knowingly collect personal information from minors.</p>
@@ -127,9 +127,9 @@ function terms({ siteUrl }) {
 <p>${BRAND} is a neutral marketplace where consumers solicit life insurance proposals from independent licensed agents. We are <strong>not</strong> an insurance company, insurer, or licensed insurance agent. We do not underwrite, issue, or sell insurance policies. We create the competitive environment; the agent you select is solely responsible for any policy they quote or place.</p>
 
 <h2>Eligibility</h2>
-<p>You must be at least 18 years old and a resident of the United States to submit a joust request. By submitting, you represent that the information you provide is accurate and complete.</p>
+<p>You must be at least 18 years old and a resident of the United States to submit a comparison request. By submitting, you represent that the information you provide is accurate and complete.</p>
 
-<h2>The Joust Process</h2>
+<h2>The Comparison Process</h2>
 <ul>
   <li>You submit a request describing your life insurance needs.</li>
   <li>We invite up to three independent licensed agents to prepare proposals.</li>
@@ -139,7 +139,7 @@ function terms({ siteUrl }) {
 </ul>
 
 <h2>No Guarantee of Proposals</h2>
-<p>We do not guarantee that any specific number of agents will submit proposals, that proposals will meet your coverage or pricing expectations, or that the joust will be completed within any particular time frame.</p>
+<p>We do not guarantee that any specific number of agents will submit proposals, that proposals will meet your coverage or pricing expectations, or that the comparison will be completed within any particular time frame.</p>
 
 <h2>User Conduct</h2>
 <p>You agree not to:</p>
@@ -147,7 +147,7 @@ function terms({ siteUrl }) {
   <li>Submit false, fraudulent, or misleading information</li>
   <li>Use the Platform for any unlawful purpose</li>
   <li>Attempt to reverse-engineer, scrape, or disrupt the Platform</li>
-  <li>Create multiple joust requests for the same coverage need to manipulate the system</li>
+  <li>Create multiple comparison requests for the same coverage need to manipulate the system</li>
 </ul>
 
 <h2>Intellectual Property</h2>
@@ -185,21 +185,21 @@ function tcpa({ siteUrl }) {
 <h2>What Is TCPA?</h2>
 <p>The Telephone Consumer Protection Act (TCPA), 47 U.S.C. § 227, is a federal law that restricts telemarketing calls, auto-dialed calls, pre-recorded calls, text messages, and unsolicited faxes. It gives you specific rights regarding how and when businesses may contact you.</p>
 
-<h2>Your Consent When You Submit a Joust</h2>
+<h2>Your Consent When You Submit a Comparison</h2>
 <div class="callout">
-  When you submit a joust request on ${DOMAIN}, you expressly consent to be contacted by ${COMPANY} and the winning licensed insurance agent you select — by phone, text message (SMS), or email — regarding your life insurance inquiry, even if your number is listed on a state or federal Do Not Call registry.
+  When you submit a comparison request on ${DOMAIN}, you expressly consent to be contacted by ${COMPANY} and the winning licensed insurance agent you select — by phone, text message (SMS), or email — regarding your life insurance inquiry, even if your number is listed on a state or federal Do Not Call registry.
 </div>
 <p>Specifically, by submitting the form you agree that:</p>
 <ul>
-  <li>You are providing your written consent under the TCPA and applicable state laws to receive communications related to your joust request.</li>
+  <li>You are providing your written consent under the TCPA and applicable state laws to receive communications related to your comparison request.</li>
   <li>Calls or texts may be made using automated telephone dialing systems or pre-recorded messages, if applicable.</li>
   <li>Your consent is not a condition of any purchase.</li>
   <li>Message and data rates may apply for SMS communications.</li>
 </ul>
 
 <h2>Who May Contact You</h2>
-<p>Once you select a winning agent, <strong>only that agent</strong> receives your contact information and may reach out to you. Agents who do not win your joust <strong>never</strong> receive your contact details and will not contact you.</p>
-<p>Additionally, ${COMPANY} may contact you with service-related communications such as your magic-link email, proposal status updates, and follow-up on your joust experience.</p>
+<p>Once you select a winning agent, <strong>only that agent</strong> receives your contact information and may reach out to you. Agents who do not win your comparison <strong>never</strong> receive your contact details and will not contact you.</p>
+<p>Additionally, ${COMPANY} may contact you with service-related communications such as your magic-link email, proposal status updates, and follow-up on your comparison experience.</p>
 
 <h2>Revoking Consent</h2>
 <p>You may revoke your consent to receive further communications at any time by:</p>
@@ -208,13 +208,13 @@ function tcpa({ siteUrl }) {
   <li><strong>Email:</strong> Reply UNSUBSCRIBE or contact <a href="mailto:${EMAIL}">${EMAIL}</a>.</li>
   <li><strong>Phone:</strong> Tell the caller you do not wish to be contacted further.</li>
 </ul>
-<p>Revocation applies to future marketing contacts. It does not affect service messages required to complete an active joust (e.g., delivering your magic link).</p>
+<p>Revocation applies to future marketing contacts. It does not affect service messages required to complete an active comparison (e.g., delivering your magic link).</p>
 
 <h2>Do Not Call Registry</h2>
-<p>By submitting a joust request, you expressly consent to be contacted even if your number is registered on the National Do Not Call Registry or any state equivalent. This consent is specific to your life insurance inquiry and the agent you select.</p>
+<p>By submitting a comparison request, you expressly consent to be contacted even if your number is registered on the National Do Not Call Registry or any state equivalent. This consent is specific to your life insurance inquiry and the agent you select.</p>
 
 <h2>SMS Message Frequency</h2>
-<p>Message frequency varies. You may receive confirmation, status update, and follow-up text messages related to your joust. Standard message and data rates apply. Reply HELP for help, STOP to opt out.</p>
+<p>Message frequency varies. You may receive confirmation, status update, and follow-up text messages related to your comparison. Standard message and data rates apply. Reply HELP for help, STOP to opt out.</p>
 
 <h2>Contact</h2>
 <p>For questions about this disclosure or to exercise your rights, contact:</p>

@@ -1,6 +1,6 @@
 'use strict'
 /**
- * AgentJoust shared layout components.
+ * Life Insurance TRIO shared layout components.
  * All functions return raw HTML strings.
  */
 
@@ -114,7 +114,7 @@ function header() {
       <circle cx="14" cy="14" r="2.8" fill="#c8281c"/>
       <path d="M1 27 L5 23 M23 5 L27 1" stroke="#c8281c" stroke-width="1.8" stroke-linecap="round"/>
     </svg>
-    Agent <em>Joust</em>
+    Life Insurance <em>TRIO</em>
   </a>
   <div class="site-nav-links">
     <a href="/#how-it-works">How it works</a>
@@ -138,7 +138,7 @@ function header() {
     <div class="mqm-success" id="mqm-success">
       <div style="font-size:36px;margin-bottom:12px">&#x2709;&#xFE0F;</div>
       <p style="color:#14110d;font-weight:600;font-size:16px;margin:0 0 6px">Check your inbox</p>
-      <p style="color:#6b6253;font-size:14px;margin:0">We sent your joust link — it may take a minute to arrive.</p>
+      <p style="color:#6b6253;font-size:14px;margin:0">We sent your trio link — it may take a minute to arrive.</p>
     </div>
   </div>
 </div>`
@@ -158,7 +158,7 @@ const FOOTER_CSS = `
 function footer() {
   return `<footer class="site-footer">
   <div class="site-footer-inner">
-    <a href="/" class="site-footer-logo">Agent <em>Joust</em></a>
+    <a href="/" class="site-footer-logo">Life Insurance <em>TRIO</em></a>
     <nav class="site-footer-nav">
       <a href="/">Home</a>
       <a href="/#how-it-works">How it works</a>
@@ -170,7 +170,7 @@ function footer() {
     </nav>
   </div>
   <div class="site-footer-inner">
-    <p class="site-footer-copy">© ${new Date().getFullYear()} Agent Joust — A product of Addison Myers Group LLC. Not affiliated with any carrier.</p>
+    <p class="site-footer-copy">© ${new Date().getFullYear()} Life Insurance TRIO — A product of Addison Myers Group LLC. Not affiliated with any carrier.</p>
   </div>
 </footer>`
 }

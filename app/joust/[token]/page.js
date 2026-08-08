@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }) {
   return {
-    title: `Your Joust — ${params.token.slice(0, 8).toUpperCase()}`,
+    title: `Your Trio — ${params.token.slice(0, 8).toUpperCase()}`,
     description: 'Watch your three life insurance proposals arrive in real time.',
     robots: { index: false }, // personal room — don't index
   }

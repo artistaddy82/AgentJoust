@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <Link href="/" className="footer-logo">Agent <em>Joust</em></Link>
+        <Link href="/" className="footer-logo">Life Insurance <em>TRIO</em></Link>
         <nav className="footer-links">
           <Link href="/">Home</Link>
           <Link href="/#how">How it works</Link>
@@ -16,7 +16,7 @@ export default function Footer() {
         </nav>
       </div>
       <p className="footer-copy">
-        © {year} AgentJoust — Independent agent competition platform. Not affiliated with any carrier.
+        © {year} Life Insurance TRIO — Independent agent competition platform. Not affiliated with any carrier.
       </p>
     </footer>
   )

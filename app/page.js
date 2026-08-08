@@ -3,7 +3,7 @@ import Footer from '@/components/Footer'
 import JoustForm from '@/components/JoustForm'
 
 export const metadata = {
-  title: 'AgentJoust — Three agents compete. You win.',
+  title: 'Life Insurance TRIO — Three agents compete. You win.',
   description: 'Compare three life insurance proposals from top licensed independent agents. Your contact info is locked until you choose your winner.',
 }
 
@@ -33,7 +33,7 @@ export default function HomePage() {
               </p>
               <div className="hero-cta-row">
                 <a href="#start" className="btn-primary">
-                  Start the joust
+                  Start comparing
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                   </svg>
@@ -44,7 +44,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── JOUST FORM ── */}
+        {/* ── COMPARISON FORM ── */}
         <section className="form-section" id="start">
           <div className="form-section-inner">
             <JoustForm />
@@ -59,7 +59,7 @@ export default function HomePage() {
             <div className="step-card">
               <div className="step-num">i.</div>
               <h3 className="step-title">You set the terms</h3>
-              <p className="step-text">Tell us your <strong>basics</strong> — coverage, health, and how to reach you. Your contact info is sealed the moment you submit. Agents never see it during the joust.</p>
+              <p className="step-text">Tell us your <strong>basics</strong> — coverage, health, and how to reach you. Your contact info is sealed the moment you submit. Agents never see it while they compete.</p>
             </div>
             <div className="step-card">
               <div className="step-num">ii.</div>
@@ -69,7 +69,7 @@ export default function HomePage() {
             <div className="step-card">
               <div className="step-num">iii.</div>
               <h3 className="step-title">You crown the winner</h3>
-              <p className="step-text">Compare side-by-side in your personal joust room. <strong>Only the winner</strong> gets your contact info. The other two agents never see it. Ever.</p>
+              <p className="step-text">Compare side-by-side in your personal comparison room. <strong>Only the winner</strong> gets your contact info. The other two agents never see it. Ever.</p>
             </div>
           </div>
         </section>
@@ -81,7 +81,7 @@ export default function HomePage() {
           <div className="compare-table">
             <div className="compare-row head">
               <div className="cell" />
-              <div className="cell brand">Agent<em>Joust</em></div>
+              <div className="cell brand">Life Insurance <em>TRIO</em></div>
               <div className="cell">Typical lead site</div>
             </div>
             {[
@@ -104,7 +104,7 @@ export default function HomePage() {
         <section className="final-cta">
           <h2>Ready to make agents <em>fight</em> for your business?</h2>
           <p>Three proposals. Your contact info locked until you crown a winner. Typical turnaround within 24 hours.</p>
-          <a href="#start" className="btn-primary">Start the joust →</a>
+          <a href="#start" className="btn-primary">Start comparing →</a>
         </section>
 
       </main>

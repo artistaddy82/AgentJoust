@@ -19,7 +19,7 @@ export default function Nav() {
           <circle cx="14" cy="14" r="2.8" fill="#c8281c"/>
           <path d="M1 27 L5 23 M23 5 L27 1" stroke="#c8281c" strokeWidth="1.8" strokeLinecap="round"/>
         </svg>
-        Agent <em>Joust</em>
+        Life Insurance <em>TRIO</em>
       </Link>
       <div className="nav-links">
         <Link href="/#how">How it works</Link>

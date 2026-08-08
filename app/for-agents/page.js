@@ -3,7 +3,7 @@ import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'For Agents',
-  description: 'Stop buying leads. Start winning consumers. AgentJoust delivers life insurance buyers who are actively comparing — you compete on proposal quality, not dial speed.',
+  description: 'Stop buying leads. Start winning consumers. Life Insurance TRIO delivers life insurance buyers who are actively comparing — you compete on proposal quality, not dial speed.',
 }
 
 export default function ForAgentsPage() {
@@ -21,7 +21,7 @@ export default function ForAgentsPage() {
                 Stop buying<br />leads. <em>Start<br />winning</em> consumers.
               </h1>
               <p className="fa-sub">
-                AgentJoust delivers life insurance buyers who are already comparing proposals —
+                Life Insurance TRIO delivers life insurance buyers who are already comparing proposals —
                 and you compete on what you do best, not on who dials fastest.
                 No cold calls. No spam complaints. No wasted hours.
               </p>
@@ -34,7 +34,7 @@ export default function ForAgentsPage() {
             </div>
             <div className="fa-hero-right">
               {[
-                { icon: '🎯', title: 'Buyers, not leads', body: "Every consumer on AgentJoust has already decided they need life insurance. You're competing for the sale, not creating demand." },
+                { icon: '🎯', title: 'Buyers, not leads', body: "Every consumer on Life Insurance TRIO has already decided they need life insurance. You're competing for the sale, not creating demand." },
                 { icon: '⚔️', title: 'Win on merit', body: 'Three agents submit blind proposals. The consumer picks based on your coverage, price, and approach — not who called first.' },
                 { icon: '🛡️', title: 'Zero compliance risk', body: 'We handle consent, TCPA compliance, and contact management. You focus on writing business.' },
               ].map(({ icon, title, body }) => (
@@ -65,10 +65,10 @@ export default function ForAgentsPage() {
             </div>
             <div className="fa-vs-divider"><div className="fa-vs-pill">vs</div></div>
             <div className="fa-vs-col fa-vs-new">
-              <div className="fa-vs-badge">AgentJoust</div>
+              <div className="fa-vs-badge">Life Insurance TRIO</div>
               <div className="fa-vs-title">Compete for buyers who've decided</div>
               <ul className="fa-vs-list">
-                {['Exclusive 3-agent competition — not a data dump','Win on proposal quality, not dial speed','Consumers know they\'re reviewing 3 proposals','Full TCPA consent on file before any contact','Higher intent = higher close rates','Pay only when you\'re in a joust — no wasted spend'].map(item => (
+                {['Exclusive 3-agent competition — not a data dump','Win on proposal quality, not dial speed','Consumers know they\'re reviewing 3 proposals','Full TCPA consent on file before any contact','Higher intent = higher close rates','Pay only when you\'re competing — no wasted spend'].map(item => (
                   <li key={item}><span className="fa-vs-icon fa-good">✓</span>{item}</li>
                 ))}
               </ul>
@@ -79,7 +79,7 @@ export default function ForAgentsPage() {
         {/* ── HOW IT WORKS ── */}
         <section className="fa-how" id="how">
           <div className="fa-how-inner">
-            <div className="fa-section-label fa-light">Your side of the joust</div>
+            <div className="fa-section-label fa-light">Your side of the competition</div>
             <h2 className="fa-section-h2 fa-light">Three steps. One winner. You.</h2>
             <p className="fa-section-sub fa-light">Here's exactly what happens from the moment a consumer enters the arena.</p>
             <div className="fa-timeline">
@@ -109,8 +109,8 @@ export default function ForAgentsPage() {
         <div className="fa-numbers">
           {[
             { num: '3', sup: 'x', label: 'Higher intent than\ntraditional leads' },
-            { num: '0',  sup: '',  label: 'Spam complaints\non joust wins' },
-            { num: '24', sup: 'hr',label: 'Max response window\nper joust' },
+            { num: '0',  sup: '',  label: 'Spam complaints\non won matchups' },
+            { num: '24', sup: 'hr',label: 'Max response window\nper matchup' },
             { num: '50', sup: '',  label: 'States — licensed\nagents nationwide' },
           ].map(({ num, sup, label }) => (
             <div className="fa-num-item" key={num + label}>
@@ -125,7 +125,7 @@ export default function ForAgentsPage() {
           <div className="fa-qualify-inner">
             <div className="fa-section-label">Requirements</div>
             <h2 className="fa-section-h2">Who we're looking for</h2>
-            <p className="fa-section-sub">AgentJoust is a curated network. We keep it selective so every consumer gets three serious proposals.</p>
+            <p className="fa-section-sub">Life Insurance TRIO is a curated network. We keep it selective so every consumer gets three serious proposals.</p>
             <div className="fa-qualify-grid">
               <div>
                 <div className="fa-qualify-title">You should apply if…</div>
@@ -151,7 +151,7 @@ export default function ForAgentsPage() {
         <section className="fa-apply" id="apply">
           <div className="fa-apply-inner">
             <div className="fa-section-label fa-light">Join the arena</div>
-            <h2 className="fa-section-h2 fa-light">Apply to joust.</h2>
+            <h2 className="fa-section-h2 fa-light">Apply to compete.</h2>
             <p className="fa-section-sub fa-light">We review every application. If you're a fit, we'll reach out within 2 business days.</p>
             <AgentApplyForm />
           </div>
