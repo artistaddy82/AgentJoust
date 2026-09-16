@@ -115,11 +115,7 @@ const NAV_SCRIPT = `<script>
 function header() {
   return `<nav class="site-nav" id="site-nav">
   <a href="/" class="site-nav-logo">
-    <svg viewBox="0 0 28 28" fill="none" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 25 L12 16 M25 3 L16 12" stroke="#14110d" stroke-width="2.2" stroke-linecap="round"/>
-      <circle cx="14" cy="14" r="2.8" fill="#c8281c"/>
-      <path d="M1 27 L5 23 M23 5 L27 1" stroke="#c8281c" stroke-width="1.8" stroke-linecap="round"/>
-    </svg>
+    <img src="/img/shield-logo.svg" width="26" height="30" alt="" style="display:block;flex-shrink:0;">
     Life Insurance <em>TRIO</em>
   </a>
   <div class="site-nav-links">
@@ -163,7 +159,10 @@ const FOOTER_CSS = `
 function footer() {
   return `<footer class="site-footer">
   <div class="site-footer-inner">
-    <a href="/" class="site-footer-logo">Life Insurance <em>TRIO</em></a>
+    <a href="/" class="site-footer-logo" style="display:flex;align-items:center;gap:8px;">
+      <img src="/img/shield-logo.svg" width="20" height="23" alt="" style="display:block;filter:brightness(0) invert(1);opacity:.75;">
+      Life Insurance <em>TRIO</em>
+    </a>
     <nav class="site-footer-nav">
       <a href="/">Home</a>
       <a href="/#how-it-works">How it works</a>

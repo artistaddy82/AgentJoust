@@ -452,26 +452,26 @@ body::after {
 }
 .rail-num {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 6px;
+  color: rgba(20,17,13,.5);
+  margin-bottom: 8px;
   transition: color .4s;
 }
 .rail-title {
   font-family: 'Fraunces', serif;
   font-style: italic;
-  font-size: 19px;
-  letter-spacing: -0.01em;
-  color: rgba(20,17,13,.35);
-  line-height: 1.25;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: rgba(20,17,13,.45);
+  line-height: 1.2;
   font-weight: 400;
   transition: color .4s;
 }
 .rail-step.active .rail-num  { color: var(--green); }
-.rail-step.active .rail-title { color: var(--ink); font-weight: 500; }
-.rail-step.past   .rail-title { color: rgba(20,17,13,.5); }
+.rail-step.active .rail-title { color: var(--ink); font-weight: 600; font-size: 28px; }
+.rail-step.past   .rail-title { color: rgba(20,17,13,.6); }
 
 /* ── SCROLL HINT ARROW ── */
 .scroll-hint {

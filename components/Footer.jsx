@@ -5,7 +5,10 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <Link href="/" className="footer-logo">Life Insurance <em>TRIO</em></Link>
+        <Link href="/" className="footer-logo" style={{display:'flex',alignItems:'center',gap:'8px'}}>
+          <img src="/shield-logo.svg" width="18" height="21" alt="" style={{display:'block',filter:'brightness(0) invert(1)',opacity:.7}} />
+          Life Insurance <em>TRIO</em>
+        </Link>
         <nav className="footer-links">
           <Link href="/">Home</Link>
           <Link href="/#how">How it works</Link>

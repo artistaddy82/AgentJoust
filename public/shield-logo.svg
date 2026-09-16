@@ -1,0 +1,11 @@
+<svg viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shield body -->
+  <path d="M50 5 L88 19 L88 63 Q88 92 50 113 Q12 92 12 63 L12 19 Z"
+        fill="white" stroke="#1a1209" stroke-width="6.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Left pillar (black, slight outward lean) -->
+  <path d="M27 34 L36 28 L38 84 L29 90 Z" fill="#1a1209"/>
+  <!-- Center pillar (crimson, straight, tallest) -->
+  <path d="M43 21 L57 21 L57 91 L43 91 Z" fill="#8B1A1A"/>
+  <!-- Right pillar (black, mirrored) -->
+  <path d="M64 28 L73 34 L71 90 L62 84 Z" fill="#1a1209"/>
+</svg>
