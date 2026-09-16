@@ -120,7 +120,6 @@ function header() {
     <a href="/#how-it-works">How it works</a>
     <a href="/for-agents/">For agents</a>
     <a href="#my-quotes" onclick="openMyQuotesModal(event)">My Quotes</a>
-    <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
   </div>
   <a href="/#form" class="site-nav-cta">Get 3 quotes</a>
 </nav>
@@ -166,7 +165,6 @@ function footer() {
       <a href="/privacy/">Privacy</a>
       <a href="/terms/">Terms</a>
       <a href="/tcpa/">TCPA</a>
-      <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
     </nav>
   </div>
   <div class="site-footer-inner">

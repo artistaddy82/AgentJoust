@@ -10,7 +10,6 @@ export default function Footer() {
           <Link href="/">Home</Link>
           <Link href="/#how">How it works</Link>
           <Link href="/for-agents">For agents</Link>
-          <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
         </nav>

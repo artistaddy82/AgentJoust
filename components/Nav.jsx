@@ -24,7 +24,6 @@ export default function Nav() {
       <div className="nav-links">
         <Link href="/#how">How it works</Link>
         <Link href="/for-agents">For agents</Link>
-        <a href="https://sidecarleads.com/login" target="_blank" rel="noopener">Agent login</a>
         <Link href="/#start" className="nav-cta">Get 3 quotes</Link>
       </div>
     </nav>
