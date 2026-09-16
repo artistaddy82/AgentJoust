@@ -888,7 +888,8 @@ body::after {
   transition: opacity .6s;
   pointer-events: none;
 }
-.cards-stage.active { opacity: 1; pointer-events: auto; }
+.cards-stage.active { opacity: 0.32; pointer-events: auto; }
+.cards-stage.active.crowned { opacity: 1; }
 
 .proposal-card {
   flex: 0 0 300px;
